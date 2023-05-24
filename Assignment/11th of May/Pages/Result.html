@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <title>Document</title>
+  </head>
+  <body style="background-color:rgba(128, 0, 128, 0.448);align-items: center;padding-left:500px;padding-top: 100px;">
+    <!-- <h1>Hiii</h1> -->
+    <!-- <h4>Insert data into a table</h4> -->
+    <div style="width: 500px; border-radius: 20px;box-shadow: 5px -5px 25px 25px rgba(172, 255, 47, 0.724);background-color:cornsilk;">
+      <form id="Stu_D" style="padding: 15px;">
+        <h3 style="text-align: center;">Insert Student_Details</h3>
+        <div class="mb-3" style="padding-left: 50px;padding-right: 50px; ">
+          <label for="exampleFormControlInput1" class="form-label">First Name</label>
+          <input  style="text-align: center;" type="text" class="form-control" id="f_name" placeholder="first name">
+          <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+          <input style="text-align: center;" type="text" class="form-control" id="l_name" placeholder="last name">
+          <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+          <input style="text-align: center;" type="text" class="form-control" id="phno" placeholder="Phone number">
+          <label for="exampleFormControlInput1" class="form-label">Email</label>
+          <input style="text-align: center;" type="text" class="form-control" id="email" placeholder="Email">
+          <label for="exampleFormControlInput1" class="form-label">Roll Number</label>
+          <input style="text-align: center;" type="text" class="form-control" id="r_no" placeholder=" Roll Number">
+          <label for="exampleFormControlInput1" class="form-label">Age</label>
+          <input style="text-align: center;" type="number" class="form-control" id="age" placeholder="Age">
+          <label for="exampleFormControlInput1" class="form-label">Password</label>
+          <input style="text-align: center;" type="password" class="form-control" id="pass" placeholder="Password">
+          <label for="exampleFormControlInput1" class="form-label">Maths Marks</label>
+          <input style="text-align: center;" type="text" class="form-control" id="m_m" placeholder="Maths Marks">
+          <label for="exampleFormControlInput1" class="form-label">Science Marks</label>
+          <input style="text-align: center;" type="text" class="form-control" id="Sc_m" placeholder="Science Marks">
+          <label for="exampleFormControlInput1" class="form-label">Social Marks</label>
+          <input style="text-align: center;" type="text" class="form-control" id="So_m" placeholder="Social Marks"><br>
+          <div style="text-align: center;"><button type="submit" class="btn btn-success">Insert Details</button>
+        </div>
+        <!-- First Name:<input type="text" placeholder="First Name" id="f_name"><br>
+        Last Name :<input type="text" placeholder="Last Name" id="l_name"><br>
+        Phone Number :<input type="text" placeholder="Phone Number" id="phno"><br>
+        Email :<input type="Email" placeholder="Email" id="email"><br>
+        Roll Number:<input type="text" placeholder="Roll Number" id="r_no"><br>
+        Age :<input type="number" placeholder="Age" id="age"><br>
+        Password :<input type="password" placeholder="Password" id="pass"><br>
+        Maths Marks:<input type="text" placeholder="Maths_Marks" id="m_m"><br>
+        Science Marks:<input type="text" placeholder="science_marks" id="Sc_m"><br>
+        Social Marks:<input type="text" placeholder="social_marks" id="So_m"><br>
+        <button type="submit">Submit</button> -->
+      </form>
+    </div>
+
+     <script src="js/Student_Details_Insert.js "></script>
+    
+     <!-- <script>
+      let abc = document.getElementById("Stu_D");
+abc.addEventListener(`submit`, check);
+
+function check(event) {
+  event.preventDefault();
+  let f_name=$("#f_name").val();
+  let l_name=$("#l_name").val();
+  let phno=$("#phno").val();
+  let email=$("#email").val();
+  let r_no=$("#r_no").val();
+  let age=$("#age").val();
+  let pass=$("#pass").val();
+
+  //First_Name
+  if ($("#f_name").val().length > 0) 
+  {
+    if (
+      $("#f_name").val().trim() == "" ||
+      $("#f_name").val() == "undefined" ||
+      $("#f_name").val() == undefined ||
+      $("#f_name").val() == "null" ||
+      $("#f_name").val() == null
+    ) 
+    {
+      alert("Please enter valid first_name");
+      $("#f_name").val("");
+      $("#f_name").focus();
+      return;
+    }
+  } 
+  else 
+  {
+    alert("Please enter valid first_name....");
+    $("#f_name").val("");
+    $("#f_name").focus();
+    return;
+  }
+
+//Last_name
+if ($("#l_name").val().length > 0) 
+{
+  if (
+    $("#l_name").val().trim() == "" ||
+    $("#l_name").val() == "undefined" ||
+    $("#l_name").val() == undefined ||
+    $("#l_name").val() == "null" ||
+    $("#l_name").val() == null
+  ) 
+  {
+    alert("Please enter valid Last_name");
+    $("#l_name").val("");
+    $("#l_name").focus();
+    return;
+  }
+} 
+else 
+{
+  alert("Please enter valid Last_name....");
+  $("#l_name").val("");
+  $("#l_name").focus();
+  return;
+}
+
+//Phone number
+if ($("#phno").val().length > 0) 
+  {
+    if (
+      $("#phno").val().trim() == "" ||
+      $("#phno").val() == "undefined" ||
+      $("#phno").val() == undefined ||
+      $("#phno").val() == "null" ||
+      $("#phno").val() == null
+    ) 
+    {
+      alert("Please enter valid Phone Number");
+      $("#phno").val("");
+      $("#phno").focus();
+      return;
+    }
+  } 
+  else 
+  {
+    alert("Please enter valid Phone Number....");
+    $("#phno").val("");
+    $("#phno").focus();
+    return;
+  }
+
+  //Email
+  if ($("#email").val().length > 0) 
+  {
+    if (
+      $("#email").val().trim() == "" ||
+      $("#email").val() == "undefined" ||
+      $("#email").val() == undefined ||
+      $("#email").val() == "null" ||
+      $("#email").val() == null
+    ) 
+    {
+      alert("Please enter valid email");
+      $("#email").val("");
+      $("#email").focus();
+      return;
+    }
+  } 
+  else 
+  {
+    alert("Please enter valid email....");
+    $("#email").val("");
+    $("#email").focus();
+    return;
+  }
+
+  //Roll Number
+  if ($("#r_no").val().length > 0) 
+  {
+    if (
+      $("#r_no").val().trim() == "" ||
+      $("#r_no").val() == "undefined" ||
+      $("#r_no").val() == undefined ||
+      $("#r_no").val() == "null" ||
+      $("#r_no").val() == null
+    ) 
+    {
+      alert("Please enter valid Roll Number");
+      $("#r_no").val("");
+      $("#r_no").focus();
+      return;
+    }
+  } 
+  else 
+  {
+    alert("Please enter valid Roll Number....");
+    $("#r_no").val("");
+    $("#r_no").focus();
+    return;
+  }
+
+  //Age
+  if ($("#age").val().length > 0) 
+  {
+    if (
+      $("#age").val().trim() == "" ||
+      $("#age").val() == "undefined" ||
+      $("#age").val() == undefined ||
+      $("#age").val() == "null" ||
+      $("#age").val() == null
+    ) 
+    {
+      alert("Please enter valid Age");
+      $("#age").val("");
+      $("#age").focus();
+      return;
+    }
+  } 
+  else 
+  {
+    alert("Please enter valid Age....");
+    $("#age").val("");
+    $("#age").focus();
+    return;
+  }
+
+  //Password
+  if ($("#pass").val().length > 0) 
+  {
+    if (
+        $("#pass").val().trim() == "" ||
+        $("#pass").val() == "undefined" ||
+        $("#pass").val() == undefined ||
+        $("#pass").val() == "null" ||
+        $("#pass").val() == null ||
+        !$("#pass").val().match( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    ) 
+    {
+      alert("Please enter valid Password");
+      $("#pass").val("");
+      $("#pass").focus();
+      return;
+    }
+  } 
+  else 
+  {
+    alert("Please enter valid Password....");
+    $("#pass").val("");
+    $("#pass").focus();
+    return;
+  }
+
+
+  let array=[{
+    f_name : f_name,
+    l_name :l_name,
+    phno : phno,
+    email :email,
+    r_no :r_no,
+    age:age,
+    pass :pass,
+  }];
+  let a = localStorage.setItem("data1", JSON.stringify(array));
+
+  $.post("http://localhost:8080/insert_stu_d_api",
+  {
+    f_name : f_name,
+    l_name :l_name,
+    phno : phno,
+    email :email,
+    r_no :r_no,
+    age:age,
+    pass :pass,
+  },
+  function(response)
+  {
+    console.log(response);
+    if(response.MSG=="received")
+            // if(response.length!=0)
+            {
+                // window.location.href("/Pages/Result.html")
+                // location.replace("http://localhost:8080/result");
+               console.log("Yes"); -->
+            <!-- }
+  }).fail(function(xhr)
+  {
+    console.log(xhr.status);
+          if(xhr.status==400)
+          {
+           alert("Duplicate Credentials");
+          }
+          else
+          {
+            console.log("Hey yeah");
+          }
+  })
+
+}
+
+     </script> -->
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form id="otp_val">
+        OTP :<input type="number" maxlength="6" minlength="6" id="otp" required>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        let abc = document.getElementById(`otp_val`);
+        abc.addEventListener(`submit`, check);
+        function check(event) 
+        {
+            event.preventDefault();
+            let otp = $("#otp").val();
+            let array = [
+            {
+                otp:otp
+            }];
+            let a = localStorage.setItem("data1", JSON.stringify(array));
+            $.post("http://localhost:8080/val_otp_api", // endpoint --
+          {
+            otp:otp
+          }, // data set as parameters --
+          function (response)
+           {
+            console.log(response)
+            if(response.MSG=="received001")
+            {
+                window.location="/Result";
+            }
+          }
+        ).fail(function(xhr)
+        {
+          console.log(xhr.status);
+          if(xhr.status==400)
+          {
+           alert("Invalid Credentials");
+          }
+          else
+          {
+            console.log("Hey yeah");
+          }
+        });
+     }
+    </script>
+</body>
+</html>

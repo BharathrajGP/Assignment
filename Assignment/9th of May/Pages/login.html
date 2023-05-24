@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <!-- <script src="../Public/js/login.js"></script> -->
+    <title>Document</title>
+  </head>
+  <body >
+    <form id="naanu" >
+      <div class="mb-3" >
+        <label for="exampleFormControlInput1" class="form-label">Roll Number</label>
+        <input type="text" class="form-control" id="name" placeholder="Roll Number">
+        <label for="exampleFormControlInput1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="pass" placeholder="Password"><br>
+        <div style="text-align: center;"><button type="submit" class="btn btn-success">Submit</button></div>
+      </div>
+    </form>
+    <script>
+      let abc = document.getElementById(`naanu`);
+
+      abc.addEventListener(`submit`, check);
+
+      function check(event) {
+        event.preventDefault();
+        
+
+        let name = $("#name").val();
+
+        if ($("#name").val().length > 0)
+         {
+          if ( $("#name").val().trim() == "" ||$("#name").val() == "undefined" ||$("#name").val() == undefined ||$("#name").val() == "null" ||
+            $("#name").val() == null )
+             {
+            alert("Please enter valid name");
+            $("#name").val("");
+
+            $("#name").focus();
+
+            return;
+          }
+        } 
+        else 
+        {
+          alert("Please enter valid name....");
+
+          $("#name").val("");
+
+          $("#name").focus();
+
+          return;
+        }
+
+        let password = $("#pass").val();
+
+          if (
+            $("#pass").val().trim() == "" ||
+            $("#pass").val() == "undefined" ||
+            $("#pass").val() == undefined ||
+            $("#pass").val() == "null" ||
+            $("#pass").val() == null ||
+            !$("#pass").val().match( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
+            alert("Please enter valid password");
+
+            $("#pass").val("");
+
+            $("#pass").focus();
+
+            return;
+          } 
+
+        let array = [
+          {
+            name: name,
+            password: password,
+          },
+        ];
+
+        let a = localStorage.setItem("data1", JSON.stringify(array));
+
+
+        $.post("http://localhost:8080/post_api", // endpoint --
+          {
+            name : name, 
+            password: password,
+          }, // data set as parameters --
+          function (response)
+           {
+            // window.location.href("/pages/Result.html")
+            console.log(response);
+            if(response.MSG=="received")
+            // if(response.length!=0)
+            {
+                // window.location.href("/Pages/Result.html")
+                // location.replace("http://localhost:8080/result");
+                window.location="/result";
+            }
+          }
+        ).fail(function(xhr)
+        {
+          console.log(xhr.status);
+          if(xhr.status==400)
+          {
+           alert("Invalid Credentials");
+          }
+          else
+          {
+            console.log("Hey yeah");
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

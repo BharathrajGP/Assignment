@@ -1,0 +1,39 @@
+
+body
+{
+    background-image: url("../assets/rhibhus2.png");
+    background-position: center;
+    background-size: 100%;
+}
+h1
+{
+    /* padding-left: 50px; */
+    background-color:greenyellow;
+    font-size: xx-large;
+    /* text-align: center; */
+    text-shadow: -1.5px -1.5px orangered;
+    font-size: xx-large;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+h3
+{
+    text-decoration: underline;
+
+}
+.div :hover li 
+{
+    transition: all;
+    text-shadow: -2px -2px yellow;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: xx-large;
+}
+.div :hover div p
+{
+    transition: all;
+    text-shadow: -5px -5px yellow;
+    font-style: italic;
+    font-weight: bolder;
+    font-size: xx-large;
+}

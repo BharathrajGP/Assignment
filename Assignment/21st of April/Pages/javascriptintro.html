@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Public/css/javascriptintro.css">
+    <title>Document</title>
+</head>
+<body>
+    <p class="a"> Class property</p>
+    <p id="b">Id properties</p>
+    <div id="c">
+
+    </div>
+    <div id="d">
+
+    </div>
+    <marquee behavior="" direction="" id="f"></marquee>
+    <script>
+        // document.getElementsByClassName("a").style.color="yellowgreen"
+        document.getElementById("b").style.color="yellowgreen";
+        // document.getElementsByClassName("a").style.color="red"
+        document.getElementById("b").innerHTML="Changed by javascript"
+        document.getElementById("c").innerHTML="<h1>Inserted by javascript</h>"
+        document.getElementById("c").style.backgroundColor="yellow"
+        document.getElementById("c").style.padding="20px"
+        document.getElementById("d").innerHTML="<marquee>Inserted by javascript</marquee>"
+         document.getElementById("d").style.fontSize="50px"
+         document.getElementById("d").style.backgroundColor="green"
+         document.getElementById("d").style.color="red"
+         document.getElementById("d").style.cursor="pointer"
+        document.getElementById("f").innerHTML="<h2>Hiii</h2>"
+    </script>
+    <h1>Welcome to javascript</h1>
+    <p id="e">Click on below button to change me</p>
+    <button type="submit" onclick='document.getElementById("e").innerHTML="Did you observerd"'>click maadu</button>
+</body>
+</html>

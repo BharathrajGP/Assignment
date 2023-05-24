@@ -1,0 +1,15 @@
+@font-face 
+{
+    font-family: new font;
+    src: url("../assets/font/Lobster/Lobster-Regular.ttf");
+}
+*
+{
+    font-family: new font;
+}
+/* .tab
+{
+    border: 1px;
+    cellpadding: 7px;
+
+} */
