@@ -1,0 +1,509 @@
+{
+ "class_id": "S1CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S001",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S1CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S001",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S1CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S001",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S1CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S001",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S1CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S001",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S2CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S002",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S2CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S002",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S2CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S002",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S2CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S002",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S2CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S002",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S3CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S003",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S3CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S003",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S3CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S003",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S3CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S003",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S3CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S003",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S4CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S004",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S4CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S004",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S4CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S004",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S4CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S004",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S4CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id":  "S004",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S5CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S005",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S5CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S005",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S5CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S005",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S5CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S005",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S5CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S005",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S6CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S006",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S6CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S006",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S6CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S006",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S6CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S006",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S6CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S006",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S7CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S007",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S7CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S007",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S7CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S007",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S7CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S007",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S7CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S007",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S8CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S008",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S8CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S008",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S8CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S008",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S8CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S008",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S8CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S008",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S9CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S009",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S9CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S009",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S9CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S009",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S9CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S009",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S9CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S009",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+
+{
+ "class_id": "S10CLS1",
+ "class_name": "Lion",
+ "created_by": "Mahesh BG",
+ "current_year": "1",
+ "school_id": "S010",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S10CLS2",
+ "class_name": "Tiger",
+ "created_by": "Mahesh BG",
+ "current_year": "2",
+ "school_id": "S010",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S10CLS3",
+ "class_name": "Elephant",
+ "created_by": "Mahesh BG",
+ "current_year": "3",
+ "school_id": "S010",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S10CLS4",
+ "class_name": "Camel",'
+ "created_by": "Mahesh BG",
+ "current_year": "4",
+ "school_id": "S010",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},
+{
+ "class_id": "S10CLS5",
+ "class_name": "Fox",
+ "created_by": "Mahesh BG",
+ "current_year": "5",
+ "school_id": "S010",
+ "updated_by": "Mahesh BG",
+ "updated_ts": "2023-06-26",
+ "vreated_ts": "2023-06-26"
+},

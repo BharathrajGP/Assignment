@@ -1,0 +1,351 @@
+{
+ "ID": "S001",
+ "school_name": "St.Marry",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Marry",
+    "school_email": "school001@gmail.com",
+    "school_phone": "020 7603 2277",
+    "school_address": "Hammersmith",
+    "school_postcode": "W6 7BS"
+    "school_city": "London",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Marry",
+    "school_email": "school001@gmail.com",
+    "school_phone": "020 7603 2277",
+    "school_address": "Hammersmith",
+    "school_postcode": "W6 7BS"
+    "school_city": "London",
+    "school_country": "UK",
+    "school_vat_no": "GB123456789"
+   },
+  }
+ ],
+ "school_no_licenses": "21",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S002",
+ "school_name": "St.Paul's",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Paul's",
+    "school_email": "school002@gmail.com",
+    "school_phone": "020 7603 2278",
+    "school_address": "Barens",
+    "school_postcode": "W6 7BS"
+    "school_city": "London",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Paul's",
+    "school_email": "school002@gmail.com",
+    "school_phone": "020 7603 2278",
+    "school_address": "Barens",
+    "school_postcode": "W6 7BS"
+    "school_city": "London",
+    "school_country": "UK",
+    "school_vat_no": "GB123456788"
+   },
+  }
+ ],
+ "school_no_licenses": "22",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S003",
+ "school_name": "James Allen",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "James",
+    "school_lastname": "Allen",
+    "school_email": "school003@gmail.com",
+    "school_phone": "020 7603 2279",
+    "school_address": "Longford",
+    "school_postcode": "CV024"
+    "school_city": "Coventry",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "James",
+    "school_lastname": "Allen",
+    "school_email": "school003@gmail.com",
+    "school_phone": "020 7603 2279",
+    "school_address": "Longford",
+    "school_postcode": "CV 024"
+    "school_city": "Coventry",
+    "school_country": "UK",
+    "school_vat_no": "GB123456787"
+   },
+  }
+ ],
+ "school_no_licenses": "23",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S004",
+ "school_name": "St.Thomas",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Thomas",
+    "school_email": "school004@gmail.com",
+    "school_phone": "020 7603 2280",
+    "school_address": "Longford",
+    "school_postcode": "CV 024"
+    "school_city": "Coventry",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Thomas",
+    "school_email": "school004@gmail.com",
+    "school_phone": "020 7603 2280",
+    "school_address": "Longford",
+    "school_postcode": "CV 024"
+    "school_city": "Coventry",
+    "school_country": "UK", 
+    "school_vat_no": "GB123456786"
+   },
+  }
+ ],
+ "school_no_licenses": "24",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S005",
+ "school_name": "St.Philomena",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Philomena",
+    "school_email": "school005@gmail.com",
+    "school_phone": "020 7603 2281",
+    "school_address": "Bolton",
+    "school_postcode": "BL1 1AR"
+    "school_city": "Manchester",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "St.",
+    "school_lastname": "Philomena",
+    "school_email": "school005@gmail.com",
+    "school_phone": "020 7603 2281",
+    "school_address": "Bolton",
+    "school_postcode": "BL1 1AR"
+    "school_city": "Manchester",
+    "school_country": "UK", 
+    "school_vat_no": "GB123456785"
+   },
+  }
+ ],
+ "school_no_licenses": "25",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S006",
+ "school_name": "King David",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "King",
+    "school_lastname": "David"																																",
+    "school_email": "school006@gmail.com",
+    "school_phone": "020 7603 2282",
+    "school_address": "Bolton",
+    "school_postcode": "BL1 1AR"
+    "school_city": "Manchester",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "King",
+    "school_lastname": "David"																																",
+    "school_email": "school006@gmail.com",
+    "school_phone": "020 7603 2282",
+    "school_address": "Bolton",
+    "school_postcode": "BL1 1AR"
+    "school_city": "Manchester",
+    "school_country": "UK",
+    "school_vat_no": "GB123456784"
+   },
+  }
+ ],
+ "school_no_licenses": "26",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S007",
+ "school_name": "Holy Trinity",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "Holy",
+    "school_lastname": "Trinity",
+    "school_email": "school007@gmail.com",
+    "school_phone": "020 7603 2283",
+    "school_address": "Bournville",
+    "school_postcode": "B30 1HN"
+    "school_city": "Birmingham",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "Holy",
+    "school_lastname": "Trinity",
+    "school_email": "school007@gmail.com",
+    "school_phone": "020 7603 2283",
+    "school_address": "Bournville",
+    "school_postcode": "B30 1HN"
+    "school_city": "Birmingham",
+    "school_country": "UK",
+    "school_vat_no": "GB123456783"
+   },
+  }
+ ],
+ "school_no_licenses": "27",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S008",
+ "school_name": "King Edward",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "King",
+    "school_lastname": "Edward",
+    "school_email": "school008@gmail.com",
+    "school_phone": "020 7603 2284",
+    "school_address": "Bournville",
+    "school_postcode": "B30 1HN"
+    "school_city": "Birmingham",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_firstname": "King",
+    "school_lastname": "Edward",
+    "school_email": "school008@gmail.com",
+    "school_phone": "020 7603 2284",
+    "school_address": "Bournville",
+    "school_postcode": "B30 1HN"
+    "school_city": "Birmingham",
+    "school_country": "UK", 
+    "school_vat_no": "GB123456782"
+   },
+  }
+ ],
+ "school_no_licenses": "28",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S009",
+ "school_name": "Bishop Martin",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "Bishop",
+    "school_lastname": "Martin",
+    "school_email": "school009@gmail.com",
+    "school_phone": "020 7603 2285",
+    "school_address": "Halton",
+    "school_postcode": "L24 4AF"
+    "school_city": "Liverpool",
+    "school_country": "UK", 
+   },
+   "school_billing_address": {
+    "school_postal_address": {
+    "school_firstname": "Bishop",
+    "school_lastname": "Martin",
+    "school_email": "school009@gmail.com",
+    "school_phone": "020 7603 2285",
+    "school_address": "Halton",
+    "school_postcode": "L24 4AF"
+    "school_city": "Liverpool",
+    "school_country": "UK", 
+    "school_vat_no": "GB123456781"
+   },
+  }
+ ],
+ "school_no_licenses": "29",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},
+{
+ "ID": "S010",
+ "school_name": "New Park",
+ "school_active": "Y",
+ "school_info": [
+  {
+    "school_postal_address": {
+    "school_firstname": "New ",
+    "school_lastname": "Park",
+    "school_email": "school010@gmail.com",
+    "school_phone": "020 7603 2286",
+    "school_address": "Halton",
+    "school_postcode": "L24 4AF"
+    "school_city": "Liverpool",
+    "school_country": "UK",
+   },
+    "school_billing_address": {
+    "school_firstname": "New ",
+    "school_lastname": "Park",
+    "school_email": "school010@gmail.com",
+    "school_phone": "020 7603 2286",
+    "school_address": "Halton",
+    "school_postcode": "L24 4AF"
+    "school_city": "Liverpool",
+    "school_country": "UK",
+    "school_vat_no": "GB123456780"
+   },
+  }
+ ],
+ "school_no_licenses": "30",
+ "school_created_by": "Mahesh BG",
+ "school_created_ts": "2023-06-26",
+ "school_updated_by": "Mahesh BG",
+ "school_updated_ts": "2023-06-26"
+},

@@ -1,0 +1,264 @@
+{
+
+ "pupil_id": "001",
+
+ "pupil_class_data": {
+
+  "marks_data": [
+
+   {
+
+    "subjects": [
+
+     {
+
+      "evidence_file_name": [
+
+      ],
+
+      "subject_actual": "100",
+
+      "subject_name": "Maths",
+
+      "subject_predicted": "100%",
+
+      "category": [
+
+       {
+
+        "description": [
+
+         {
+
+          "markings": "5",
+
+          "description_name": "Single Digit"
+
+         }
+
+        ],
+
+        "category_actual_score": "100%",
+
+        "category_name": "Counting",
+
+        "category_predicted_score": "100%"
+
+       }
+
+      ]
+
+     }
+
+    ],
+
+    "year": "3"
+
+   }
+
+  ],
+
+  "present_class_id": "CLS1",
+
+  "present_year": "2023"
+
+ },
+
+ "pupil_dob": "2000-04-02 10:59:00",
+
+ "pupil_ethnicity": "Indian",
+
+ "pupil_firstname": "Sudarshan",
+
+ "pupil_gender": "Male",
+
+ "pupil_ks_results": {
+
+  "ks1_results": "KS1M",
+
+  "ks2_results": "KS2H"
+
+ },
+
+ "pupil_lastname": "Reddy",
+
+ "pupil_other_needs": {
+
+  "child_looked_after": "N.A.",
+
+  "eal": "N.A.",
+
+  "free_school_meals": "N.A.",
+
+  "free_school_meals_e6": "N.A.",
+
+  "service_child": "N.A."
+
+ },
+
+ "pupil_sen_status": "N.A.",
+
+ "pupil_upn": "H801200001001"
+
+}
+Collapse
+
+has context menu
+
+
+
+
+
+
+
+
+{
+            "pupil_id": "002",
+            "pupil_class_data": {
+		"marks_data": [
+    {
+     "subjects": [
+      {
+       "category": [
+        {
+         "category_actual_score": "100%",
+         "category_name": "Counting",
+         "category_predicted_score": "100%",
+         "description": [
+          {
+           "description_name": "Single Digit",
+           "markings": "5"
+          }
+         ]
+        }
+       ],
+       "evidence_file_name": [
+       ],
+       "subject_actual": "100%",
+       "subject_name": "Maths",
+       "subject_predicted": "100%"
+      }
+     ],
+     "year": "1"
+    },
+    {
+        "subjects": [
+         {
+          "category": [
+           {
+            "category_actual_score": "100%",
+            "category_name": "Reading for Pleasure",
+            "category_predicted_score": "100%",
+            "description": [
+             {
+              "description_name": "Comparing",
+              "markings": "5"
+             }
+            ]
+           }
+          ],
+          "evidence_file_name": [
+          ],
+          "subject_actual": "100%",
+          "subject_name": "Reading",
+          "subject_predicted": "100%"
+         }
+        ],
+        "year": "1"
+       },
+       {
+        "subjects": [
+         {
+          "category": [
+           {
+            "category_actual_score": "100%",
+            "category_name": "Attitude and Understanding",
+            "category_predicted_score": "100%",
+            "description": [
+             {
+              "description_name": "Attitude and Perseverance",
+              "markings": "5"
+             }
+            ]
+           }
+          ],
+          "evidence_file_name": [
+          ],
+          "subject_actual": "100%",
+          "subject_name": "Physical Education",
+          "subject_predicted": "100%"
+         }
+        ],
+        "year": "1"
+       },
+       {
+        "subjects": [
+         {
+          "category": [
+           {
+            "category_actual_score": "100%",
+            "category_name": "Planning & Editing",
+            "category_predicted_score": "100%",
+            "description": [
+             {
+              "description_name": "Composing Sentences",
+              "markings": "5"
+             }
+            ]
+           }
+          ],
+          "evidence_file_name": [
+          ],
+          "subject_actual": "100%",
+          "subject_name": "Writing",
+          "subject_predicted": "100%"
+         }
+        ],
+        "year": "1"
+       },
+       {
+        "subjects": [
+         {
+          "category": [
+           {
+            "category_actual_score": "100%",
+            "category_name": "Working Scientifically",
+            "category_predicted_score": "100%",
+            "description": [
+             {
+              "description_name": "Asking Questions",
+              "markings": "5"
+             }
+            ]
+           }
+          ],
+          "evidence_file_name": [
+          ],
+          "subject_actual": "100%",
+          "subject_name": "Science",
+          "subject_predicted": "100%"
+         }
+        ],
+        "year": "1"
+       }
+   ]
+            },
+            "pupil_dob": "2019-04-26 10:59:00",
+            "pupil_ethnicity": "Other White British",
+            "pupil_firstname": "Smith",
+            "pupil_gender": "Female",
+            "pupil_ks_results": {
+                "ks1_results": "KS1M",
+                "ks2_results": "KS2H"
+               },
+            "pupil_lastname": "Emmy",
+            "pupil_other_needs": {
+                "child_looked_after": "N.A.",
+                "eal": "N.A.",
+                "free_school_meals": "N.A.",
+                "free_school_meals_e6": "N.A.",
+                "service_child": "N.A."
+               },
+               "pupil_sen_status": "N.A.",
+            "pupil_upn": "TESTUX11111111",  
+        }

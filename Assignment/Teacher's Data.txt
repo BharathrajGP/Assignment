@@ -1,0 +1,875 @@
+{
+ "user_id": "T01",
+ "user_2fa": "1324",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S1CLS1"
+  },
+  {
+   "class_id": "S1CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "bellingham@gmail.com",
+ "user_firstname": "Jude",
+ "user_lastname": "Bellingham",
+ "user_profile_complete": "Y",
+ "user_pwd": "Jude",
+ "user_school_ids": [
+  {
+   "school_id": "S001"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T02",
+ "user_2fa": "1390",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S1CLS2"
+  },
+  {
+   "class_id": "S1CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "kane@gmail.com",
+ "user_firstname": "Harry",
+ "user_lastname": "Kane",
+ "user_profile_complete": "Y",
+ "user_pwd": "Kane",
+ "user_school_ids": [
+  {
+   "school_id": "S001"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T03",
+ "user_2fa": "1824",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S1CLS5"
+  },
+  {
+   "class_id": "S1CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "beckham@gmail.com",
+ "user_firstname": "David",
+ "user_lastname": "Beckham",
+ "user_profile_complete": "Y",
+ "user_pwd": "Jude",
+ "user_school_ids": [
+  {
+   "school_id": "S001"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T04",
+ "user_2fa": "1904",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S1CLS2"
+  },
+  {
+   "class_id": "S1CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "jack@gmail.com",
+ "user_firstname": "Jack",
+ "user_lastname": "Grealish",
+ "user_profile_complete": "Y",
+ "user_pwd": "Jack",
+ "user_school_ids": [
+  {
+   "school_id": "S001"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T05",
+ "user_2fa": "1300",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S2CLS1"
+  },
+  {
+   "class_id": "S2CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "phil@gmail.com",
+ "user_firstname": "Phil",
+ "user_lastname": "Foden",
+ "user_profile_complete": "Y",
+ "user_pwd": "Phil",
+ "user_school_ids": [
+  {
+   "school_id": "S002"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T06",
+ "user_2fa": "1024",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S2CLS2"
+  },
+  {
+   "class_id": "S2CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "marcus@gmail.com",
+ "user_firstname": "Marcus",
+ "user_lastname": "Rashford",
+ "user_profile_complete": "Y",
+ "user_pwd": "Marcus",
+ "user_school_ids": [
+  {
+   "school_id": "S002"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T07",
+ "user_2fa": "1004",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S2CLS3"
+  },
+  {
+   "class_id": "S2CLS1"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "saka@gmail.com",
+ "user_firstname": "Bukayo",
+ "user_lastname": "Saka",
+ "user_profile_complete": "Y",
+ "user_pwd": "Bukayo",
+ "user_school_ids": [
+  {
+   "school_id": "S002"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T08",
+ "user_2fa": "1724",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S2CLS5"
+  },
+  {
+   "class_id": "S2CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "james@gmail.com",
+ "user_firstname": "James",
+ "user_lastname": "Maddison",
+ "user_profile_complete": "Y",
+ "user_pwd": "James",
+ "user_school_ids": [
+  {
+   "school_id": "S002"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T09",
+ "user_2fa": "1994",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S3CLS1"
+  },
+  {
+   "class_id": "S3CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "goat@gmail.com",
+ "user_firstname": "Lionel",
+ "user_lastname": "Messi",
+ "user_profile_complete": "Y",
+ "user_pwd": "Goat",
+ "user_school_ids": [
+  {
+   "school_id": "S003"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T10",
+ "user_2fa": "2324",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S3CLS2"
+  },
+  {
+   "class_id": "S3CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "siu@gmail.com",
+ "user_firstname": "Cristiano",
+ "user_lastname": "Ronaldo",
+ "user_profile_complete": "Y",
+ "user_pwd": "Ronaldo",
+ "user_school_ids": [
+  {
+   "school_id": "S003"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T11",
+ "user_2fa": "2424",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S3CLS5"
+  },
+  {
+   "class_id": "S3CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "zlatan@gmail.com",
+ "user_firstname": "Zlatan",
+ "user_lastname": "Ibrahimovic",
+ "user_profile_complete": "Y",
+ "user_pwd": "Zlatan",
+ "user_school_ids": [
+  {
+   "school_id": "S003"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T12",
+ "user_2fa": "2524",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S4CLS1"
+  },
+  {
+   "class_id": "S4CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "hernandez@gmail.com",
+ "user_firstname": "Xavi",
+ "user_lastname": "Hernandez",
+ "user_profile_complete": "Y",
+ "user_pwd": "Xavi",
+ "user_school_ids": [
+  {
+   "school_id": "S004"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T13",
+ "user_2fa": "2624",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S4CLS2"
+  },
+  {
+   "class_id": "S4CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "suarez@gmail.com",
+ "user_firstname": "Luis",
+ "user_lastname": "Suarez",
+ "user_profile_complete": "Y",
+ "user_pwd": "Suarez",
+ "user_school_ids": [
+  {
+   "school_id": "S004"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T14",
+ "user_2fa": "2724",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S4CLS5"
+  },
+  {
+   "class_id": "S4CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "ramos@gmail.com",
+ "user_firstname": "Sergio",
+ "user_lastname": "Ramos",
+ "user_profile_complete": "Y",
+ "user_pwd": "Sergio",
+ "user_school_ids": [
+  {
+   "school_id": "S004"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T15",
+ "user_2fa": "2824",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S5CLS5"
+  },
+  {
+   "class_id": "S5CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "neymar@gmail.com",
+ "user_firstname": "Neymar",
+ "user_lastname": "Jr",
+ "user_profile_complete": "Y",
+ "user_pwd": "Neymar",
+ "user_school_ids": [
+  {
+   "school_id": "S005"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T16",
+ "user_2fa": "2924",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S5CLS2"
+  },
+  {
+   "class_id": "S5CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "puyol@gmail.com",
+ "user_firstname": "Carles",
+ "user_lastname": "Puyol",
+ "user_profile_complete": "Y",
+ "user_pwd": "Puyol",
+ "user_school_ids": [
+  {
+   "school_id": "S005"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T17",
+ "user_2fa": "3024",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S5CLS1"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "agureno@gmail.com",
+ "user_firstname": "Sergio",
+ "user_lastname": "Agureno",
+ "user_profile_complete": "Y",
+ "user_pwd": "Sergio",
+ "user_school_ids": [
+  {
+   "school_id": "S005"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T18",
+ "user_2fa": "3124",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S6CLS1"
+  },
+  {
+   "class_id": "S6CLS2"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "emi@gmail.com",
+ "user_firstname": "Emi",
+ "user_lastname": "Martinez",
+ "user_profile_complete": "Y",
+ "user_pwd": "Emi",
+ "user_school_ids": [
+  {
+   "school_id": "S006"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T19",
+ "user_2fa": "3224",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S6CLS3"
+  },
+  {
+   "class_id": "S6CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "julian@gmail.com",
+ "user_firstname": "Julian",
+ "user_lastname": "Alvurez",
+ "user_profile_complete": "Y",
+ "user_pwd": "Alvurez",
+ "user_school_ids": [
+  {
+   "school_id": "S006"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T20",
+ "user_2fa": "3324",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S6CLS1"
+  },
+  {
+   "class_id": "S6CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "enzo@gmail.com",
+ "user_firstname": "Enzo",
+ "user_lastname": "Fernandez",
+ "user_profile_complete": "Y",
+ "user_pwd": "Enzo",
+ "user_school_ids": [
+  {
+   "school_id": "S006"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T21",
+ "user_2fa": "3424",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S7CLS1"
+  },
+  {
+   "class_id": "S7CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "dybala@gmail.com",
+ "user_firstname": "Paulo",
+ "user_lastname": "Dybala",
+ "user_profile_complete": "Y",
+ "user_pwd": "Dybala",
+ "user_school_ids": [
+  {
+   "school_id": "S007"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T22",
+ "user_2fa": "3524",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S7CLS2"
+  },
+  {
+   "class_id": "S7CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "acuna@gmail.com",
+ "user_firstname": "Marcus",
+ "user_lastname": "Acuna",
+ "user_profile_complete": "Y",
+ "user_pwd": "Acuna",
+ "user_school_ids": [
+  {
+   "school_id": "S007"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T23",
+ "user_2fa": "3624",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S7CLS3"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "maria@gmail.com",
+ "user_firstname": "Di",
+ "user_lastname": "Maria",
+ "user_profile_complete": "Y",
+ "user_pwd": "Maria",
+ "user_school_ids": [
+  {
+   "school_id": "S007"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T24",
+ "user_2fa": "3724",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S8CLS1"
+  },
+  {
+   "class_id": "S8CLS2"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "vini@gmail.com",
+ "user_firstname": "Vinicius",
+ "user_lastname": "Jr",
+ "user_profile_complete": "Y",
+ "user_pwd": "Vini",
+ "user_school_ids": [
+  {
+   "school_id": "S008"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T25",
+ "user_2fa": "3824",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S8CLS3"
+  },
+  {
+   "class_id": "S8CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "silva@gmail.com",
+ "user_firstname": "Thiago",
+ "user_lastname": "Silva",
+ "user_profile_complete": "Y",
+ "user_pwd": "Silva",
+ "user_school_ids": [
+  {
+   "school_id": "S008"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T26",
+ "user_2fa": "3924",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S8CLS5"
+  },
+  {
+   "class_id": "S8CLS2"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "gabriel@gmail.com",
+ "user_firstname": "Gabriel",
+ "user_lastname": "Jesus",
+ "user_profile_complete": "Y",
+ "user_pwd": "Gabriel",
+ "user_school_ids": [
+  {
+   "school_id": "S008"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T27",
+ "user_2fa": "4024",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S9CLS1"
+  },
+  {
+   "class_id": "S9CLS2"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "newton@gmail.com",
+ "user_firstname": "Issac",
+ "user_lastname": "Newton",
+ "user_profile_complete": "Y",
+ "user_pwd": "Newton",
+ "user_school_ids": [
+  {
+   "school_id": "S009"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T28",
+ "user_2fa": "4124",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S9CLS4"
+  },
+  {
+   "class_id": "S9CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "hawking@gmail.com",
+ "user_firstname": "Stephen",
+ "user_lastname": "Hawking",
+ "user_profile_complete": "Y",
+ "user_pwd": "Hawking",
+ "user_school_ids": [
+  {
+   "school_id": "S009"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T29",
+ "user_2fa": "4224",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S9CLS3"
+  },
+  {
+   "class_id": "S9CLS2"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "einstein@gmail.com",
+ "user_firstname": "Albert",
+ "user_lastname": "Einstein",
+ "user_profile_complete": "Y",
+ "user_pwd": "Einstein",
+ "user_school_ids": [
+  {
+   "school_id": "S009"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+
+{
+ "user_id": "T30",
+ "user_2fa": "4324",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S10CLS1"
+  },
+  {
+   "class_id": "S10CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "faraday@gmail.com",
+ "user_firstname": "Michael",
+ "user_lastname": "Faraday",
+ "user_profile_complete": "Y",
+ "user_pwd": "Faraday",
+ "user_school_ids": [
+  {
+   "school_id": "S010"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T31",
+ "user_2fa": "4424",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S10CLS2"
+  },
+  {
+   "class_id": "S10CLS4"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "darwin@gmail.com",
+ "user_firstname": "Charles",
+ "user_lastname": "Darwin",
+ "user_profile_complete": "Y",
+ "user_pwd": "Darwin",
+ "user_school_ids": [
+  {
+   "school_id": "S010"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
+{
+ "user_id": "T32",
+ "user_2fa": "4524",
+ "user_active": "Y",
+ "user_classes_list": [
+  {
+   "class_id": "S10CLS3"
+  },
+  {
+   "class_id": "S10CLS5"
+  }
+ ],
+ "user_created_ts": "2023-06-26",
+ "user_email": "fleming@gmail.com",
+ "user_firstname": "Alexander",
+ "user_lastname": "Fleming",
+ "user_profile_complete": "Y",
+ "user_pwd": "Fleming",
+ "user_school_ids": [
+  {
+   "school_id": "S010"
+  }
+ ],
+ "user_token": "N.A.",
+ "user_type": "Teacher",
+ "user_updated_ts": "2023-06-26"
+},
