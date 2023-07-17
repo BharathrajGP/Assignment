@@ -1,0 +1,45 @@
+.button {
+  width: 100px;
+  height: 40px;
+  /* flex-shrink: 0; */
+  border-radius: 25px;
+}
+.button p {
+    color: #FFF;
+  display: flex;
+  width: 59px;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  display: flex;
+  width: 59px;
+  padding: 7PX 0PX 7PX 15PX;
+
+}
+.buttonReport {
+  width: 193px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 25px;
+  border: 1px solid #565656;
+}
+.buttonReport p {
+  display: flex;
+  width: 155px;
+  /* flex-direction: column; */
+  /* justify-content: center; */
+  /* flex-shrink: 0; */
+  color: #565656;
+  text-align: center;
+  font-family: 'Manrope';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+  padding: 9PX 0PX 9PX 6PX;
+}
+.buttondiv{
+    padding-left: 27px;
+    display: flex;
+    justify-content: space-evenly;
+}

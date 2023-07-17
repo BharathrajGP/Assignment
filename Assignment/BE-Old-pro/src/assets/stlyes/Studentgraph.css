@@ -1,0 +1,31 @@
+
+.studentgraph-page {
+  position: absolute;
+  left: 250px;
+}
+
+.studentgraph-header {
+  margin-top: 70px;
+  display: flex;
+  padding: 40px 24px;
+  width: 1190px;
+  height: 190px;
+  border: 2px solid black;
+}
+
+.studentgraph-content {
+  /* padding: 0px 24px; */
+}
+.studentgraph-graph{
+    /* padding: 54px 248px 735px 27px; */
+    padding-top: 54px;
+    /* padding-left: 27px; */
+    padding-right: 248px;
+    padding-bottom: 46px;
+}
+.studentgraph-collapsibledropdown{
+  width: 1190px;
+  /* padding-top: 54px; */
+    padding-left: 27px;
+    padding-right: 248px;
+}

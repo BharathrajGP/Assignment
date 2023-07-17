@@ -1,0 +1,76 @@
+.main {
+  width: 365px;
+  height: 350px;
+  border-radius: 4px;
+  background: var(--background-paper, #fff);
+  box-shadow: 0px 0px 0px 1px #e0e0e0;
+}
+.heading {
+  display: flex;
+  width: 364.667px;
+  height: 64px;
+  padding: 16px;
+}
+.heading p {
+  width: 100%;
+  color: var(--text-primary, #011c25);
+  font-size: 24px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 133.4%;
+}
+.details {
+  height: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.a,
+.b,
+.c {
+  display: flex;
+  padding: 8px 0px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  height: auto;
+}
+.subject {
+  height: 22px;
+  width: 100%;
+  margin-top: 8px;
+  color: var(--text-secondary, rgba(0, 0, 0, 0.6));
+  font-size: 14px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 157%;
+  letter-spacing: 0.1px;
+}
+.year {
+  display: flex;
+  align-items: center;
+  /* flex: 1 0 0; */
+  align-self: stretch;
+  width: 100%;
+}
+.year p {
+  height: 20px;
+  width: 100%;
+  color: var(--primary-main, #084059);
+  font-size: 14px;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 143%;
+  letter-spacing: 0.15px;
+  padding: 8px 0px;
+  margin-left: 10px;
+}
+DescriptionIcon {
+  width: 20px !important;
+  height: 20px;
+}

@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css?family=Manrope:300,700,600,400");
+
+.main-root{
+  display: flex;
+  flex-direction: column;
+  
+}
+:root {
+  --nav-bar-colour: #fef4eb;
+}
+a {
+  text-decoration: none !important;
+}
+.Page-layout {
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: clip;
+}
+
+.Page-header {
+  display: flex;
+  width: 1000px;
+  flex-direction: column;
+  position: relative;
+  left: 249px;
+}
+
+.page-body {
+  position: relative;
+  top: 70px;
+  overflow-y: auto;
+}
+
+.rs-sidenav,
+.rs-sidenav-default  {
+  background-color: var(--nav-bar-colour) !important;
+  .rs-sidenav-body,rs-dropdown-item-submenu, rs-dropdown-item-pull-right, rs-dropdown-item-expand, rs-dropdown-item, rs-dropdown-item-toggle{
+    font-family: 'Manrope' !important;
+    font-size: 14px ;
+    font-weight: 600;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: left !important;
+    color: #011c25 !important;
+    .rs-sidenav-item {
+      background-color: var(--nav-bar-colour);
+      height: 50px;
+      margin-left: 21px !important;
+      padding-left: 0px !important;
+      padding-right: 10px;
+    }
+    .rs-dropdown-toggle-caret {
+      right: 60px !important;
+    }
+  }
+}
+.rs-sidenav,
+.rs-sidenav-default ::selection {
+  color: #F34970;
+} 
+.nav-bar {
+  background-color: var(--nav-bar-colour);
+  min-height: 100vh;
+  border-right: 1px solid #ffffff;
+  width: 250px;
+  overflow: hidden;
+  position: fixed;
+  top: 70px;
+
+  /* .nav-menu-links {
+    display: flex;
+    gap: 9px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 207px;
+    height: 50px;
+    margin: 0px 21px;
+    border-bottom: 0.5px solid #56565640;
+
+    .nav-menu-text {
+      font-family: "Manrope";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 120%;
+      display: flex;
+      align-items: center;
+      color: #011c25;
+    } */
+
+  .nav-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 30px;
+  }
+}
+/* } */
+
+.header-bar {
+  background: #fef4eb;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0px;
+
+  .app-bar-logo {
+    margin: auto 21px;
+  }
+}

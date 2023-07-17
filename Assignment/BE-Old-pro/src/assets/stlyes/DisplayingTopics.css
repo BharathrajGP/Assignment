@@ -1,0 +1,26 @@
+.displayingTopics-display{
+    display:'flex';
+    flex-direction:'row';
+    flex-direction: row;
+}
+.displayingTopics-display-content{
+    width:769px;
+    height:60px;
+    border:'2px solid black';
+    border-radius: 30px;
+    background: #F2F2F2;
+}
+.displayingTopics-display-content p{
+    padding: 21px 101px 22px 31px;
+    color: #011C25;
+font-family: 'Manrope';
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 120%;
+}
+.displayingTopics-button{
+    margin-left:20px;
+    margin-right: 76px;
+    border-radius: '50%';
+}

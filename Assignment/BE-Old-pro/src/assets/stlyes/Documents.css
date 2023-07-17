@@ -1,0 +1,63 @@
+.document-main {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  background: var(--background-paper, #fff);
+  box-shadow: 0px 0px 0px 1px #e0e0e0;
+}
+.document-heading {
+  display: flex;
+  width: 100%;
+  height: 64px;
+  padding: 16px;
+}
+.document-heading p {
+  width: 100%;
+  color: var(--text-primary, #011c25);
+  font-size: 24px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 133.4%;
+}
+.guidence {
+  width: 100%;
+  display: flex;
+  padding: 8px 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+}
+.role {
+  height: 22px;
+  width: 100%;
+}
+.role p {
+  color: var(--text-secondary, rgba(0, 0, 0, 0.6));
+  font-size: 14px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 157%;
+  letter-spacing: 0.1px;
+}
+.information {
+  display: flex;
+  align-items: center;
+  /* flex: 1 0 0; */
+  align-self: stretch;
+  width: 100%;
+}
+.information p {
+  height: 20px;
+  width: 100%;
+  color: var(--primary-main, #084059);
+  font-size: 14px;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 143%;
+  letter-spacing: 0.15px;
+  padding: 8px 0px;
+  margin-left: 10px;
+}
