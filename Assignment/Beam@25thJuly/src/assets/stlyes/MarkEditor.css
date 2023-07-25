@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css?family=Manrope:300,700,600,400");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,700,600,400");
+.Marking-editor-page {
+  position: relative;
+  left: 248px;
+
+  .header-bar {
+    background-color: white;
+    border-bottom: 1px solid rgba(8, 64, 89, 0.25);
+  }
+
+  .marking-editor-page-header {
+    padding: 40px 24px;
+    display: flex;
+    margin-top: 70px;
+    flex: 1;
+    width: 80vw;
+
+    .marking-editor-page-title {
+      flex: 0.6;
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 160%;
+      color: #011c25;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .right-column {
+      flex: 0.4;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+
+      .select-obj-dropdown {
+        border: 1px solid rgba(0, 0, 0, 0.23);
+        border-radius: 100px;
+        width: 220px;
+        height: 40px;
+        margin-left: 24px;
+
+        .css-13cymwt-control {
+          border-radius: 100px;
+          border: 1px solid rgba(0, 0, 0, 0.23);
+        }
+
+        .css-1u9des2-indicatorSeparator {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .marking-editor-page-content {
+    display: flex;
+    padding: 0px 24px;
+
+    .left-content {
+      width: 820px;
+      overflow-y: scroll;
+
+      .marking-sheet {
+        width: 800px;
+        height: 667px;
+        border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+        display: flex;
+        flex-direction: column;
+
+        .marking-row {
+          display: flex;
+          flex-direction: row;
+          height: 60px;
+          border-bottom: 1px solid rgba(8, 64, 89, 0.25);
+          padding: 15px 0px;
+
+          .pupil {
+            width: 400px;
+            display: flex;
+
+            .pupil-text {
+              font-family: "Manrope";
+              font-style: normal;
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 24px;
+              letter-spacing: 0.17px;
+              color: #011c25;
+              padding-left: 40px;
+              width: 250px;
+            }
+          }
+
+          .custom-marking-chips {
+            width: 400px;
+          }
+        }
+      }
+    }
+
+    .right-content {
+      width: 320px;
+    }
+
+    .explanation-cards {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+
+      .greater-card,
+      .expected-card,
+      .emerging-card,
+      .below-card,
+      .absent-card {
+        width: 300px;
+        height: 120px;
+        border-radius: 20px;
+        border: 1px solid var(--greater-colour);
+        margin-top: 20px;
+
+        .title {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-left: 20px;
+          background-color: var(--greater-colour);
+          height: 40px;
+          border-radius: 28px;
+          font-family: "Roboto";
+          font-style: normal;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 150%;
+          letter-spacing: 0.15px;
+          text-transform: uppercase;
+          color: #011c25;
+        }
+
+        .description {
+          font-family: "Roboto";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 166%;
+          color: #011c25;
+          width: 260px;
+          padding: 10px 0px 0px 30px;
+        }
+      }
+
+      .expected-card {
+        border: 1px solid var(--expected-colour);
+        height: 100px;
+
+        .title {
+          background-color: var(--expected-colour);
+        }
+      }
+
+      .emerging-card {
+        border: 1px solid var(--emerging-colour);
+
+        .title {
+          background-color: var(--emerging-colour);
+        }
+      }
+
+      .below-card {
+        border: 1px solid var(--below-colour);
+        height: 41px;
+
+        .title {
+          background-color: var(--below-colour);
+        }
+      }
+
+      .absent-card {
+        border: 1px solid var(--absent-colour);
+        height: 41px;
+
+        .title {
+          background-color: var(--absent-colour);
+        }
+      }
+    }
+  }
+}
+.cancel-save-buttons {
+  position: relative;
+  left: 600px;
+  gap: 25px;
+  display: flex;
+  margin-top: 20px;
+  .save-button,
+  .cancel-button {
+    width: 92px;
+    height: 36px;
+    background: #084059;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #ffffff;
+    border: none;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .cancel-button {
+    background-color: #ffffff;
+    color: #084059;
+  }
+}
+
+/* cusomt radio button 
+==============================================*/
+:root {
+  --absent-colour: rgba(0, 0, 0, 0.12);
+  --below-colour: #f34970;
+  --emerging-colour: #f4c900;
+  --expected-colour: #aabb5d;
+  --greater-colour: #26c8b9;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 29px;
+  width: 75px;
+  background-color: #ffffff;
+  border-radius: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-absent {
+  border: 2px solid var(--absent-colour);
+}
+
+.check-emerging {
+  border: 2px solid var(--emerging-colour);
+}
+
+.check-expected {
+  border: 2px solid var(--expected-colour);
+}
+
+.check-below {
+  border: 2px solid var(--below-colour);
+}
+
+.check-greater {
+  border: 2px solid var(--greater-colour);
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ffffff;
+}
+
+.container input:checked ~ .check-absent {
+  background-color: var(--absent-colour);
+  
+}
+
+.container input:checked ~ .check-below {
+  background-color: var(--below-colour);
+}
+
+.container input:checked ~ .check-emerging {
+  background-color: var(--emerging-colour);
+}
+
+.container input:checked ~ .check-expected {
+  background-color: var(--expected-colour);
+}
+
+.container input:checked ~ .check-greater {
+  background-color: var(--greater-colour);
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.custom-marking-chips {
+  width: 375px;
+  display: flex;
+}
+
+.container .checkmark:after {
+  top: 9px;
+  left: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* =========================================== */

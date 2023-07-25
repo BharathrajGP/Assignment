@@ -1,0 +1,318 @@
+@import url("https://fonts.googleapis.com/css?family=Manrope:300,700,600,400");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,700,600,400");
+
+:root {
+    --bg-colour: #011c25;
+    --primary-font-color: #011c25;
+}
+
+.white-bg {
+    background-color: #ffffff !important;
+}
+
+.row-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.table-text-black {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    color: #011c25;
+}
+
+.info-column {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 24px 28px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+
+    .info-right-column {
+        position: relative;
+    }
+
+    .current-page-text {
+        font-size: 10px;
+        color: #26c8b9;
+
+        .current-page {
+            color: #565656;
+        }
+    }
+
+    .page-heading {
+        font-size: 18px;
+        color: #011c25;
+        margin-top: 23px;
+    }
+
+    .page-sub-heading {
+        font-weight: 400;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    .year-bits {
+        width: 56px;
+        height: 24px;
+        background: #f34970;
+        border-radius: 50px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 10px;
+        text-align: center;
+        color: #ffffff;
+        margin-right: 15px;
+    }
+
+    .page-info {
+        font-size: 10px;
+        color: #011c25;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.buttons-cloumn {
+    display: flex;
+    gap: 15px;
+
+    .upload-evidenece-btn {
+        width: 252px;
+        height: 40px;
+        background: #26c8b9;
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0px 10px;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        border: none;
+    }
+
+    .light-icon {
+        background: #084059;
+        border-radius: 40px;
+        display: flex;
+        height: 40px;
+        width: 40px;
+        align-items: center;
+        justify-content: center;
+        border: none;
+    }
+}
+
+.data-column {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: auto;
+    .col-sm-9 {
+        display: flex;
+        flex-direction: row;
+        overflow: auto;
+    }
+}
+
+.pupils-section {
+    width: 220px;
+    background: #dff7f5;
+    height: 84vh;
+    overflow-y: auto;
+    padding: 25px 0px 0px 25px;
+
+    .section-heading {
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 14px;
+        color: #011c25;
+    }
+
+    .table-section {
+        display: flex;
+        flex-direction: column;
+        margin-top: 28px;
+
+        .table-section-data {
+            display: flex;
+            flex-direction: row;
+            padding: 12px 0px;
+            height: 49px;
+            border-bottom: 0.5px solid #56565640;
+
+            .Actions-btn {
+                background: #26c8b9;
+                border-radius: 50px;
+                border: none;
+                width: 72px;
+                height: 24px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                font-family: "Manrope";
+                font-style: normal;
+                font-weight: 700;
+                font-size: 10px;
+                line-height: 120%;
+                color: #ffffff;
+                margin-right: 20px;
+            }
+        }
+    }
+}
+
+.table-total {
+    padding-top: 18px;
+    border-bottom: 0.5px solid rgba(86, 86, 86, 0.25);
+
+    .table-total-text {
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 120%;
+        display: flex;
+        align-items: center;
+        color: #011c25;
+        padding-left: 5px;
+    }
+}
+
+.predicted-table-total {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 6px 10px 6px 20px;
+    height: 49px;
+    border-bottom: 0.5px solid rgba(86, 86, 86, 0.25);
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 120%;
+    color: #011c25;
+    justify-content: space-around;
+
+    .tertiary-fab {
+        background: #f4c900;
+        border-radius: 50px;
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 120%;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        color: #ffffff;
+        width: 118px;
+        height: 24px;
+    }
+}
+
+.classSubjectBlock {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    padding: 25px 0px 0px 20px;
+    font-family: "Manrope";
+    color: #011c25;
+    font-style: normal;
+
+    .subject-heading {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 25px;
+    }
+    .table-columns {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    .row-heading-text {
+        color: #011c25;
+        text-align: center;
+        font-size: 10px;
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 700;
+        line-height: 120%;
+    }
+}
+.subject-ks-result-col {
+    display: flex;
+    min-width: 80px;
+}
+.subject-data {
+    display: flex;
+    .subject-data-block {
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        .ks1-result {
+            min-width: 80px;
+            color: var(--primary-font-color);
+            font-family: "Manrope";
+            font-size: 10px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 120%; /* 12px */
+        }
+    }
+}
+
+.chip-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 25px;
+    border-radius: 50px;
+    color: #ffffff;
+    text-align: center;
+    font-family: "Manrope";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.actual-chip {
+    padding: 0px 6px 0px 12px;
+    .chip-text {
+        border: 1px solid var(--primary-font-color);
+        color: var(--primary-font-color);
+    }
+}
+
+.predicted-chip {
+    padding: 0px 5px;
+    .chip-text {
+        background-color: #f4c900;
+        color: #ffffff;
+    }
+}
