@@ -1,0 +1,45 @@
+.ban-sec
+{
+    height: 900px;
+    align-items: center;
+    text-align: center;
+    padding: 300px;
+    /* border: 2px solid orange; */
+    background-size: 100% 100%;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNls6loA3prcpczl_3nON9UNGm0eVnlFBOTPZYhGSM0y9Atjvz);
+}
+.ban-sec div
+{
+    /* border: 2px solid red; */
+    transition: color 1s;
+}
+.ban-sec div h1
+{
+    color: whitesmoke;
+    font-size:60px;
+    font-weight: bold;
+}
+.ban-sec div p
+{
+    color: whitesmoke;
+    font-size: larger;
+}
+.ban-sec div h1:hover,.ban-sec div p:hover 
+{
+    color: orangered;
+}
+.nav
+{
+    position: fixed;
+    width: 100%;
+}
+.foot
+{
+    /* position :fixed; */
+    background-color:rgba(76, 0, 130, 0.612);
+    /* border: 2px solid yellow; */
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 5;
+    margin-bottom: 0px;
+}
