@@ -1,0 +1,21 @@
+.modal-button {
+    width: 100%;
+    background: none !important;
+    color: black !important;
+    border: none !important;
+}
+.modal-button-danger {
+    width: 100%;
+    background: none !important;
+    color: red !important;
+    border: none !important;
+}
+#dropdown-variants-Secondary {
+    background: grey !important;
+    color: black !important;
+    border: none;
+}
+.modal-form {
+    width: "100%" !important;
+    width: "-webkit-fill-available";
+}

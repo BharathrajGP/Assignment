@@ -1,0 +1,57 @@
+.schooladmin-head {
+    height: 44px !important;
+}
+.schooladmin-headDecoration {
+    /* color: var(--text-primary,'whitesmoke') !important; */
+    font-size: 14px !important;
+    font-family: "Roboto";
+    font-weight: bold;
+    background: grey;
+    color: whitesmoke !important;
+    width: auto;
+    padding: 6px 24px 6px 16px !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    line-height: 24px !important;
+    letter-spacing: 0.17px !important;
+}
+.schooladmin-dataDecoration {
+    /* color: var(--text-primary, #011C25) !important; */
+    font-size: 14px !important;
+    font-family: "Manrope" !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 143% !important;
+    letter-spacing: 0.15px !important;
+    padding: 6px 16px !important;
+}
+.schooladmin-dataDecoration2 {
+    background-color: "grey" !important;
+    font-size: 14px !important;
+    font-family: "Manrope" !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 143% !important;
+    letter-spacing: 0.15px !important;
+    padding: 6px 16px !important;
+}
+.schooladmin-footer {
+    height: 48px;
+}
+.css-pdct74-MuiTablePagination-selectLabel,
+.css-levciy-MuiTablePagination-displayedRows {
+    margin: 0 !important;
+}
+.css-jtlhu6-MuiTablePagination-root {
+    overflow: hidden !important;
+}
+.react-tabs__tab-panel,
+.react-tabs__tab-panel--selected {
+    margin-left: 40px;
+}
+.ksresults {
+    border: 1px solid grey;
+    background-color: #eee;
+    color: #333;
+    font-size: 75%;
+}

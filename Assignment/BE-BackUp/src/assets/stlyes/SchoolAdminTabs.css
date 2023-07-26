@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css?family=Manrope:300,700,600,400");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,700,600,400");
+
+.schoolAdminTab-marking-tablist {
+  display: flex;
+  margin-top: 40px;
+  text-align: center;
+  height: 48px;
+}
+.schoolAdminTab-marking-tabs {
+  width: 225px;
+  background: #084059;
+  border-radius: 20px 20px 0px 0px;
+  margin-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.4px;
+  text-transform: capitalize;
+  color: #ffffff;
+}
+.marking-tablist li{
+    cursor: pointer !important;
+  }
+

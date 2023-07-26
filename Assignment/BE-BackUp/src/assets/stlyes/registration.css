@@ -1,0 +1,37 @@
+.Reg-Page {
+  .leftPart {
+    width: 720px;
+  }
+  .rightPart {
+    position: fixed;
+    left: 720px;
+    width: 720px;
+    display: flex;
+    .logo-textbox {
+      margin-top: 100px;
+    }
+    .Otp-send-btn {
+      height: 51px;
+      width: 164px;
+      background: #f34970;
+      border-radius: 50px;
+      border: 1px solid #f34970;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      font-family: "Manrope";
+      font-weight: 700;
+      font-size: 14px;
+      color: #ffffff;
+      padding: 12px 0px;
+      position: relative;
+      top: 32px;
+      left: 85px;
+    }
+  }
+}
+.otp-verification {
+  position: relative;
+  left: 86px;
+}
