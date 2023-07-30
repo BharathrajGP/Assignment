@@ -47,17 +47,26 @@
     }
   }
 }
+
+.marking-tab{ 
+  border: 1px solid #E0E0E0 !important;
+  border-top-color: transparent !important;
+  border-radius: 20px 20px 0px 0px;
+  margin-top: 40px;
+  margin-left: 32px;
+}
 .marking-tablist {
   display: flex;
-  margin-top: 40px;
   text-align: center;
   height: 48px;
+  padding-left: 0px !important;
+  gap: 2px;
 }
 .marking-tabs {
   width: 225px;
   background: #084059;
+  border: 1px solid #E0E0E0 !important;
   border-radius: 20px 20px 0px 0px;
-  margin-right: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,6 +79,7 @@
   letter-spacing: 0.4px;
   text-transform: capitalize;
   color: #ffffff;
+  cursor: pointer;
 }
 .react-tabs__tab--selected{
   background-color: #ffffff;

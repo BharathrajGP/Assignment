@@ -1,62 +1,20 @@
-import * as apiClient from "./httpCommon";
+import * as apiClient from './httpCommon';
 import { apiRoutes } from "../helper/apiRoutes";
 
-export const userLogin = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.userLogin, data)
-        .then((res) => res.data);
-export const user2FA = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.user2FA, data)
-        .then((res) => res.data);
-export const TokenValidation = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.tokenValidation, data)
-        .then((res) => res.data);
-// export const navBar = async (data) => await apiClient.postAPICall(apiRoutes.navBar, data).then(res => res.data);
-export const schoolAdminUser = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.schoolAdminUser, data)
-        .then((res) => res)
-        .catch((err) => {
-            return err;
-        });
-export const schoolAdminClassView = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.schoolAdminClassView, data)
-        .then((res) => res)
-        .catch((err) => {
-            return err;
-        });
-export const schoolAdminTeachersView = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.schoolAdminTeachersView, data)
-        .then((res) => res)
-        .catch((err) => {
-            return err;
-        });
-export const getIndividualPupil = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.getIndividualPupil, data)
-        .then((res) => res)
-        .catch((err) => {
-            return err;
-        });
-export const updateIndividualPupil = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.updateIndividualPupil, data)
-        .then((res) => res)
-        .catch((err) => {
-            return err;
-        });
-export const deleteIndividualPupil = async (data) =>
-    await apiClient
-        .postAPICall(apiRoutes.deleteIndividualPupil, data)
-        .then((res) => res)
-        .catch((err) => {
-            return err;
-        });
-
-// export const user2FA = async (data) => await apiClient.postAPICall(apiRoutes.user2FA, data).then(res => res);
-export const getNavBar = async (data) =>
-    await apiClient.postAPICall(apiRoutes.getNavBar, data).then((res) => res);
+export const addClass = async (data) => await apiClient.postAPICall(apiRoutes.addClass, data).then(res => res.data);
+export const adminClass = async () => await apiClient.postAPICall(apiRoutes.adminClass, {}).then(res => res.data);
+export const adminTeachers = async () => await apiClient.postAPICall(apiRoutes.adminTeachers, {}).then(res => res.data);
+export const adminUser = async () => await apiClient.postAPICall(apiRoutes.adminUser, {}).then(res => res.data);
+export const deletePupil = async (data) => await apiClient.postAPICall(apiRoutes.deletePupil, data).then(res => res.data);
+export const getClassById = async (data) => await apiClient.postAPICall(apiRoutes.getClassById, data).then(res => res.data);
+export const getNavBar = async (data) => await apiClient.postAPICall(apiRoutes.getNavBar, data).then(res => res.data);
+export const getProfile = async (data) => await apiClient.postAPICall(apiRoutes.getProfile, data).then(res => res.data);
+export const getPupil = async (data) => await apiClient.postAPICall(apiRoutes.getPupil, data).then(res => res.data);
+export const movePupil = async (data) => await apiClient.postAPICall(apiRoutes.movePupil, data).then(res => res.data);
+export const renameClass = async (data) => await apiClient.postAPICall(apiRoutes.renameClass, data).then(res => res.data);
+export const userLogin = async (data) => await apiClient.postAPICall(apiRoutes.userLogin, data).then(res => res.data);
+export const updatePassword = async (data) => await apiClient.postAPICall(apiRoutes.updatePassword, data).then(res => res.data);
+export const updateProfile = async (data) => await apiClient.postAPICall(apiRoutes.updateProfile, data).then(res => res.data);
+export const updatePupil = async (data) => await apiClient.postAPICall(apiRoutes.updatePupil, data).then(res => res.data);
+export const user2FA = async (data) => await apiClient.postAPICall(apiRoutes.user2FA, data).then(res => res.data);
+export const viewStudents = async (data) => await apiClient.postAPICall(apiRoutes.viewStudents, data).then(res => res.data);

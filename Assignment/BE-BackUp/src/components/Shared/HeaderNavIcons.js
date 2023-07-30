@@ -7,7 +7,7 @@ import ProfileIcon from "../../assets/images/ProfileIcon.png";
 import HelpIcon from "../../assets/images/HelpIcon.png";
 import NotificationIcon from "../../assets/images/NotificationIcon.png";
 
-import { CommonPages } from "../../helper/apiRoutes";
+import { CommonPages } from "../../helper/routes";
 import Action from "../Profile/Action";
 
 export default function HeaderNavIcons() {

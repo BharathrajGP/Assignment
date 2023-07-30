@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Axios from "axios";
 
 import "../../assets/stlyes/Classes.css";
 
@@ -7,22 +6,29 @@ import Header from "../../components/Shared/Header";
 import Subject from "./classSubjectBlock";
 import { ClassPupilBlock } from "./ClassPupilBlock";
 import { ClassInfo } from "./ClassInfo";
-import Loader from '../Shared/Loader/Loader'
+import LoadingSpinner from '../Shared/Loader/Loader';
 
-import UploadIcon from "../../assets/images/upload.png";
-import LightIcon from "../../assets/images/LightIcon.png";
-
-import { Common, Subjects } from '../../helper/constants'
+import { Common, SessionStorageKeys, Subjects } from '../../helper/constants'
+import { SessionStorage } from "../../util/SessionStorage";
 
 function Classes() {
+  const [isLoading, setIsLoading] = useState(false)
+  const [classId, setClassId] = useState()
+  const [classData, setClassData] = useState();
+  const getClassInfo = async () => {
+    setIsLoading(true);
+    setClassId(SessionStorage.getItem(SessionStorageKeys.classId));
+    
+    setIsLoading(false);
+  }
 
-  let [classData, setClassData] = useState();
   return (
     <div className="Page-layout">
+      {isLoading && <LoadingSpinner />}
       <div className="Page-header">
         <Header />
         <div className="page-body">
-          <ClassInfo/>
+          <ClassInfo />
           {/* <Loader/> */}
           <div className="data-column">
             <div className="col-sm-3">

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import "../../App.css";
 
-import NavBar from "../../components/Shared/NavBar";
+import NavBar from "../Shared/NavBar";
 import Header from "../../components/Shared/Header";
 
 

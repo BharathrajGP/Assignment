@@ -1,0 +1,50 @@
+.change-password-page {
+    position: fixed;
+    top: 70px;
+    padding: 30px;
+}
+
+.profileHeading {
+    color: #000000;
+    font-family: 'Manrope';
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.profile-form {
+    margin: 50px 0px 0px 100px;
+}
+
+.form-label {
+    color: var(--below-colour);
+}
+
+.visibleLogo {
+    position: relative;
+    left: 18rem;
+    bottom: 2.5rem;
+}
+
+.error-message {
+    color: red;
+}
+
+.submit-button {
+    height: 50px;
+    width: 160px;
+    background: var(--below-colour);
+    border-radius: 50px;
+    border: 1px solid var(--below-colour);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "Manrope";
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white-color);
+    padding: 12px 0px;
+
+}

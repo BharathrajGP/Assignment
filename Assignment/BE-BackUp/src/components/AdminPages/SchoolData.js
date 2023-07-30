@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "../../App.css";
-import "../../assets/stlyes/SchoolData.css";
+import "../../assets/stlyes/Admin/SchoolData.css";
 
 import Axios from "axios";
 import { useForm } from "react-hook-form";

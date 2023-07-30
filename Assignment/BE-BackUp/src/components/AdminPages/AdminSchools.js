@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import "../../App.css";
-import "../../assets/stlyes/AdminHome.css";
+import "../../assets/stlyes/Admin/AdminHome.css";
 
 import Table from "react-bootstrap/Table";
 import { Modal } from "react-bootstrap";

@@ -5,8 +5,15 @@
   flex-direction: column;
   
 }
+
 :root {
+  --absent-colour: rgba(0, 0, 0, 0.12);
+  --below-colour: #f34970;
+  --emerging-colour: #f4c900;
+  --expected-colour: #aabb5d;
+  --greater-colour: #26c8b9;
   --nav-bar-colour: #fef4eb;
+  --white-color : #FFFFFF;
 }
 a {
   text-decoration: none !important;
@@ -66,29 +73,6 @@ a {
   overflow: hidden;
   position: fixed;
   top: 70px;
-
-  /* .nav-menu-links {
-    display: flex;
-    gap: 9px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    width: 207px;
-    height: 50px;
-    margin: 0px 21px;
-    border-bottom: 0.5px solid #56565640;
-
-    .nav-menu-text {
-      font-family: "Manrope";
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 120%;
-      display: flex;
-      align-items: center;
-      color: #011c25;
-    } */
-
   .nav-link {
     display: flex;
     flex-direction: row;
@@ -122,4 +106,7 @@ a {
     display: flex;
     gap: 10%;
   }
+}
+.active{
+  background-color: transparent !important;
 }
