@@ -9,4 +9,4 @@ export const SessionStorage = {
     },
     removeItem: (key) => { sessionStorage.removeItem(key); },
     clearAll: () => { sessionStorage.clear(); }
-}
+} 

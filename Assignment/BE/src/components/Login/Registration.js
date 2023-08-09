@@ -1,103 +1,99 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import { Formik } from 'formik';
+import { Form } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
-import "../../assets/stlyes/registration.css";
+import "../../assets/stlyes/Common/Login.css";
+
+import RightArrow from "../../assets/images/RightArrow.png";
+
+import { Common, SessionStorageKeys } from '../../helper/constants';
+import { SessionStorage } from "../../util/SessionStorage";
+import { RegValidationSchema } from "../../validators/registrationValidator";
+import LoadingSpinner from '../Shared/Loader/Loader';
+
+import MappixDesign from "./MappixDesign";
+import * as commonApi from '../../api/commonApi';
+import { CommonPages } from '../../helper/routes';
+import "../../assets/stlyes/Common/registration.css";
 
 import logo from "../../assets/images/MappixLogo.png";
 import Account from "../../assets/images/IconAccount.png";
 import facebookSquare from "../../assets/images/facebook-square.png";
 import linkedin from "../../assets/images/linkedin.png";
+import { useRef } from "react";
 
 function Registration() {
+  const navigate = useNavigate();
+  const emailRef = useRef(null)
+  const mouseEnter = () => { }
+  const mouseOut = () => { }
   const [isVerify, setIsVerify] = useState(true);
 
-  function sendOtp() {
-    var email = document.getElementById("email").value;
-    setIsVerify(false);
-    Axios.post(sessionStorage.getItem("connection_url") +"/send_otp", {
-      email: email,
-    })
-      .then((response) => {
-        console.log(response.data.otp);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  function sendOtp(formData) {
+    var email = formData.email;
+    SessionStorage.setItem(SessionStorageKeys.Email, email)
+
   }
-  function verifyOtp() {
-    var email = document.getElementById("email").value;
-    var verify_otp = document.getElementById("verify_otp").value;
-    sessionStorage.setItem("Email" , email);
-    Axios.post(sessionStorage.getItem("connection_url") +"/verify_otp", {
-      email: email,
-      verify_otp: verify_otp,
-    })
-      .then((response) => {
-        if (response.data === "OK") {
-          window.location = "/Password";
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  function navigateToLogin() {
+
   }
 
   return (
     <div className="Reg-Page">
       <div className="leftPart">
-        <img src={logo} className="mappixLogo" alt="maapix-logo"></img>
-        <p className="logo-text">Truly informative assessment</p>
-        <a className="link" href="beam-education.co.uk">
-          beam-education.co.uk
-        </a>
-        <div className="social-media">
-          <img src={facebookSquare} className="fb-logo" alt="Faceboook" />
-          <img src={linkedin} className="linkedin-logo" alt="LinkedIm" />
-        </div>
-        <p className="copyright">© 2023 Beam Education</p>
+        <MappixDesign />
       </div>
       <div className="rightPart">
-        <p className="welcome-title">Registration.</p>
+        <p className="welcome-title">{Common.Registration}</p>
         <p className="welcome-subtitle">
-          Please enter your email address to register.
+          {Common.Pleaseenteryouremailaddresstoregister}
         </p>
-        <div className="logo-textbox">
-          <input
-            className="textbox1"
-            placeholder="Email@address.co.uk"
-            id="email"
-          ></input>
-          <img src={Account} className="AcoountLogo" alt="acc-logo"></img>
-        </div>
-        {isVerify ? (
-          <>
-            <div className="otp-btn">
-              <button
-                className="Otp-send-btn"
-                onClick={(e) => {
-                  sendOtp();
-                }}
-              >
-                Send OTP
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="otp-verification">
-              <input
-                className="textbox1"
-                placeholder="Enter the OTP sent to your mail"
-                id="verify_otp"
-              />
-              <div className="otp-btn">
-                <button className="Otp-send-btn" onClick={verifyOtp}>
-                  Verify OTP
+        <Formik initialValues={{ email: "" }}
+          validationSchema={RegValidationSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+
+            console.log("email:", values.email);
+            setSubmitting(true);
+            const formData = {
+              email: values.email.trim().toLowerCase(),
+              password: values.password
+            }
+            sendOtp(formData);
+          }}>
+          {({ values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+
+            isSubmitting }) => (
+            <Form onSubmit={handleSubmit}>
+              <Form.Group>
+                <div>
+                  <Form.Control id="userNamePlaceholder" type="email" name="email" placeholder={Common.EmailExample} onChange={handleChange} onBlur={handleBlur} value={values.email} className={touched.email && errors.email ? "user_email" : "user_email_active"} ref={emailRef} autoComplete="off" />
+                  <img src={Account} alt="Acc" className="AcoountLogo" />
+                </div>
+                {touched.email && errors.email ? (<p className="error-message">{errors.email}</p>) : <p>{''}&nbsp;</p>}
+              </Form.Group>
+
+
+              <div className='submit-button-div'>
+                <button type='submit' className='submit-button'>{Common.SendOtp}
+                  <img src={RightArrow} alt='Submit' type="image" onMouseEnter={mouseEnter} onMouseOut={mouseOut} width='65px' className="login-icon" />
                 </button>
               </div>
-            </div>
-          </>
-        )}
+              <div >
+                {Common.AlreadyHaveAnAccount}
+                <button className="reg-link" onClick={navigateToLogin}>
+                  {Common.ClicktoLogin}
+                </button>
+              </div>
+            </Form>
+          )}
+
+        </Formik>
       </div>
     </div>
   );

@@ -1,101 +1,157 @@
-import React , { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import { Tab, Tabs, TabList } from "react-tabs";
 import Select from "react-select";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { Header } from 'rsuite';
+import { SessionStorage } from '../../util/SessionStorage';
+import * as constants from '../../helper/constants'
+import * as commonApi from '../../api/markingApi';
+import MarkingTable from './MarkingTable';
+import NavBar from '../Shared/NavBar';
+import { isEmptyArray, isEmptyObject, isNullOrEmpty } from '../../util/utils';
 
-import "../../App.css";
-import "../../assets/stlyes/marking.css";
-
-import NavBar from "../../components/Shared/NavBar";
-import Header from "../../components/Shared/Header";
+import '../../assets/stlyes/marking.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import HelpIcon from "../../assets/images/LightIcon.png";
-import VolumeGrey from "../../assets/images/VolumeGrey.png";
-import MarkButton from "../../assets/images/MarkButton.png";
 
-function Marking() {
-  const ObjectivesList = [
-    { value: "Overall", label: "Overall" },
-    { value: "Year 1 Objectives", label: "Year 1 Objectives" },
-    { value: "Year 2 Objectives", label: "Year 2 Objectives" },
-    { value: "Year 3 Objectives", label: "Year 3 Objectives" },
-    { value: "Year 4 Objectives", label: "Year 4 Objectives" },
-    { value: "Year 5 Objectives", label: "Year 5 Objectives" },
-  ];
-  const SubjectTopics = [
-    { subject: "Digital Values" },
-    { subject: "Powers of 10" },
-    { subject: "Negative Numbers" },
-    { subject: "Rounding Numbers" },
-    { subject: "Solving Problems" },
-    { subject: "Roman Numerals" },
-  ];
-  const pupilsList = [
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-    {
-      name: "Leslie Alexander",
-      emptyValue: "",
-      Actual: "30%",
-      Predicted: "60%",
-    },
-  ];
+const Marking = () => {
   const [selectedOption, setselectedOption] = useState(null);
-  const getSelectedValue = (e) => {
-    setselectedOption(e.value);
-  };
-  const chipbgColor = ["#F34970", "#F4C900","#AABB5D", "#26C8B9", "#E0E0E0","#26C8B9"];
+  const [tabsData, setTabsData] = useState([]);
+  const [headersData, setHeadersData] = useState([]);
+  const [mainHeadersData, setMainHeadersData] = useState([]);
+  const [_subjectClassId, setSubjectClassId] = useState('');
+  const [_classId, setClassId] = useState('');
+  const [className, setClassName] = useState('');
+  const [subjectName, setSubjectName] = useState('');
+  const [year, setYear] = useState('');
+  const [bodyData, setBodyData] = useState([]);
+  const [tableBodyData, setTableBodyData] = useState([]);
+  const [categoryName, setCategoryName] = useState(tabsData[0]?.name);
+
+  console.log({ headersData });
+  const getSelectedValue = (e) => setselectedOption(e.value);
+
+  const getHeadersAndTabs = async (id) => {
+    const data = { id: id }
+    const response = await commonApi.fetchSubject(data);
+    const result = response.Items.category;
+    !isEmptyArray(result) && setCategoryName(result[0]?.name);
+    !isEmptyArray(result) && setTabsData(result);
+    !isEmptyArray(result) && setMainHeadersData(result);
+    !isEmptyArray(result) && setHeadersData(result);
+    !isEmptyObject(response) && setYear(response.Items.year);
+    const _headers = response.Items.category.filter((ele) => ele.name === response.Items.category[0].name && { description: response.Items.category[0].name, isKPI: response.Items.category[0].description[0].name, identifier: response.Items.category[0].description[0].identifier });
+    const updatedData = _headers[0].description.map((ele) => { return { description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+    updatedData.push({ description: constants.marking.PlaceValueAttainment, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
+    updatedData.unshift({ description: 'fullName', isKPI: false, identifier: constants.marking.dd });
+    setHeadersData([...updatedData]);
+
+    const subjectClassId = SessionStorage.getItem(constants.marking.subjectClassId);
+    const className = SessionStorage.getItem(constants.SessionStorageKeys.className);
+    const subjectName = SessionStorage.getItem(constants.SessionStorageKeys.subjectName);
+    const classId = SessionStorage.getItem(constants.marking.classId);
+
+    (!isNullOrEmpty(subjectClassId) || !isNullOrEmpty(className) || !isNullOrEmpty(subjectName) || !isNullOrEmpty(classId)) && _fetchCategoryMark(subjectClassId, className, subjectName, classId, result[0]?.name, response.Items.year)
+  }
+
+  const _fetchCategoryMark = async (subjectClassId, className, subjectName, classId, categoryName, _year) => {
+    const _data = { id: classId, subject: subjectName, category: categoryName, year: _year }
+    const response = await commonApi.fetchCategoryMark(_data);
+    const Items = [
+      {
+        category: [
+          {
+            name: "Reading for Pleasure",
+            actual: 76,
+            predicted: 96,
+            description: [
+              {
+                name: "Listening",
+                generalIdentifier: "RP1",
+                comment: "",
+                markings: 4
+              },
+              {
+                name: "Comparing",
+                generalIdentifier: "RP2",
+                comment: "",
+                markings: 3
+              },
+              {
+                name: "Joining In",
+                generalIdentifier: "RP3",
+                comment: "",
+                markings: 4
+              }
+            ],
+          }
+        ],
+        upn: "TESTUX11111118",
+        firstName: "Maiden",
+        lastName: "Mark",
+        senStatus: "EHCP",
+        otherNeeds: {
+          freeSchoolMealsE6: true,
+          eal: false,
+          serviceChild: false,
+          childLookedAfter: true,
+          freeSchoolMeals: false
+        }
+      }
+    ]
+
+    const _tableBodyData = Items.map((ele) => {
+      const firstObj = { fullName: `${ele.firstName} ${ele.lastName}`, eal: ele.otherNeeds.eal, serviceChild: ele.otherNeeds.serviceChild }
+      const firstLoop = ele.category.map((ele) => {
+        const firstLoopObj = { ...firstObj, tabName: ele.name, actual: ele.actual, predicted: ele.predicted }
+        const descriptionLoop = ele.description.map((ele) => {
+          return { ...firstLoopObj, headerName: ele.name, generalIdentifier: ele.generalIdentifier, markings: ele.markings }
+        })
+        return descriptionLoop;
+      })
+      return firstLoop;
+    })
+    const data = _tableBodyData[0][0];
+    setBodyData(data);
+  }
+
+  const handleTabSelect = (category) => {
+    setCategoryName(category);
+    const uniqueHeader = mainHeadersData.filter((ele) => ele.name === category && ele.description);
+    const headers = uniqueHeader[0].description.map((ele) => { return { category: ele.name, description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+
+    headers.push({ description: constants.marking.PlaceValueAttainment, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
+    headers.unshift({ description: 'fullName', isKPI: false, identifier: constants.marking.dd });
+    setHeadersData(headers);
+  }
+
+  useEffect(() => {
+    const data = headersData.map((ele) => {
+      const _data = bodyData.filter((_ele) => {
+        return _ele.headerName === ele.description && ele
+      })
+      const upDateData = _data.map((ele) => ele);
+      return upDateData[0]
+    })
+    const actualData = data.filter((ele) => {
+      return !isEmptyObject(ele) && ele
+    });
+    console.log({actualData});
+    setTableBodyData(actualData)
+  }, [bodyData])
+
+  useEffect(() => {
+    const subjectClassId = SessionStorage.getItem(constants.marking.subjectClassId);
+    const className = SessionStorage.getItem(constants.SessionStorageKeys.className);
+    const subjectName = SessionStorage.getItem(constants.SessionStorageKeys.subjectName);
+    const classId = SessionStorage.getItem(constants.marking.classId);
+    setClassId(classId);
+    setSubjectName(subjectName);
+    setSubjectClassId(subjectClassId);
+    setClassName(className);
+    getHeadersAndTabs(subjectClassId);
+  }, [])
+
   return (
     <div className="Page-layout">
       <NavBar />
@@ -104,7 +160,7 @@ function Marking() {
         <div className="marking-page">
           <div className="marking-header">
             <div className="marking-title">
-              <span>Flounders - Maths - Marking</span>
+              <span>{className} - {subjectName} - {constants.marking.Marking}</span>
             </div>
             <div className="right-column">
               <img src={HelpIcon} alt="Help" />
@@ -114,476 +170,20 @@ function Marking() {
             <div className="year-dropdown-div">
               <Select
                 className="select-obj-dropdown"
-                options={ObjectivesList}
+                options={constants.marking.ObjectivesList}
                 onChange={(e) => {
                   getSelectedValue(e);
                 }}
               />
-              <div className="subject-tab-content">
-                <Tabs>
-                  <TabList className="marking-tablist">
-                    <Tab className="marking-tabs">Place Value</Tab>
-                    <Tab className="marking-tabs">
-                      Addition, subtraction, multiplication & division
-                    </Tab>
-                    <Tab className="marking-tabs">Fractions</Tab>
-                    <Tab className="marking-tabs">Measures</Tab>
-                    <Tab className="marking-tabs">Geometry</Tab>
-                  </TabList>
 
-                  <TabPanel>
-                    <div className="marking-table">
-                      <div className="marking-table-pupils">
-                        {pupilsList.map((data, i) => {
-                          return (
-                            <div className="pupil">
-                              <span>{data.name}</span>
-                              <img src={VolumeGrey} alt="vol" />
-                              <span className="S-chip">S</span>
-                              <span className="EAL-chip">EAL</span>
-                            </div>
-                          );
-                        })}
-                        <div className="marking-table-pupils-total">
-                          <div className="pupil">
-                            <span>Class Average</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="marking-table-topics">
-                        {SubjectTopics.map((subjects, ind) => {
-                          return (
-                            <div className="topics-row">
-                              <div className="topics-title">
-                                <span>{subjects.subject}</span>
-                              </div>
-                              <div className="topics-mark-button">
-                                <img src={MarkButton} alt="Mark" />
-                              </div>
-                              <div className="topics-marking">
-                                {pupilsList.map((pupils) => {
-                                  return (
-                                    <div className="marking-chips">
-                                      <span className="chips" style={{backgroundColor : `${chipbgColor[ind]}`}} >
-                                        {pupils.emptyValue}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                                <div className="marking-chips">
-                                  <span className="chips" style={{backgroundColor : `${chipbgColor[ind]}`}}></span>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="marking-topic-total">
-                        <div className="topic-total-title">
-                          <span>Place Value Attainment</span>
-                        </div>
-                        <div className="topic-total-averages">
-                          <div className="topic-actual-average">
-                            <div className="topic-actual-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-actual-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Actual}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="topic-predicted-average">
-                            <div className="topic-predicted-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-predicted-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Predicted}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="marking-table">
-                      <div className="marking-table-pupils">
-                        {pupilsList.map((data, i) => {
-                          return (
-                            <div className="pupil">
-                              <span>{data.name}</span>
-                              <img src={VolumeGrey} alt="vol" />
-                              <span className="S-chip">S</span>
-                              <span className="EAL-chip">EAL</span>
-                            </div>
-                          );
-                        })}
-                        <div className="marking-table-pupils-total">
-                          <div className="pupil">
-                            <span>Class Average</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="marking-table-topics">
-                        {SubjectTopics.map((subjects) => {
-                          return (
-                            <div className="topics-row">
-                              <div className="topics-title">
-                                <span>{subjects.subject}</span>
-                              </div>
-                              <div className="topics-mark-button">
-                                <img src={MarkButton} alt="Mark" />
-                              </div>
-                              <div className="topics-marking">
-                                {pupilsList.map((pupils) => {
-                                  return (
-                                    <div className="marking-chips">
-                                      <span className="chips">
-                                        {pupils.emptyValue}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                                <div className="marking-chips">
-                                  <span className="chips"></span>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="marking-topic-total">
-                        <div className="topic-total-title">
-                          <span>Place Value Attainment</span>
-                        </div>
-                        <div className="topic-total-averages">
-                          <div className="topic-actual-average">
-                            <div className="topic-actual-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-actual-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Actual}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="topic-predicted-average">
-                            <div className="topic-predicted-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-predicted-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Predicted}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="marking-table">
-                      <div className="marking-table-pupils">
-                        {pupilsList.map((data, i) => {
-                          return (
-                            <div className="pupil">
-                              <span>{data.name}</span>
-                              <img src={VolumeGrey} alt="vol" />
-                              <span className="S-chip">S</span>
-                              <span className="EAL-chip">EAL</span>
-                            </div>
-                          );
-                        })}
-                        <div className="marking-table-pupils-total">
-                          <div className="pupil">
-                            <span>Class Average</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="marking-table-topics">
-                        {SubjectTopics.map((subjects) => {
-                          return (
-                            <div className="topics-row">
-                              <div className="topics-title">
-                                <span>{subjects.subject}</span>
-                              </div>
-                              <div className="topics-mark-button">
-                                <img src={MarkButton} alt="Mark" />
-                              </div>
-                              <div className="topics-marking">
-                                {pupilsList.map((pupils) => {
-                                  return (
-                                    <div className="marking-chips">
-                                      <span className="chips">
-                                        {pupils.emptyValue}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                                <div className="marking-chips">
-                                  <span className="chips"></span>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="marking-topic-total">
-                        <div className="topic-total-title">
-                          <span>Place Value Attainment</span>
-                        </div>
-                        <div className="topic-total-averages">
-                          <div className="topic-actual-average">
-                            <div className="topic-actual-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-actual-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Actual}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="topic-predicted-average">
-                            <div className="topic-predicted-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-predicted-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Predicted}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="marking-table">
-                      <div className="marking-table-pupils">
-                        {pupilsList.map((data, i) => {
-                          return (
-                            <div className="pupil">
-                              <span>{data.name}</span>
-                              <img src={VolumeGrey} alt="vol" />
-                              <span className="S-chip">S</span>
-                              <span className="EAL-chip">EAL</span>
-                            </div>
-                          );
-                        })}
-                        <div className="marking-table-pupils-total">
-                          <div className="pupil">
-                            <span>Class Average</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="marking-table-topics">
-                        {SubjectTopics.map((subjects) => {
-                          return (
-                            <div className="topics-row">
-                              <div className="topics-title">
-                                <span>{subjects.subject}</span>
-                              </div>
-                              <div className="topics-mark-button">
-                                <img src={MarkButton} alt="Mark" />
-                              </div>
-                              <div className="topics-marking">
-                                {pupilsList.map((pupils) => {
-                                  return (
-                                    <div className="marking-chips">
-                                      <span className="chips">
-                                        {pupils.emptyValue}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                                <div className="marking-chips">
-                                  <span className="chips"></span>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="marking-topic-total">
-                        <div className="topic-total-title">
-                          <span>Place Value Attainment</span>
-                        </div>
-                        <div className="topic-total-averages">
-                          <div className="topic-actual-average">
-                            <div className="topic-actual-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-actual-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Actual}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="topic-predicted-average">
-                            <div className="topic-predicted-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-predicted-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Predicted}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabPanel>
-                  <TabPanel>
-                    <div className="marking-table">
-                      <div className="marking-table-pupils">
-                        {pupilsList.map((data, i) => {
-                          return (
-                            <div className="pupil">
-                              <span>{data.name}</span>
-                              <img src={VolumeGrey} alt="vol" />
-                              <span className="S-chip">S</span>
-                              <span className="EAL-chip">EAL</span>
-                            </div>
-                          );
-                        })}
-                        <div className="marking-table-pupils-total">
-                          <div className="pupil">
-                            <span>Class Average</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="marking-table-topics">
-                        {SubjectTopics.map((subjects) => {
-                          return (
-                            <div className="topics-row">
-                              <div className="topics-title">
-                                <span>{subjects.subject}</span>
-                              </div>
-                              <div className="topics-mark-button">
-                                <img src={MarkButton} alt="Mark" />
-                              </div>
-                              <div className="topics-marking">
-                                {pupilsList.map((pupils) => {
-                                  return (
-                                    <div className="marking-chips">
-                                      <span className="chips">
-                                        {pupils.emptyValue}
-                                      </span>
-                                    </div>
-                                  );
-                                })}
-                                <div className="marking-chips">
-                                  <span className="chips"></span>
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      <div className="marking-topic-total">
-                        <div className="topic-total-title">
-                          <span>Place Value Attainment</span>
-                        </div>
-                        <div className="topic-total-averages">
-                          <div className="topic-actual-average">
-                            <div className="topic-actual-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-actual-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Actual}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="topic-predicted-average">
-                            <div className="topic-predicted-average-title">
-                              <span>Actual</span>
-                            </div>
-                            <div className="topic-predicted-average-marking">
-                              {pupilsList.map((pupil) => {
-                                return (
-                                  <div className="marking-chips">
-                                    <span className="chip">{pupil.Predicted}</span>
-                                  </div>
-                                );
-                              })}
-                              <div className="marking-chips">
-                                <span className="chip">30%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </TabPanel>
-                  
-                </Tabs>
-              </div>
+              <Tabs className='marking-tab'>
+                <TabList className="marking-tablist">
+                  {tabsData.map((ele, i) => {
+                    return <Tab className="marking-tabs" key={i} onClick={() => handleTabSelect(ele.name)}>{ele.name}</Tab>
+                  })}
+                </TabList>
+                <MarkingTable tabsData={tabsData} headersData={headersData} tableBodyData={tableBodyData} categoryName={categoryName} _subjectClassId={_subjectClassId} _classId={_classId} subjectName={subjectName} year={year} />
+              </Tabs>
             </div>
           </div>
         </div>

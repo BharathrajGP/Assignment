@@ -133,7 +133,7 @@
 }
 
 .pupils-section {
-    width: 220px;
+    /* width: 220px; */
     background: #dff7f5;
     height: 84vh;
     overflow-y: auto;
@@ -235,7 +235,7 @@
 .classSubjectBlock {
     display: flex;
     flex-direction: column;
-    width: 240px;
+    min-width: 240px;
     padding: 25px 0px 0px 20px;
     font-family: "Manrope";
     color: #011c25;

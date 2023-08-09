@@ -1,199 +1,169 @@
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Form from "react-bootstrap/Form";
+import { Button, Form } from "react-bootstrap";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
 import { Common } from "../../../helper/constants";
+import * as commonApi from "../../../api/commonApi";
+import { isEmptyObject } from "../../../util/utils";
+import * as constants from "../../../helper/constants";
 
-const style = {
-    position: "absolute",
-    top: "20%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 600,
-    bgcolor: "background.paper",
-    border: "1px solid #000",
-    borderRadius: "10px",
-    boxShadow: "1px 2px 9px black",
-    p: 4,
-};
+import "../../../assets/stlyes/Modals.css";
 
-function updateClass() {}
 
-function RenameClass() {
-    const [openRename, setOpenRename] = useState(false);
-    const handleOpenRename = () => setOpenRename(true);
-    const handleCloseRename = () => setOpenRename(false);
 
+const RenameClass = ({ isClassId, setEditClass, getData }) => {
+    const MySwal = withReactContent(Swal);
+    const [isGroup, setIsGroup] = useState();
+    const [isClassData, setIsClassData] = useState();
     const SignupSchema = Yup.object().shape({
-        className: Yup.string().required("Required"),
-        myRadio: Yup.string().required("Required"),
+        className: Yup.string().required(Common.Required),
+        // myRadio: Yup.string().required(Common.Required),
     });
+    const style = {
+        modal_form: {
+            width: "100%",
+        },
+    };
 
+    const updateClass = async (formData) => {
+        const getClassById = await commonApi.renameClass(formData);
+        // if (getClassById.status === 200) {
+        //     MySwal.fire({
+        //         title: constants.Common.ClassUpdatedSuccessfully,
+        //         icon: "success",
+        //     }).then(() => {
+        //         getData();
+        //     });
+        // }
+        getData();
+        console.log(getClassById);
+    }
+
+    const getClassData = async () => {
+        console.log("isClassId", isClassId);
+        const getClassById = await commonApi.getClassById({
+            id: isClassId,
+        });
+        if (!isEmptyObject(getClassById)) {
+            const resultData = getClassById.Items
+            console.log("resultData----------", resultData);
+            setIsClassData(resultData);
+            setIsGroup(resultData.isRegistrationGroup)
+        }
+
+    };
+
+    useEffect(() => {
+        getClassData();
+    }, []);
     return (
-        <div>
-            <button onClick={() => handleOpenRename()}>
-                <BorderColorOutlinedIcon />
-                Rename
-            </button>
-            <Modal
-                open={openRename}
-                onClose={handleCloseRename}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                {/* <Box sx={style} >
-          <Typography style={{marginTop:'10px',marginBottom:'20px',textAlign:'center'}}><p style={{fontSize:'22px',textShadow:'1px 1px grey'}}>Add Class</p></Typography>
-          <Typography><label>ClassName :</label><br /><input type="text" style={{marginTop:'3px',width:'100%',boxShadow:'1px 1px -1px -1px grey',borderRadius:'7px'}}/></Typography>
-          <Typography style={{marginTop:'10px'}}><label>
-          <input type="radio" name="myRadio" value="RegistrationGroup " style={{padding:'5px'}}/>
-          Registration Group 
-        </label>
-        <label>
-          <input type="radio" name="myRadio" value="TeachingGroup" style={{padding:'5px',marginLeft:'7px'}}/>
-          Teaching Group
-        </label></Typography>
-        <Typography  style={{marginTop:'10px'}}><Button type="submit" style={{border:'1px solid black',color:'black'}} onClick={()=>handleCloseRename()}>Cancel</Button>
-          <Button type="submit" style={{background:'green',marginLeft:'20px',color:'white'}} onClick={()=>updateClass()}>Update Class</Button></Typography>
-        </Box> */}
-                <Box sx={style}>
-                    <Typography
-                        style={{
-                            marginTop: "10px",
-                            marginBottom: "20px",
-                            textAlign: "center",
-                        }}
-                    >
-                        <p
-                            style={{
-                                fontSize: "22px",
-                                textShadow: "1px 1px grey",
+        <Formik
+            enableReinitialize
+            initialValues={{ className: isClassData && isClassData.className, myRadio: "" }}
+            validationSchema={SignupSchema}
+            validate={(values) => {
+                const errors = {};
+                return errors;
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+
+                const formData = {
+                    id: isClassId,
+                    className: values.className,
+                    isRegistrationGroup: isGroup
+                }
+                updateClass(formData);
+            }}
+        >
+            {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+            }) => (
+                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>{Common.ClassName}</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder={Common.ClassName}
+                            name={Common.className}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.className}
+                        />
+                        {errors.className &&
+                            touched.className &&
+                            errors.className && (
+                                <small style={{ color: "red" }}>
+                                    {errors.className}
+                                </small>
+                            )}
+                    </Form.Group>
+                    <Form.Group>
+                        <div style={{ marginTop: "20px" }}>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="myRadio"
+                                    onChange={(e) => { setIsGroup(!isGroup) }}
+                                    onBlur={handleBlur}
+                                    value={constants.Common.registrationGroup}
+                                    style={{ padding: "5px" }}
+                                    checked={isGroup && isGroup}
+                                />
+                                {constants.Common.RegistrationGroup}
+                            </label>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="myRadio"
+                                    onChange={(e) => { setIsGroup(!isGroup) }}
+                                    onBlur={handleBlur}
+                                    value={constants.Common.teachingGroup}
+                                    style={{
+                                        padding: "5px",
+                                        marginLeft: "7px",
+                                    }}
+                                    checked={!isGroup}
+                                />
+                                {constants.Common.TeachingGroup}
+                            </label>
+                        </div>
+                        {errors.myRadio &&
+                            touched.myRadio &&
+                            errors.myRadio && (
+                                <small style={{ color: "red" }}>
+                                    {errors.myRadio}
+                                </small>
+                            )}
+                    </Form.Group>
+                    <Form.Group style={{ marginTop: "20px" }}>
+                        <Button
+                            variant="light"
+                            onClick={(e) => {
+                                setEditClass(false);
                             }}
                         >
-                            Edit Class
-                        </p>
-                    </Typography>
-                    <Formik
-                        initialValues={{ className: "", myRadio: "" }}
-                        validationSchema={SignupSchema}
-                        validate={(values) => {
-                            const errors = {};
-                            return errors;
-                        }}
-                        onSubmit={(values, { setSubmitting }) => {
-                            setTimeout(() => {
-                                alert(
-                                    JSON.stringify({
-                                        className: values.className,
-                                        myRadio: values.myRadio,
-                                    })
-                                );
-                                setSubmitting(false);
-                            }, 400);
-                        }}
-                    >
-                        {({
-                            values,
-                            errors,
-                            touched,
-                            handleChange,
-                            handleBlur,
-                            handleSubmit,
-                            isSubmitting,
-                            /* and other goodies */
-                        }) => (
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="formBasicEmail"
-                                >
-                                    <Form.Label>{Common.ClassName}</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder={Common.ClassName}
-                                        name={Common.className}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.className}
-                                    />
-                                    {errors.className &&
-                                        touched.className &&
-                                        errors.className && (
-                                            <small style={{ color: "red" }}>
-                                                {errors.className}
-                                            </small>
-                                        )}
-                                </Form.Group>
-                                <Form.Group>
-                                    <div style={{ marginTop: "20px" }}>
-                                        <label>
-                                            <input
-                                                type="radio"
-                                                name="myRadio"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value="RegistrationGroup"
-                                                style={{ padding: "5px" }}
-                                            />
-                                            Registration Group
-                                        </label>
-                                        <label>
-                                            <input
-                                                type="radio"
-                                                name="myRadio"
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                value="TeachingGroup"
-                                                style={{
-                                                    padding: "5px",
-                                                    marginLeft: "7px",
-                                                }}
-                                            />
-                                            Teaching Group
-                                        </label>
-                                    </div>
-                                    {errors.myRadio &&
-                                        touched.myRadio &&
-                                        errors.myRadio && (
-                                            <small style={{ color: "red" }}>
-                                                {errors.myRadio}
-                                            </small>
-                                        )}
-                                </Form.Group>
-                                <Form.Group style={{ marginTop: "20px" }}>
-                                    <Button
-                                        type="submit"
-                                        style={{
-                                            border: "1px solid black",
-                                            color: "black",
-                                        }}
-                                        onClick={() => handleCloseRename()}
-                                    >
-                                        Cancel
-                                    </Button>
-                                    <Button
-                                        type="submit"
-                                        style={{
-                                            background: "green",
-                                            marginLeft: "20px",
-                                            color: "white",
-                                        }}
-                                        onClick={() => updateClass()}
-                                        disabled={isSubmitting}
-                                    >
-                                        Update Class
-                                    </Button>
-                                </Form.Group>
-                            </Form>
-                        )}
-                    </Formik>
-                </Box>
-            </Modal>
-        </div>
+                            {Common.Cancel}
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="success"
+                            disabled={isSubmitting}
+                        >
+                            {Common.Update}
+                        </Button>
+                    </Form.Group>
+                </Form>
+            )}
+        </Formik>
     );
 }
 

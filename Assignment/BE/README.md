@@ -15,14 +15,14 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
-git remote add origin https://gitlab.com/beam-education/beam-education-frontend.git
+git remote add origin https://gitlab.com/Veera27/beam-education-frontend.git
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
-- [ ] [Set up project integrations](https://gitlab.com/beam-education/beam-education-frontend/-/settings/integrations)
+- [ ] [Set up project integrations](https://gitlab.com/Veera27/beam-education-frontend/-/settings/integrations)
 
 ## Collaborate with your team
 

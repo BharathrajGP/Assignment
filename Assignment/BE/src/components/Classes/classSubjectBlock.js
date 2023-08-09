@@ -4,25 +4,36 @@ import "../../assets/stlyes/Classes.css";
 
 import { ActualChip, PredictedChip } from "./ChipComponents";
 import { Common, Subjects, Colors } from '../../helper/constants';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
-export default function classSubjectBlock({ heading }) {
-  let bgColor = Colors.White;
-
-  switch (heading) {
+function ClassSubjectBlock({ heading , classData}) {
+  const [subject , setSubject ] = useState();
+  const [classPupils , setClassPupils ] = useState();
+  console.log({heading});
+  console.log({classData});
+  
+  const getClassInfo = async(a,b) =>{
+    console.log("a",a);
+    console.log("b",b);
+  }
+  var bgColor = Colors.White;
+  switch (subject) {
+    case Subjects.Writing:
+      bgColor = Colors.Secondary;
+      break;
     case Subjects.Maths:
       bgColor = Colors.Secondary;
       break;
-    case Subjects.Reading:
-      bgColor = Colors.Secondary;
-      break;
-    case Subjects.Writing:
+    case Subjects.PE:
       bgColor = Colors.Secondary;
       break;
     default:
       bgColor = Colors.White;
   }
 
+  useEffect(() =>{getClassInfo(heading , classData)},[]);
 
   return (
     <div className='classSubjectBlock' style={{ background: bgColor}}>
@@ -55,3 +66,5 @@ export default function classSubjectBlock({ heading }) {
     </div>
   )
 }
+
+export default ClassSubjectBlock;

@@ -1,31 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 import '../../assets/stlyes/MarkEditor.css'
 
 import tickmark from '../../assets/images/tickCheckbox.png'
 
-function CustomRadio({i}) {
+const CustomRadio = ({ _markings, i, index, updateMarks, className, image }) => {
+  const [selectedOption, setSelectedOption] = useState(null);
+
   return (
     <div className="custom-marking-chips">
-      <label class="container">
-        <input type="radio" name={`radio-${i}`} />
-        <span class="checkmark check-absent"><img src={tickmark} alt=""/></span>
-      </label>
-      <label class="container">
-        <input type="radio" name={`radio-${i}`} />
-        <span class="checkmark check-below"><img src={tickmark} alt=""/></span>
-      </label>
-      <label class="container">
-        <input type="radio" name={`radio-${i}`} />
-        <span class="checkmark check-emerging"><img src={tickmark} alt=""/></span>
-      </label>
-      <label class="container">
-        <input type="radio" name={`radio-${i}`} />
-        <span class="checkmark check-expected"><img src={tickmark} alt=""/></span>
-      </label>
-      <label class="container">
-        <input type="radio" name={`radio-${i}`} />
-        <span class="checkmark check-greater"><img src={tickmark} alt=""/></span>
+      <label className="container">
+        <input type="radio" checked={_markings[index] === i + 1} onClick={(e) => { updateMarks(index, i) }} />
+        <span className={className}><img src={image} alt="" /></span>
       </label>
     </div>
   );

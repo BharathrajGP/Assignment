@@ -47,17 +47,26 @@
     }
   }
 }
+
+.marking-tab{ 
+  border: 1px solid #E0E0E0 !important;
+  border-top-color: transparent !important;
+  border-radius: 20px 20px 0px 0px;
+  margin-top: 40px;
+  margin-left: 32px;
+}
 .marking-tablist {
   display: flex;
-  margin-top: 40px;
   text-align: center;
   height: 48px;
+  padding-left: 0px !important;
+  gap: 2px;
 }
 .marking-tabs {
   width: 225px;
   background: #084059;
+  border: 1px solid #E0E0E0 !important;
   border-radius: 20px 20px 0px 0px;
-  margin-right: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,6 +79,7 @@
   letter-spacing: 0.4px;
   text-transform: capitalize;
   color: #ffffff;
+  cursor: pointer;
 }
 .react-tabs__tab--selected{
   background-color: #ffffff;
@@ -254,4 +264,45 @@
       background-color: #aabb5d;
     }
   }
+}
+
+.comment-style{
+  cursor: pointer;
+}
+.comment-contaibner{
+  position: absolute;
+}
+.cancel-button{
+  background-color: transparent;
+  border-color: transparent;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #011c25;
+}
+.mark-editor-save{
+  width: 92px;
+  height: 36px;
+  background: #084059;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #ffffff;
+  border: none;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.marking-header-style{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+#root > div:nth-child(1) > div.Page-layout > div.Page-header > div > div.marking-content > div > div > div > div > div > table > thead > tr:nth-child(1) > th:nth-child(1) > div.marking-header-style{
+  color: transparent;
 }

@@ -4,6 +4,8 @@ import * as Constants from '../helper/constants'
 
 export const strToLowercase = (str) => str.toLowerCase();
 
+export const strToUppercase = (str) => str.toUpperCase();
+
 export const isEmptyObject = (val) => isNullOrEmpty(val) || (val && Object.keys(val).length === 0);
 
 export const isEmptyArray = (val) => val && !val.length;

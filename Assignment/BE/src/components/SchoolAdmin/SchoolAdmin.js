@@ -1,9 +1,12 @@
 import React from "react";
+
 import Header from "../Shared/Header";
 import SchoolAdminTabs from "./SchoolAdminTabs";
-import SchoolAdminFooter from "./SchoolAdminFooter/SchoolAdminFooter";
+import Footer from "./Footer/Footer";
 
-function SchoolAdmin() {
+
+const SchoolAdmin = () => {
+
     return (
         <div className="Page-layout">
             <div className="Page-header">
@@ -11,7 +14,7 @@ function SchoolAdmin() {
                 <div style={{ marginTop: "40px" }}>
                     <SchoolAdminTabs />
                 </div>
-                {/* <SchoolAdminFooter /> */}
+                {/* <Footer /> */}
             </div>
         </div>
     );

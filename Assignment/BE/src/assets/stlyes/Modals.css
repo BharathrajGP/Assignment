@@ -1,12 +1,21 @@
-.modals-main {
-    position: "absolute";
-    top: auto;
-    left: "50%";
-    transform: "translate(-50%, -50%)";
-    width: 600;
-    background-color: "background.paper";
-    border: "1px solid #000";
-    border-radius: "10px";
-    box-shadow: "1px 2px 9px black";
-    /* p: 4; */
+.modal-button {
+    width: 100%;
+    background: none !important;
+    color: black !important;
+    border: none !important;
+}
+.modal-button-danger {
+    width: 100%;
+    background: none !important;
+    color: red !important;
+    border: none !important;
+}
+#dropdown-variants-Secondary {
+    background: grey !important;
+    color: black !important;
+    border: none;
+}
+.modal-form {
+    width: "100%" !important;
+    width: "-webkit-fill-available";
 }

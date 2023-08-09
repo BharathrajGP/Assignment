@@ -5,7 +5,7 @@ import { PieChart } from "d3-react-pie-chart";
 import "../../App.css";
 import "../../assets/stlyes/overview.css";
 
-import NavBar from "../../components/Shared/NavBar";
+import NavBar from "../Shared/NavBar";
 import Header from "../../components/Shared/Header";
 
 import HelpIcon from "../../assets/images/LightIcon.png";

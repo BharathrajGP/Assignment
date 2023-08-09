@@ -5,7 +5,7 @@ import { errorMsg } from '../components/Shared/Notification/ToastNotification';
 import { Url } from "../helper/apiRoutes";
 import { SessionStorage } from '../util/SessionStorage'
 import { fortmatData } from '../util/utils';
-import * as Constants from '../helper/constants';
+import { SessionStorageKeys } from '../helper/constants';
 
 export const axiosInstance = axios.create({
     baseURL: `${Url.baseApiUrl}`,
@@ -48,8 +48,9 @@ function errorResponseHandler(error) {
 axiosInstance.interceptors.request.use(function (config) {
     // Do something before request is sent
     // config.headers.test = 'I am only a header!'; // EX: Add jwt token
+    // console.log("config",config);
 
-    const token = SessionStorage.getItem(Constants.SessionStorageKeys.SessionToken);
+    const token = SessionStorage.getItem(SessionStorageKeys.SessionToken);
     config.headers.Authorization = token ? `${token}` : '';
 
     if (DEBUG) { console.info(`Request: ${fortmatData(config)}`); }

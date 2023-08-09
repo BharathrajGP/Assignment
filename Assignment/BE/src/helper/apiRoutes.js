@@ -1,59 +1,46 @@
-const baseUrl = "https://4vikr1bd5f.execute-api.ap-south-1.amazonaws.com/dev";
-// const baseUrl = "https://localhost:8000";
 export const Url = {
     // baseApiUrl: "http://localhost:8000",
-    baseApiUrl: "https://4vikr1bd5f.execute-api.ap-south-1.amazonaws.com/dev",
-};
+    baseApiUrl: "https://znkm0f852h.execute-api.ap-south-1.amazonaws.com/dev",
+}
 
-// export const apiS3Routes = {
-//     profiles: `${Url.baseS3Url}/profiles/`,
-//     uploads: `${Url.baseS3Url}/uploads/`,
-//     offer: `${Url.baseS3Url}/offer/`
-// }
-
-// export const Controllers = {
-//     Module1: "/Admin",
-//     Module2: "/SchoolAdmin",
-//     Module3: "/LeadTeacher",
-//     Module4: "/Teacher"
-// }
 
 export const apiRoutes = {
     // Common
-    userLogin: "/v1/userLogin",
-    user2FA: "/v1/twoFactorVerification",
-    userRegister: "/v1/userRegister",
-    tokenValidation: "",
-    navBar: "/v1/classDataNavbar",
-    schoolAdminUser: "/v1/getPupil",
-    schoolAdminClassView: "",
-    schoolAdminTeachersView: "",
-    getIndividualPupil: "/v1/getPupilById",
-    deleteIndividualPupil: "/v1/deletePupil",
-    getNavBar: "/v1/classDataNavbar",
+    userLogin: '/v1/userLogin',
+    user2FA: '/v1/twoFactorVerification',
+    userRegister: '/v1/user_register',
+    getNavBar: '/v1/fetchClass',
+    fetchSubject: '/v1/fetchSubject',
 
-    // Module1
+    // Profile
+    getProfile: 'v1/getProfile',
+    updateProfile: 'v1/updateProfile',
+    updatePassword: 'v1/changePassword',
 
-    // Module2
-};
-export const apiUrl = {
-    login: baseUrl + apiRoutes.userLogin,
-};
-export const AdminPages = {
-    schools: "/Schools",
-    schoolData: "/School-Data",
-};
-export const CommonPages = {
-    login: "/",
-    authentication: "/Authentication",
-    registration: "/Registration",
-    addPassword: "/Password",
-    updateProfile: "/UpdateProfile",
-};
-export const SchoolPages = {
-    dashboard: "/Dashboard",
-    classes: "/Classes",
-    subjectOverview: "/Overview",
-    subjectMarking: "/Marking",
-    topicMarkEditor: "/MarkEditor",
-};
+    //Classes
+    fetchPupilByClassId: 'v1/fetchPupilByClassId',
+    fetchCategoryMark: '/v1/fetchCategoryMark',
+    fetchDescriptionMark: '/v1/fetchDescriptionMark',
+    fetchDescription: '/v1/fetchDescription',
+
+    // SchoolAdmin
+    adminPupil: "/v1/getPupil",
+    adminClass: "/v1/getAllClasses",
+    adminTeachers: "/v1/fetchUserByType",
+    viewStudents: '/v1/fetchPupilByPresentClassId',
+    getPupil: "/v1/getPupilById",
+    updatePupil: "/v1/editPupil",
+    deletePupil: "/v1/deletePupil",
+    addClass: '/v1/saveClasses',
+    getClassById: '/v1/getClass',
+    renameClass: '/v1/updateClass',
+    movePupil: '/v1/updatePupilClassId',
+    deleteClass: '/v1/updateClassActiveStatus',
+    assignRole: '/v1/updateUserType',
+    updateUserActiveStatus: '/v1/updateUserActiveStatus',
+    removeType: '/v1/removeUserRoleById',
+    inviteUser: '/v1/inviteUser',
+    getSubjectByClassId: '/v1/getSubjectByClassId',
+    assignClass: '/v1/updateClassesbyUserId',
+}
+
