@@ -1,0 +1,8 @@
+.navBar-items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.nav-link-logo{
+    height: auto;
+}

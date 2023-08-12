@@ -8,9 +8,9 @@ const CustomRadio = ({ _markings, i, index, updateMarks, className, image }) => 
   const [selectedOption, setSelectedOption] = useState(null);
 
   return (
-    <div className="custom-marking-chips">
-      <label className="container">
-        <input type="radio" checked={_markings[index] === i + 1} onClick={(e) => { updateMarks(index, i) }} />
+    <div className='mark-editor-table-td'>
+      <label className="container ps-0 pe-1">
+        <input type="radio" checked={_markings[index].markings === i + 1} onClick={(e) => { updateMarks(index, i, _markings[index].firstName, _markings[index].lastName, _markings[index].upn) }} />
         <span className={className}><img src={image} alt="" /></span>
       </label>
     </div>

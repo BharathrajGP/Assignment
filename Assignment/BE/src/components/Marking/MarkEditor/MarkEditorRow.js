@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import CustomRadio from '../../Shared/CustomRadio'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
-import * as constants from '../../../helper/constants'
-import EditComment from './EditComment'
+import CustomRadio from '../../Shared/CustomRadio'
 import CommonModal from '../../Shared/CommonModal'
+import { EditComment } from './'
 
 import "../../../assets/stlyes/marking.css";
 
@@ -12,7 +12,6 @@ import Comments from '../../../assets/images/Comments.svg'
 const MarkEditorRow = ({ firstName, lastName, description, index, upn, _markings, CheckBox, updateMarks }) => {
     const [show, setShow] = useState(false);
     const [yes, setYes] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -25,22 +24,30 @@ const MarkEditorRow = ({ firstName, lastName, description, index, upn, _markings
         setYes(true);
         handleShow();
     }
+
     return (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-            <label>{`${firstName} ${lastName} `}</label>
-            <div className='comment-style' onClick={() => handleCommentClick()}>
-                <img src={Comments} />
-            </div>
+        <tr className='tr-border-bottom'>
+            <td style={{width: '150px', paddingLeft: '10px'}}>{`${firstName} ${lastName} `}</td>
+            <td style={{width: '150px'}}>
+                {description[0]?.comment !== undefined ?
+                    <img data-tooltip-id='commentTip' className='tooltips-icon' src={Comments} alt='InformationToolTip' onClick={() => handleCommentClick()} /> :
+                    <img data-tooltip-id='commentTip' className='tooltips-icon' src={Comments} alt='InformationToolTip' />
+                }
+
+                <ReactTooltip id="commentTip" place="top" effect="solid" className='tooltip-style'>
+                    {description[0]?.comment}
+                </ReactTooltip>
+            </td>
             {CheckBox.map((ele, i) => {
                 return (
-                    <div>
-                        <CustomRadio _markings={_markings} index={index} i={i} updateMarks={updateMarks} className={e.className} image={e.image} />
-                    </div>
+                    <td style={{width: '50px'}}>
+                        <CustomRadio _markings={_markings} index={index} i={i} updateMarks={updateMarks} className={ele.className} image={ele.image} />
+                    </td>
                 )
             })}
             {show && <CommonModal show={show} close={closeModalHandler} bodyContent={<EditComment comment={description[0].comment} />} />}
-        </div>
+        </tr>
     )
 }
 
-export default MarkEditorRow
+export { MarkEditorRow }

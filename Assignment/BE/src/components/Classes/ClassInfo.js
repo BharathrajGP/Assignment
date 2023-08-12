@@ -1,19 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "../../assets/stlyes/Classes.css";
 
-import UploadIcon from "../../assets/images/upload.png";
 import LightIcon from "../../assets/images/LightIcon.png";
+import UploadIcon from "../../assets/images/upload.png";
 
-import { Common } from '../../helper/constants'
+import LoadingSpinner from "../Shared/Loader/LoadingSpinner";
 
-export function ClassInfo({ className, classYear }) {
+import { Common,  } from '../../helper/constants'
+import { isEmptyObject } from "../../util/utils";
+
+function ClassInfo({ className, classYear, classteacher }) {
+  const [teacher, setTeacher] = useState([ {firstName : "" , lastName : ""}]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const Teacher = async () => {
+    setIsLoading(true);
+    if (!isEmptyObject(classteacher)) {
+      setTeacher(classteacher.Items);
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    Teacher();
+  }, [])
+  
   return (
     <div className="info-column">
+      {isLoading && <LoadingSpinner />}
       <div className="info-left-column col-xs-12 col-sm-6 col-md-8">
         <p className="current-page-text">
-          My Classes / {className} /
-          <span className="current-page"> Overview</span>
+          {Common.MyClasses} {Common.Divider} {className} {Common.Divider}
+          <span className="current-page"> {Common.Overview}</span>
         </p>
         <div>
           <span className="page-heading">{className}</span>
@@ -25,10 +43,14 @@ export function ClassInfo({ className, classYear }) {
         </div>
         <div className="row-flex">
           <div className="year-bits">{Common.Year} {classYear} </div>
-          <span className="page-info">
-            {Common.Staffwithmarkingpermissions} Charity Wilson, Frazer Fox,
-            Dean Tomlin
-          </span>
+          <div className="page-info">
+            {Common.Staffwithmarkingpermissions} 
+            {teacher.map((teacher , i) =>{
+              return(
+                <span>{teacher.firstName} {teacher.lastName} ,</span>
+              )
+            })}
+          </div>
         </div>
       </div>
       <div className="info-right-column col-xs-12 col-sm-6 col-md-4">
@@ -45,3 +67,5 @@ export function ClassInfo({ className, classYear }) {
     </div>
   )
 }
+
+export { ClassInfo }

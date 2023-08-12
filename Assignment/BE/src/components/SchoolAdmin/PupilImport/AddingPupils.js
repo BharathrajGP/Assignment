@@ -18,4 +18,4 @@ const AddingPupils = () => {
     );
 }
 
-export default AddingPupils;
+export { AddingPupils };

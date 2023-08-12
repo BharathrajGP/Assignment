@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Col, Card, Pagination, Row } from "react-bootstrap";
+import { Button, Col, Card, Modal, Pagination, Row } from "react-bootstrap";
 import BTable from "react-bootstrap/Table";
 import { useGlobalFilter, usePagination, useSortBy, useTable, } from "react-table";
 
 import * as constants from "../../../helper/constants";
 import { GlobalFilter } from "../../../helper/GlobalFilter";
-import Action from "./PupilActionDropDown";
-import pupilCloumns from "./Columns";
+import { Action, pupilCloumns } from "./";
+import { styles } from '../';
 import LoadingSpinner from "../../Shared/Loader/LoadingSpinner";
 import { isEmptyArray, isEmptyObject } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
 
 import "../../../assets/stlyes/SchoolAdminTableStyle.css";
+import { InviteUser } from "../Teachers";
 
 const Table = ({ columns, data }) => {
     const {
@@ -89,7 +90,7 @@ const Table = ({ columns, data }) => {
 
             <div
                 className="d-flex justify-content-end"
-                style={{ gap: "10px", marginTop: "20px", marginBottom: "0px" }}
+                style={styles.paginate}
             >
                 <span className="d-flex align-items-baseline">
                     {constants.Common.RowsPerPage}
@@ -162,7 +163,7 @@ const PupilTable = () => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .childLookedAfter && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.cla}
                                 </span>
@@ -170,7 +171,7 @@ const PupilTable = () => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .eal && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.eal}
                                 </span>
@@ -178,7 +179,7 @@ const PupilTable = () => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .freeSchoolMeals && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.FSM}
                                 </span>
@@ -186,7 +187,7 @@ const PupilTable = () => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .freeSchoolMealsE6 && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.FSM6}
                                 </span>
@@ -194,13 +195,16 @@ const PupilTable = () => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .serviceChild && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.SC}
                                 </span>
                             )}
                     </div>
                 );
+                responseData[i][constants.Accessors.senStatus] = (
+                    <>{responseData[i][constants.Accessors.senStatus] ? <span>True</span> : <span>False</span>}</>
+                )
 
                 responseData[i][constants.Accessors.ksResults] = (
                     <div>
@@ -232,7 +236,6 @@ const PupilTable = () => {
             setPuiplData(finalData);
         } else {
             setPuiplData();
-            console.log('Empty')
         }
         setIsLoading(false);
     };
@@ -273,4 +276,4 @@ const PupilTable = () => {
     );
 };
 
-export default PupilTable;
+export { PupilTable };

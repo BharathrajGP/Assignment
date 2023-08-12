@@ -8,16 +8,14 @@ import withReactContent from "sweetalert2-react-content";
 
 import { GlobalFilter } from "../../../helper/GlobalFilter";
 import * as constants from "../../../helper/constants";
-import Action from "./TeacherActionDropDown";
-import columnzz from "./Columns";
+import * as messages from "../../../helper/messages";
+import { Action, InviteUser, EnableUserAction, teacherColumn } from "./";
 import LoadingSpinner from "../../Shared/Loader/LoadingSpinner";
 import { isEmptyArray, isEmptyObject } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
-import rows from "./Rows";
-import InviteUser from "./InviteUser";
+import { styles } from '../'
 
 import "../../../assets/stlyes/SchoolAdminTableStyle.css";
-import EnableUserAction from "./EnableUserAction";
 
 
 const Table = ({ columns, data, getData }) => {
@@ -72,7 +70,7 @@ const Table = ({ columns, data, getData }) => {
                         getData={getData}
                     >
                         {/* <PersonAddIcon /> */}
-                        Invite User
+                        {constants.Common.InviteUser}
                     </Button>
                 </Col>
             </Row>
@@ -111,7 +109,7 @@ const Table = ({ columns, data, getData }) => {
 
             <div
                 className="d-flex justify-content-end"
-                style={{ gap: "10px", marginTop: "20px", marginBottom: "0px" }}
+                style={styles.paginate}
             >
                 <span className="d-flex align-items-baseline">
                     {constants.Common.RowsPerPage}
@@ -169,7 +167,7 @@ const Table = ({ columns, data, getData }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">Add Class</Modal.Title>
+                    <Modal.Title>{constants.Common.InviteUser}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <InviteUser
@@ -185,32 +183,45 @@ const Table = ({ columns, data, getData }) => {
 const TeacherTable = () => {
     const [activeUserDetails, setActiveUserDetails] = useState();
     const [teacherDetails, setTeacherDetails] = useState();
-    const columns = React.useMemo(() => columnzz, []);
+    const columns = React.useMemo(() => teacherColumn, []);
     const [isLoading, setIsLoading] = useState(false);
     const [isEnable, setIsEnable] = useState(false);
     const MySwal = withReactContent(Swal);
-    // const [isType, setIsType] = useState();
-    // const [isTypeId, setIsTypeId] = useState();
 
     const removeType = async (role, id) => {
         const removeType = await commonApi.removeType({
             id: id,
             type: role,
         });
-        console.log({ removeType });
         getData();
     }
 
-    const Swalll = ({ role, id }) => {
+    const Swalll = (role, id) => {
         MySwal.fire({
-            title: 'Remove Role',
-            text: 'User is Already Disabled Do you want to delete the Role',
+            title: constants.Common.RemoveRole,
+            text: messages.VALIDATION.USER_IS_ALREADY_DISABLED_DO_YOU_WANT_TO_DELETE_THE_ROLE,
             type: "success",
             showCancelButton: true,
-            confirmButtonText: 'remove role',
+            confirmButtonText: constants.Common.RemoveRole,
         }).then((result) => {
             if (result.value) {
                 removeType(role, id);
+            } else {
+                MySwal.fire(constants.Common.NotDeleted);
+            }
+        });
+    }
+
+    const ClassSwalll = (id, classId, subjectId) => {
+        MySwal.fire({
+            title: constants.Common.RemoveClass,
+            text: messages.VALIDATION.USER_IS_ALREADY_DISABLED_DO_YOU_WANT_TO_DELETE_THE_CLASS,
+            type: "success",
+            showCancelButton: true,
+            confirmButtonText: constants.Common.RemoveClass,
+        }).then((result) => {
+            if (result.value) {
+                removeClass(id, classId, subjectId);
             } else {
                 MySwal.fire(constants.Common.NotDeleted);
             }
@@ -221,6 +232,13 @@ const TeacherTable = () => {
         console.log({ id });
         console.log({ classId });
         console.log({ subjectId });
+        const removeclass = await commonApi.removeClass({
+            id,
+            classId,
+            subjectId
+        });
+        console.log({ removeclass });
+        getData();
     }
     const getData = async () => {
         setIsLoading(true);
@@ -238,22 +256,19 @@ const TeacherTable = () => {
                         <Action userId={responseData[i].userId} getData={getData} foreName={responseData[i].firstName} surName={responseData[i].lastName} />
                     );
 
-                    responseData[i]['classes'] = (
+                    responseData[i][constants.Accessors.classes] = (
                         <div className="d-flex flex-column" style={{ gap: '5px' }}>
-                            {responseData[i]['classes'].map((item) => {
+                            {responseData[i][constants.Accessors.classes].map((item) => {
 
                                 return (
                                     <>
                                         {item.subjects.map((sub) => {
                                             return (
-                                                <div style={{ width: '250px' }} className="d-flex justify-content-between">
+                                                <div style={styles.classCellWidth} className="d-flex justify-content-between">
                                                     <small>{item.className}-{sub.subjectName}</small>
-                                                    <small><button style={{ color: 'red', background: 'none' }} onClick={() => {
-                                                        console.log(responseData[i].userId)
-                                                        console.log('class Id', item.id)
-                                                        console.log('Subject Id', sub.id)
+                                                    <small><button style={styles.removeButton} onClick={() => {
                                                         removeClass(responseData[i].userId, item.id, sub.id);
-                                                    }}>remove</button></small>
+                                                    }}>{constants.Common.remove}</button></small>
                                                 </div>)
                                         })}
                                     </>
@@ -262,18 +277,16 @@ const TeacherTable = () => {
                         </div>
                     );
 
-                    responseData[i]['type'] = (
+                    responseData[i][constants.Accessors.type] = (
                         <div className="d-flex flex-column" style={{ gap: '5px' }}>
-                            {responseData[i]["type"].map((role) => {
+                            {responseData[i][constants.Accessors.type].map((role) => {
                                 return (
-                                    <div style={{ width: '200px' }}>
+                                    <div style={styles.roleCellWidth}>
                                         <small className="d-flex justify-content-between">
                                             <label>{role}</label>
-                                            <button style={{ color: 'red', background: 'none' }} onClick={() => {
+                                            <button style={styles.removeButton} onClick={() => {
                                                 removeType(role, responseData[i].userId);
-                                                // setIsType({ role });
-                                                // setIsTypeId(responseData[i].userId);
-                                            }} > remove</button>
+                                            }} > {constants.Common.remove}</button>
                                         </small>
                                     </div>
                                 )
@@ -288,18 +301,17 @@ const TeacherTable = () => {
                     responseData[i][constants.Accessors.action] = (
                         <EnableUserAction userId={responseData[i].userId} getData={getData} foreName={responseData[i].firstName} surName={responseData[i].lastName} />
                     );
-                    console.log();
 
-                    responseData[i]['classes'] = (
+                    responseData[i][constants.Accessors.classes] = (
                         <div className="d-flex flex-column" style={{ gap: '5px' }}>
-                            {responseData[i]['classes'].map((item) => {
+                            {responseData[i][constants.Accessors.classes].map((item) => {
                                 return (
                                     <>
                                         {item.subjects.map((sub) => {
                                             return (
-                                                <div style={{ width: '250px' }} className="d-flex justify-content-between">
+                                                <div style={styles.classCellWidth} className="d-flex justify-content-between">
                                                     <small>{item.className}-{sub.subjectName}</small>
-                                                    <small><button style={{ color: 'red', background: 'none' }}>remove</button></small>
+                                                    <small><button style={styles.removeButton} onClick={() => { ClassSwalll(responseData[i].userId, item.id, sub.id) }}>{constants.Common.remove}</button></small>
                                                 </div>)
                                         })}
                                     </>
@@ -308,17 +320,16 @@ const TeacherTable = () => {
                         </div>
                     );
 
-                    responseData[i]['type'] = (
+                    responseData[i][constants.Accessors.type] = (
                         <div className="d-flex flex-column" style={{ gap: '5px' }}>
-                            {responseData[i]["type"].map((role) => {
+                            {responseData[i][constants.Accessors.type].map((role) => {
                                 return (
-                                    <div style={{ width: '200px' }}>
+                                    <div style={styles.roleCellWidth}>
                                         <small className="d-flex justify-content-between">
                                             <label>{role}</label>
-                                            <button style={{ color: 'red', background: 'none' }} onClick={() => {
+                                            <button style={styles.removeButton} onClick={() => {
                                                 Swalll(role, responseData[i].userId);
-                                                // removeType(role, responseData[i].userId);
-                                            }}> remove</button>
+                                            }}> {constants.Common.remove}</button>
                                         </small>
                                     </div>
                                 )
@@ -343,8 +354,6 @@ const TeacherTable = () => {
     useEffect(() => {
         getData();
     }, []);
-    const [inviteUser, setInviteUser] = useState(false);
-
 
     return (
         <React.Fragment>
@@ -363,14 +372,8 @@ const TeacherTable = () => {
                                     // getData();
                                 }}
                                 checked={isEnable}
-                                // onBlur={handleBlur}
-                                value={
-                                    constants.Common
-                                        .EnglishAsAnAdditionalLanguage
-                                }
-                            // checked={isEal && isEal}
                             />
-                            Include users who have been disabled
+                            {messages.MESSAGES.Include_users_who_have_been_disabled}
                         </label>
 
                         {!isEmptyArray(teacherDetails && teacherDetails) ? (
@@ -390,30 +393,12 @@ const TeacherTable = () => {
                                         </Card.Body>
                                     </Card>
                                 </Col>
-                            </Row>) : (<>No Data Found</>)}
+                            </Row>) : (<>{constants.Common.NoUserFound}</>)}
                     </div>
                 </>
             )}
-            <Modal
-                show={inviteUser}
-                onHide={(e) => {
-                    setInviteUser(false);
-                }}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title className="pupil">Add Class</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <InviteUser
-                        setInviteUser={setInviteUser}
-                    />
-                </Modal.Body>
-                <Modal.Footer></Modal.Footer>
-            </Modal>
         </React.Fragment>
     );
 };
 
-export default TeacherTable;
+export { TeacherTable };

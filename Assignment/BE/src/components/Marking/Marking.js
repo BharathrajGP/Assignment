@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList } from "react-tabs";
-import Select from "react-select";
 import { Header } from 'rsuite';
 import { SessionStorage } from '../../util/SessionStorage';
 import * as constants from '../../helper/constants'
 import * as commonApi from '../../api/markingApi';
-import MarkingTable from './MarkingTable';
+import { MarkingTable } from './';
 import NavBar from '../Shared/NavBar';
-import { isEmptyArray, isEmptyObject, isNullOrEmpty } from '../../util/utils';
+import LoadingSpinner from '../Shared/Loader/LoadingSpinner';
+import { hasText, isEmptyArray, isEmptyObject, isNullOrEmpty } from '../../util/utils';
 
 import '../../assets/stlyes/marking.css'
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,34 +15,32 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HelpIcon from "../../assets/images/LightIcon.png";
 
 const Marking = () => {
-  const [selectedOption, setselectedOption] = useState(null);
   const [tabsData, setTabsData] = useState([]);
   const [headersData, setHeadersData] = useState([]);
   const [mainHeadersData, setMainHeadersData] = useState([]);
+  const [bodyData, setBodyData] = useState([]);
   const [_subjectClassId, setSubjectClassId] = useState('');
   const [_classId, setClassId] = useState('');
   const [className, setClassName] = useState('');
   const [subjectName, setSubjectName] = useState('');
   const [year, setYear] = useState('');
-  const [bodyData, setBodyData] = useState([]);
   const [tableBodyData, setTableBodyData] = useState([]);
-  const [categoryName, setCategoryName] = useState(tabsData[0]?.name);
+  const [categoryName, setCategoryName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log({ headersData });
-  const getSelectedValue = (e) => setselectedOption(e.value);
-
-  const getHeadersAndTabs = async (id) => {
+  const getHeadersAndTabs = async (id, cat) => {
+    setIsLoading(true);
     const data = { id: id }
     const response = await commonApi.fetchSubject(data);
     const result = response.Items.category;
-    !isEmptyArray(result) && setCategoryName(result[0]?.name);
     !isEmptyArray(result) && setTabsData(result);
     !isEmptyArray(result) && setMainHeadersData(result);
     !isEmptyArray(result) && setHeadersData(result);
     !isEmptyObject(response) && setYear(response.Items.year);
-    const _headers = response.Items.category.filter((ele) => ele.name === response.Items.category[0].name && { description: response.Items.category[0].name, isKPI: response.Items.category[0].description[0].name, identifier: response.Items.category[0].description[0].identifier });
-    const updatedData = _headers[0].description.map((ele) => { return { description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
-    updatedData.push({ description: constants.marking.PlaceValueAttainment, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
+
+    const _headers = response.Items.category.filter((ele) => ele.name === hasText(cat) ? cat : response.Items.category[0].name && { description: hasText(cat) ? cat : response.Items.category[0].name, isKPI: response.Items.category[0].description[0].name, identifier: response.Items.category[0].description[0].identifier });
+    const updatedData = _headers[SessionStorage.getItem(constants.SessionStorageKeys.categoryIndex) ? SessionStorage.getItem(constants.SessionStorageKeys.categoryIndex) : 0].description.map((ele) => { return { description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+    updatedData.push({ description: `${!isNullOrEmpty(SessionStorage.getItem(constants.SessionStorageKeys.categoryName)) ? SessionStorage.getItem(constants.SessionStorageKeys.categoryName) : response.Items.category[0].name} ${constants.marking.Attainment}`, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
     updatedData.unshift({ description: 'fullName', isKPI: false, identifier: constants.marking.dd });
     setHeadersData([...updatedData]);
 
@@ -51,96 +49,40 @@ const Marking = () => {
     const subjectName = SessionStorage.getItem(constants.SessionStorageKeys.subjectName);
     const classId = SessionStorage.getItem(constants.marking.classId);
 
-    (!isNullOrEmpty(subjectClassId) || !isNullOrEmpty(className) || !isNullOrEmpty(subjectName) || !isNullOrEmpty(classId)) && _fetchCategoryMark(subjectClassId, className, subjectName, classId, result[0]?.name, response.Items.year)
+    (!isNullOrEmpty(subjectClassId) || !isNullOrEmpty(className) || !isNullOrEmpty(subjectName) || !isNullOrEmpty(classId)) && _fetchCategoryMark(subjectClassId, className, subjectName, classId, hasText(cat) ? cat : response.Items.category[0].name, response.Items.year)
+    setIsLoading(false);
   }
 
   const _fetchCategoryMark = async (subjectClassId, className, subjectName, classId, categoryName, _year) => {
-    const _data = { id: classId, subject: subjectName, category: categoryName, year: _year }
+    const _data = { id: classId, subject: subjectName, category: categoryName, year: Number(_year) }
     const response = await commonApi.fetchCategoryMark(_data);
-    const Items = [
-      {
-        category: [
-          {
-            name: "Reading for Pleasure",
-            actual: 76,
-            predicted: 96,
-            description: [
-              {
-                name: "Listening",
-                generalIdentifier: "RP1",
-                comment: "",
-                markings: 4
-              },
-              {
-                name: "Comparing",
-                generalIdentifier: "RP2",
-                comment: "",
-                markings: 3
-              },
-              {
-                name: "Joining In",
-                generalIdentifier: "RP3",
-                comment: "",
-                markings: 4
-              }
-            ],
-          }
-        ],
-        upn: "TESTUX11111118",
-        firstName: "Maiden",
-        lastName: "Mark",
-        senStatus: "EHCP",
-        otherNeeds: {
-          freeSchoolMealsE6: true,
-          eal: false,
-          serviceChild: false,
-          childLookedAfter: true,
-          freeSchoolMeals: false
-        }
-      }
-    ]
 
-    const _tableBodyData = Items.map((ele) => {
-      const firstObj = { fullName: `${ele.firstName} ${ele.lastName}`, eal: ele.otherNeeds.eal, serviceChild: ele.otherNeeds.serviceChild }
-      const firstLoop = ele.category.map((ele) => {
-        const firstLoopObj = { ...firstObj, tabName: ele.name, actual: ele.actual, predicted: ele.predicted }
-        const descriptionLoop = ele.description.map((ele) => {
-          return { ...firstLoopObj, headerName: ele.name, generalIdentifier: ele.generalIdentifier, markings: ele.markings }
-        })
-        return descriptionLoop;
-      })
-      return firstLoop;
-    })
-    const data = _tableBodyData[0][0];
-    setBodyData(data);
+    const result = response.Items;
+
+    !isEmptyArray(result) && setBodyData(result.filter((ele) => !isNullOrEmpty(ele) && ele.category[0]?.name === categoryName && ele));
+    !isEmptyArray(result) && setTableBodyData(result.filter((ele) => !isNullOrEmpty(ele) && ele.category[0]?.name === categoryName && ele));
   }
 
-  const handleTabSelect = (category) => {
+  const handleTabSelect = (category, i) => {
+    SessionStorage.setItem(constants.SessionStorageKeys.categoryName, category);
+    SessionStorage.setItem(constants.SessionStorageKeys.categoryIndex, i);
     setCategoryName(category);
-    const uniqueHeader = mainHeadersData.filter((ele) => ele.name === category && ele.description);
-    const headers = uniqueHeader[0].description.map((ele) => { return { category: ele.name, description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+  };
 
-    headers.push({ description: constants.marking.PlaceValueAttainment, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
-    headers.unshift({ description: 'fullName', isKPI: false, identifier: constants.marking.dd });
+  useEffect(() => {
+    const uniqueHeader = mainHeadersData?.filter((ele) => ele.name === SessionStorage.getItem(constants.SessionStorageKeys.categoryName) && ele.description);
+    const headers = uniqueHeader[0]?.description.map((ele) => { return { category: ele.name, description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+
+    headers?.push({ description: `${SessionStorage.getItem(constants.SessionStorageKeys.categoryName)} ${constants.marking.Attainment}`, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
+    headers?.unshift({ description: 'fullName', isKPI: false, identifier: constants.marking.dd });
     setHeadersData(headers);
-  }
+
+    const filterData = (!isNullOrEmpty(_subjectClassId) || !isNullOrEmpty(className) || !isNullOrEmpty(subjectName) || !isNullOrEmpty(_classId)) && _fetchCategoryMark(_subjectClassId, className, subjectName, _classId, SessionStorage.getItem(constants.SessionStorageKeys.categoryName), year)
+    setTableBodyData(filterData);
+  }, [SessionStorage.getItem(constants.SessionStorageKeys.categoryName)]);
 
   useEffect(() => {
-    const data = headersData.map((ele) => {
-      const _data = bodyData.filter((_ele) => {
-        return _ele.headerName === ele.description && ele
-      })
-      const upDateData = _data.map((ele) => ele);
-      return upDateData[0]
-    })
-    const actualData = data.filter((ele) => {
-      return !isEmptyObject(ele) && ele
-    });
-    console.log({actualData});
-    setTableBodyData(actualData)
-  }, [bodyData])
-
-  useEffect(() => {
+    setCategoryName(SessionStorage.getItem(constants.SessionStorageKeys.categoryName));
     const subjectClassId = SessionStorage.getItem(constants.marking.subjectClassId);
     const className = SessionStorage.getItem(constants.SessionStorageKeys.className);
     const subjectName = SessionStorage.getItem(constants.SessionStorageKeys.subjectName);
@@ -149,8 +91,12 @@ const Marking = () => {
     setSubjectName(subjectName);
     setSubjectClassId(subjectClassId);
     setClassName(className);
-    getHeadersAndTabs(subjectClassId);
+    getHeadersAndTabs(subjectClassId, SessionStorage.getItem(constants.SessionStorageKeys.categoryName));
   }, [])
+
+  useEffect(()=>{
+    (isNullOrEmpty(SessionStorage.getItem(constants.SessionStorageKeys.categoryIndex)) && !isEmptyArray(tabsData)) && setCategoryName(tabsData[0]?.name);
+  }, [tabsData])
 
   return (
     <div className="Page-layout">
@@ -168,22 +114,37 @@ const Marking = () => {
           </div>
           <div className="marking-content">
             <div className="year-dropdown-div">
-              <Select
-                className="select-obj-dropdown"
-                options={constants.marking.ObjectivesList}
-                onChange={(e) => {
-                  getSelectedValue(e);
-                }}
-              />
-
+              {SessionStorage.getItem(constants.SessionStorageKeys.categoryName) ?
+                <Tabs className='marking-tab'>
+                <TabList className="marking-tablist">
+                  {tabsData.map((ele, i) => {
+                    return <Tab
+                      className={ele.name === SessionStorage.getItem(constants.SessionStorageKeys.categoryName) ?
+                        'react-tabs__tab--selected' :
+                        'marking-tabs'} key={i} onClick={() => handleTabSelect(ele.name, i)}
+                      style={(ele.name === SessionStorage.getItem(constants.SessionStorageKeys.categoryName) && SessionStorage.getItem(constants.SessionStorageKeys.categoryName)) ? { backgroundColor: '#ffffff', color: '#084059' } : { backgroundColor: '#084059', color: '#ffffff' }}
+                    >{ele.name}</Tab>
+                  })}
+                </TabList>
+                {(isEmptyArray(bodyData) && isLoading) ? <LoadingSpinner /> :
+                  <MarkingTable tabsData={tabsData} headersData={headersData} tableBodyData={tableBodyData} categoryName={categoryName} _subjectClassId={_subjectClassId} _classId={_classId} subjectName={subjectName} year={year} />
+                }
+              </Tabs> :
               <Tabs className='marking-tab'>
                 <TabList className="marking-tablist">
                   {tabsData.map((ele, i) => {
-                    return <Tab className="marking-tabs" key={i} onClick={() => handleTabSelect(ele.name)}>{ele.name}</Tab>
+                    return <Tab
+                      className={ele.name === SessionStorage.getItem(constants.SessionStorageKeys.categoryName) ?
+                        'react-tabs__tab--selected' :
+                        'marking-tabs'} key={i} onClick={() => handleTabSelect(ele.name, i)}
+                    >{ele.name}</Tab>
                   })}
                 </TabList>
-                <MarkingTable tabsData={tabsData} headersData={headersData} tableBodyData={tableBodyData} categoryName={categoryName} _subjectClassId={_subjectClassId} _classId={_classId} subjectName={subjectName} year={year} />
+                {(!isEmptyArray(tableBodyData) && isLoading) ? <LoadingSpinner /> :
+                  <MarkingTable tabsData={tabsData} headersData={headersData} tableBodyData={tableBodyData} categoryName={categoryName} _subjectClassId={_subjectClassId} _classId={_classId} subjectName={subjectName} year={year} />
+                }
               </Tabs>
+              }
             </div>
           </div>
         </div>
@@ -192,4 +153,4 @@ const Marking = () => {
   );
 }
 
-export default Marking;
+export { Marking };

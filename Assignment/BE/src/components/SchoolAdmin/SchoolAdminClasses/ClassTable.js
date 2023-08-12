@@ -6,14 +6,11 @@ import { Link } from "react-router-dom";
 
 import { GlobalFilter } from "../../../helper/GlobalFilter";
 import * as constants from "../../../helper/constants";
-import Action from "./ClassesActionDropDown";
-import classcolumn from "./Columns";
 import LoadingSpinner from "../../Shared/Loader/LoadingSpinner";
 import { isEmptyArray, isEmptyObject } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
-import ViewStudentTable from './ViewStudents/ViewStudentTable';
-import CreateClass from "./CreateClass";
-import TeachingAction from "./TeachingGroupDropDown";
+import { CreateClass, TeachingAction, PuiplTable, Action, classcolumn } from "./";
+import { styles } from '../';
 
 import "../../../assets/stlyes/SchoolAdminTableStyle.css";
 
@@ -109,7 +106,7 @@ const Table = ({ columns, data, getData }) => {
 
             <div
                 className="d-flex justify-content-end"
-                style={{ gap: "10px", marginTop: "20px", marginBottom: "0px" }}
+                style={styles.paginate}
             >
                 <span className="d-flex align-items-baseline">
                     {constants.Common.RowsPerPage}
@@ -148,7 +145,7 @@ const Table = ({ columns, data, getData }) => {
 
             <Modal show={createClass} onHide={(e) => { setcreateClass(false); }} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.AddClass}</Modal.Title>
+                    <Modal.Title >{constants.Common.AddClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <CreateClass setcreateClass={setcreateClass} getData={getData} />
@@ -187,7 +184,7 @@ const ClassTable = () => {
                 );
 
                 responseData[i][constants.Accessors.isRegistrationGroup] = (
-                    <div className="d-flex" style={{ gap: "10px" }}>
+                    <div className="d-flex">
                         {responseData[i][constants.Accessors.isRegistrationGroup]
                             && (<span>Yes</span>
                             )}
@@ -245,7 +242,7 @@ const ClassTable = () => {
                                     </div>
                                 ) : (
                                     <div>
-                                        <ViewStudentTable pupilClassID={pupilClassID} />
+                                        <PuiplTable pupilClassID={pupilClassID} />
                                     </div>
                                 )
                             }
@@ -261,4 +258,4 @@ const ClassTable = () => {
     );
 };
 
-export default ClassTable;
+export { ClassTable };

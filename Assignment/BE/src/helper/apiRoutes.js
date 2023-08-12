@@ -22,6 +22,10 @@ export const apiRoutes = {
     fetchCategoryMark: '/v1/fetchCategoryMark',
     fetchDescriptionMark: '/v1/fetchDescriptionMark',
     fetchDescription: '/v1/fetchDescription',
+    pupilCategoryUpdate: '/v1/pupilCategoryUpdate',
+    pupilCategoryAttainment: '/v1/pupilCategoryAttainment',
+    getTeachersInClass: '/v1/fetchUserByClassId',
+    fetchDescription: '/v1/fetchDescription',
 
     // SchoolAdmin
     adminPupil: "/v1/getPupil",
@@ -31,7 +35,7 @@ export const apiRoutes = {
     getPupil: "/v1/getPupilById",
     updatePupil: "/v1/editPupil",
     deletePupil: "/v1/deletePupil",
-    addClass: '/v1/saveClasses',
+    addClass: '/v1/saveClass',
     getClassById: '/v1/getClass',
     renameClass: '/v1/updateClass',
     movePupil: '/v1/updatePupilClassId',
@@ -42,5 +46,6 @@ export const apiRoutes = {
     inviteUser: '/v1/inviteUser',
     getSubjectByClassId: '/v1/getSubjectByClassId',
     assignClass: '/v1/updateClassesbyUserId',
+    removeClass: '/v1/removeClassesbyUserId',
 }
 

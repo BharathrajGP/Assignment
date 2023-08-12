@@ -4,12 +4,12 @@ import BTable from "react-bootstrap/Table";
 import { useGlobalFilter, usePagination, useSortBy, useTable, } from "react-table";
 
 import * as constants from '../../../../helper/constants';
-import Action from "./ViewStudentDropDown";
-import studentColumns from "./Columns";
+import { PupilAction, studentColumns } from "./";
 import LoadingSpinner from "../../../Shared/Loader/LoadingSpinner";
 import { isEmptyArray, isEmptyObject } from "../../../../util/utils";
 import * as commonApi from "../../../../api/commonApi";
 import { GlobalFilter } from "../../../../helper/GlobalFilter";
+import { styles } from '../../'
 
 import "../../../../assets/stlyes/SchoolAdminTableStyle.css";
 
@@ -90,7 +90,7 @@ const Table = ({ columns, data }) => {
 
             <div
                 className="d-flex justify-content-end"
-                style={{ gap: "10px", marginTop: "20px", marginBottom: "0px" }}
+                style={styles.paginate}
             >
                 <span className="d-flex align-items-baseline">
                     {constants.Common.RowsPerPage}
@@ -145,7 +145,7 @@ const PuiplTable = ({ pupilClassID }) => {
             var finalData = [];
             for (let i = 0; i < responseData.length; i++) {
                 responseData[i][constants.Accessors.action] = (
-                    <Action pupilId={responseData[i].id} pupilClassID={pupilClassID} getData={getData} />
+                    <PupilAction pupilId={responseData[i].id} pupilClassID={pupilClassID} getData={getData} />
                 );
 
                 responseData[i][constants.Accessors.otherNeeds] = (
@@ -153,7 +153,7 @@ const PuiplTable = ({ pupilClassID }) => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .childLookedAfter && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.cla}
                                 </span>
@@ -161,7 +161,7 @@ const PuiplTable = ({ pupilClassID }) => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .eal && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.eal}
                                 </span>
@@ -169,7 +169,7 @@ const PuiplTable = ({ pupilClassID }) => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .freeSchoolMeals && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.FSM}
                                 </span>
@@ -177,7 +177,7 @@ const PuiplTable = ({ pupilClassID }) => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .freeSchoolMealsE6 && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.FSM6}
                                 </span>
@@ -185,7 +185,7 @@ const PuiplTable = ({ pupilClassID }) => {
                         {responseData[i][constants.Accessors.otherNeeds]
                             .serviceChild && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
                                     {constants.Common.SC}
                                 </span>
@@ -223,13 +223,11 @@ const PuiplTable = ({ pupilClassID }) => {
             setPuiplData(finalData);
         } else {
             setPuiplData();
-            console.log('Empty')
         }
         setIsLoading(false);
     };
 
     useEffect(() => {
-        console.log("pupilClassID", pupilClassID);
         getData();
     }, []);
 
@@ -264,4 +262,4 @@ const PuiplTable = ({ pupilClassID }) => {
     );
 };
 
-export default PuiplTable;
+export { PuiplTable };

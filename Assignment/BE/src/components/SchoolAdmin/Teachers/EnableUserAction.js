@@ -8,20 +8,16 @@ import * as constants from "../../../helper/constants";
 import * as commonApi from '../../../api/commonApi';
 
 const EnableUserAction = ({ userId, foreName, surName, getData }) => {
-    const [assignClass, setAssignClass] = useState(false);
-    const [assignRole, setAssignRole] = useState(false);
-    const [isUserId, setIsUserId] = useState("");
     const MySwal = withReactContent(Swal);
 
 
     const EnableTeacher = () => {
         MySwal.fire({
-            title: constants.Common.Success,
+            title: constants.Common.EnableUser,
             text: constants.EnableTeacherById({ foreName, surName }),
-            // text: 'Delete Maadla',
             type: "success",
             showCancelButton: true,
-            confirmButtonText: 'Enable user',
+            confirmButtonText: constants.Common.EnableUser,
         }).then((result) => {
             if (result.value) {
                 confirmEnableTeacher();
@@ -34,7 +30,6 @@ const EnableUserAction = ({ userId, foreName, surName, getData }) => {
 
     const confirmEnableTeacher = async () => {
         const enableTeacher = await commonApi.updateUserActiveStatus({
-            // id: '39e3cdb2-febc-4e11-9b9d-ed806049b929',
             id: userId,
             active: true
         });
@@ -55,11 +50,11 @@ const EnableUserAction = ({ userId, foreName, surName, getData }) => {
                 title={"Action"}
             >
                 <Button onClick={EnableTeacher} className="modal-button-danger">
-                    Enable User
+                    {constants.Common.EnableUser}
                 </Button>
             </DropdownButton>
         </>
     )
 }
 
-export default EnableUserAction
+export { EnableUserAction };

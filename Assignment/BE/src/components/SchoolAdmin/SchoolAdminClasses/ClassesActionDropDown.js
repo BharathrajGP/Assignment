@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import * as constants from "../../../helper/constants";
-import RenameClass from "./RenameClass";
+import { RenameClass } from "./";
 
 import "../../../assets/stlyes/Modals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -33,7 +33,7 @@ const Action = ({ classId, setSwitchTab, SetPupilClassId, getData, classData }) 
 
             <Modal show={editClass} onHide={(e) => { setEditClass(false); }} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.RenameClass}</Modal.Title>
+                    <Modal.Title>{constants.Common.RenameClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <RenameClass isClassId={isClassId} setEditClass={setEditClass} getData={getData} classData={classData} />
@@ -44,4 +44,4 @@ const Action = ({ classId, setSwitchTab, SetPupilClassId, getData, classData }) 
     );
 }
 
-export default Action;
+export { Action };

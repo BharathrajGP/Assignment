@@ -6,8 +6,9 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 import * as constants from "../../../helper/constants";
-import RenameClassForm from "./RenameClass";
+import { RenameClass } from "./";
 import * as commonApi from "../../../api/commonApi";
+import { styles } from '../'
 
 import "../../../assets/stlyes/Modals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,7 +25,7 @@ function TeachingAction({ classId, setSwitchTab, SetPupilClassId, getData, class
         console.log({ isClassId });
         MySwal.fire({
             title: constants.Common.Delete,
-            text: 'Delete Class',
+            text: constants.Common.deleteClass,
             type: "success",
             showCancelButton: true,
             confirmButtonText: constants.Common.deleteClass,
@@ -46,10 +47,9 @@ function TeachingAction({ classId, setSwitchTab, SetPupilClassId, getData, class
         if (deleteClass.Items.active === false) {
             MySwal.fire({
                 icon: "success",
-                text: 'Class data deleted Successfully',
+                text: constants.Common.ClassDataDeletedSuccessfully,
             }).then(() => getData());
         }
-        // getData();
     }
 
     return (
@@ -97,10 +97,10 @@ function TeachingAction({ classId, setSwitchTab, SetPupilClassId, getData, class
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.RenameClass}</Modal.Title>
+                    <Modal.Title>{constants.Common.RenameClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <RenameClassForm
+                    <RenameClass
                         isClassId={isClassId}
                         setEditClass={setEditClass}
                         getData={getData}
@@ -113,4 +113,4 @@ function TeachingAction({ classId, setSwitchTab, SetPupilClassId, getData, class
     );
 }
 
-export default TeachingAction;
+export { TeachingAction };

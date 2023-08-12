@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router';
 import BTable from 'react-bootstrap/Table';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
 
-import { isNullOrEmpty } from '../../util/utils';
+import LoadingSpinner from '../Shared/Loader/LoadingSpinner';
+import { isEmptyArray, isNullOrEmpty } from '../../util/utils';
 import * as Routes from '../../helper/routes'
 import * as constants from '../../helper/constants';
 
@@ -59,9 +60,29 @@ const styles = {
         paddingBottom: '5px',
         color: '#FFFFFF'
     },
+    flexCenter: { display: 'flex', justifyContent: 'center', alignItems: 'center' },
+    actualPredicted: {
+        backgroundColor: '#E0E0E0',
+        color: '#011C25',
+        width: '80px',
+        height: '30px',
+        borderRadius: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    actualPredictedFont: {
+        color: '#011C25'
+    },
     1: {
-        backgroundColor: '#26C8B9',
-        width: '100px',
+        backgroundColor: '#E0E0E0',
+        width: '80px',
+        height: '30px',
         borderRadius: '100px',
         display: 'flex',
         alignItems: 'center',
@@ -74,7 +95,8 @@ const styles = {
     },
     2: {
         backgroundColor: '#F34970',
-        width: '100px',
+        width: '80px',
+        height: '30px',
         borderRadius: '100px',
         display: 'flex',
         alignItems: 'center',
@@ -87,7 +109,8 @@ const styles = {
     },
     3: {
         backgroundColor: '#F4C900',
-        width: '100px',
+        width: '80px',
+        height: '30px',
         borderRadius: '100px',
         display: 'flex',
         alignItems: 'center',
@@ -99,8 +122,9 @@ const styles = {
         alignItems: 'center'
     },
     4: {
-        backgroundColor: '#E0E0E0',
-        width: '100px',
+        backgroundColor: '#AABB5D',
+        width: '80px',
+        height: '30px',
         borderRadius: '100px',
         display: 'flex',
         alignItems: 'center',
@@ -112,8 +136,9 @@ const styles = {
         alignItems: 'center'
     },
     5: {
-        backgroundColor: '#AABB5D',
-        width: '100px',
+        backgroundColor: '#26C8B9',
+        width: '80px',
+        height: '30px',
         borderRadius: '100px',
         display: 'flex',
         alignItems: 'center',
@@ -123,7 +148,8 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+
 }
 
 function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }) {
@@ -145,9 +171,6 @@ function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter
 
 // Our table component
 function Table({ columns, data }) {
-
-    console.log("columns----------------------------", columns);
-    console.log("data-------------------------------", data);
 
     const filterTypes = React.useMemo(
         () => ({
@@ -196,7 +219,6 @@ function Table({ columns, data }) {
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
                                 <th {...column.getHeaderProps()} >
-                                    {console.log('sdsdsd', column.columns !== undefined && column.columns[0].isKPI)}
                                     <div className='marking-header-style'>
                                         {column.render('Header')}
                                         {((column.columns !== undefined && column.columns[0].isKPI === true)) && <div>{<img src={KeyIcon} />}</div>}
@@ -226,7 +248,6 @@ function Table({ columns, data }) {
     );
 }
 
-// Define a custom filter filter function!
 function filterGreaterThan(rows, id, filterValue) {
     return rows.filter((row) => {
         const rowValue = row.values[id];
@@ -234,21 +255,17 @@ function filterGreaterThan(rows, id, filterValue) {
     });
 }
 
-// This is an autoRemove method on the filter function that
-// when given the new filter value and returns true, the filter
-// will be automatically removed. Normally this is just an undefined
-// check, but here, we want to remove the filter if it's not a number
 filterGreaterThan.autoRemove = (val) => typeof val !== 'number';
 
 const MarkingTable = (props) => {
     const { headersData, tableBodyData, categoryName, subjectName, _subjectClassId, _classId, year } = props;
     const navigate = useNavigate();
-    const [studentData, setStudentData] = useState();
+    const [studentData, setStudentData] = useState([]);
 
-    const SliderColumnFilter = (categoryName, subjectName, _subjectClassId, _classId, year, _description) => {
+    const SliderColumnFilter = (categoryName, subjectName, _subjectClassId, _classId, year, _description, identifier) => {
         return (
             <div className="d-flex align-items-center">
-                <button style={styles.markButton} onClick={() => navigate(Routes.topicMarkEditor(categoryName, subjectName, _subjectClassId, _classId, year, _description))}>
+                <button style={styles.markButton} onClick={() => navigate(Routes.topicMarkEditor(categoryName, subjectName, _subjectClassId, _classId, year, _description, identifier))}>
                     <img src={EditSvg} alt="vol" style={{ marginRight: '2px', marginLeft: '5px' }} />
                     {constants.Common.MARK}
                 </button>
@@ -269,13 +286,12 @@ const MarkingTable = (props) => {
                     } :
                     {
                         Header: ele.description === ele.description ? `${ele.description}` : ele.description,
-                        columns: [{ Header: ' ', accessor: ele.description === ele.description ? `${ele.description}` : ele.description, isKPI: ele.isKPI, Filter: SliderColumnFilter(categoryName, subjectName, _subjectClassId, _classId, year, ele.description), filter: 'equals' }]
+                        columns: [{ Header: ' ', accessor: ele.description === ele.description ? `${ele.description}` : ele.description, isKPI: ele.isKPI, Filter: SliderColumnFilter(categoryName, subjectName, _subjectClassId, _classId, year, ele.description, ele.identifier), filter: 'equals' }]
                     }
             )
         }), [headersData])
 
     const getstudentData = () => {
-        // console.log({headersData})
         const arrayData = [];
         for (let i = 0; i < tableBodyData.length; i++) {
             tableBodyData[i]['fullName'] =
@@ -285,100 +301,35 @@ const MarkingTable = (props) => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
                         <img src={VolumeGrey} />&nbsp;&nbsp;
-                        <span className="S-chip" style={styles.sChip}>S</span>
-                        <span className="EAL-chip" style={styles.ealChip}>EAL</span>
+                        {tableBodyData[i].otherNeeds.serviceChild && <span className="S-chip" style={styles.sChip}>{constants.marking.serviceChild}</span>}
+                        {tableBodyData[i].otherNeeds.eal && <span className="EAL-chip" style={styles.ealChip}>{constants.marking.eal}</span>}
+                        {(tableBodyData[i].otherNeeds.childLookedAfter || tableBodyData[i].otherNeeds.eal || tableBodyData[i].otherNeeds.serviceChild || tableBodyData[i].otherNeeds.freeSchoolMeals || tableBodyData[i].otherNeeds.freeSchoolMealsE6) && <span className="S-chip" style={styles.ealChip}>{constants.marking.peoplePremium}</span>}
                     </div>
                 </span>
 
-            tableBodyData[i]['Actual'] = <small>{`${Math.round(tableBodyData[i].category[0].actual)}`}</small>
-            tableBodyData[i]['Predicted'] = <small>{`${Math.round(tableBodyData[i].category[0].predicted)}`}</small>
+            tableBodyData[i]['Actual'] = <small style={styles.actualPredicted}><p style={styles.actualPredictedFont}>{`${Math.round(tableBodyData[i].category[0].actual)}%`}</p></small>
+            tableBodyData[i]['Predicted'] = <small style={styles.actualPredicted}><p style={styles.actualPredictedFont}>{`${Math.round(tableBodyData[i].category[0].predicted)}%`}</p></small>
             for (let j = 0; j < tableBodyData[i].category[0].description.length; j++) {
                 var colorNo = tableBodyData[i].category[0].description[j].markings;
                 tableBodyData[i][tableBodyData[i].category[0].description[j].name] = <span style={styles[colorNo]}></span>
             }
-          ]
 
-// const data = [
-//     {
-//         "firstName": <div className="pupil" style={{ display: 'flex', alignItems: 'center' }}>
-//             <span>Leslie Alexander</span>
-//             <img src={VolumeGrey} alt="vol" style={{ marginRight: '10px' }} />
-//             <span className="S-chip" style={styles.sChip}>S </span>
-//             <span className="EAL-chip" style={styles.ealChip}>EAL </span>
-//         </div>,
-//         ele.headerName: < span style = { [styles.percentage, { backgroundColor: '' }]} ></span >,
-//         // "Listening": <span style={[styles.percentage, {backgroundColor: 'red'}]}></span>,
-//         // "powers": <span style={[styles.percentage, {backgroundColor: ''}]}></span>,
-//         // "negativeNumbers": <span style={[styles.percentage, {backgroundColor: ''}]}></span>,
-//         // "roundingNumbers": <span style={[styles.percentage, {backgroundColor: ''}]}></span>,
-//         // "solvingProblems": <span style={[styles.percentage, {backgroundColor: ''}]}></span>,
-//         // "romanNumerals": <span style={[styles.percentage, {backgroundColor: ''}]}></span>,
-//         // "actual": <span style={[styles.percentage, {backgroundColor: ''}]}></span>,
-//         // "predicted": <span style={[styles.percentage, {backgroundColor: ''}]}></span>
-//     }
-// ];
-
-// const data = tableBodyData.map((ele) => {
-
-//     const row = {
-//         fullName: ele.fullName,
-//         volumeIcon: <img src={VolumeGrey} alt="vol" style={{ marginRight: '10px' }} />,
-//         serviceChildChip: <span className="S-chip" style={styles.sChip}>{ele.serviceChild}</span>,
-//         ealChip: <span className="EAL-chip" style={styles.ealChip}>{ele.eal}</span>,
-//       };
-
-// return {
-//     " ": <div className="pupil" style={{ display: 'flex', alignItems: 'center' }}>
-//         <span>{ele.fullName}</span>
-//         <img src={VolumeGrey} alt="vol" style={{ marginRight: '10px' }} />
-//         <span className="S-chip" style={styles.sChip}>{ele.serviceChild} </span>
-//         <span className="EAL-chip" style={styles.ealChip}>{ele.eal} </span>
-//     </div>,
-//     ele.headerName: <span style={[styles.percentage, {backgroundColor: 'red'}]}></span>
-// }
-// })
-
-
-// for(let i=0; i<tableBodyData.length; i++){
-//     console.log('asdas', tableBodyData[i]);
-//     tableBodyData[i]["Listening"] =<h1>hi</h1> 
-// }
-const getstudentData = () => {
-    const arrayData = [];
-    for (let i = 0; i < Items.length; i++) {
-        console.log("Items[i].category", Items[i].category[0].actual);
-        Items[i]['fullName'] = <small>{`${Items[i].firstName} ${Items[i].lastName}`}</small>
-
-        Items[i]['Actual'] = <small>{`${Items[i].category[0].actual}`}</small>
-        Items[i]['Predicted'] = <small>{`${Items[i].category[0].predicted}`}</small>
-        for (let j = 0; j < Items[i].category[0].description.length; j++) {
-            var colorNo = Items[i].category[0].description[j].markings;
-            Items[i][Items[i].category[0].description[j].name] = <span style={styles[colorNo]}></span>
+            arrayData.push(tableBodyData[i]);
         }
         setStudentData(arrayData);
     }
 
     useEffect(() => {
-        getstudentData()
+        getstudentData();
     }, [tableBodyData])
 
-    arrayData.push(Items[i]);
+    return (
+        <Row>
+            <Col>
+                <Table columns={columns} data={studentData} />
+            </Col>
+        </Row>
+    );
 }
 
-console.log(arrayData);
-setStudentData(arrayData);
-}
-useEffect(() => {
-    getstudentData()
-}, [])
-return (
-    <Row>
-        <Col>
-            {console.log({ studentData })}
-            <Table columns={columns} data={studentData && studentData} />
-        </Col>
-    </Row>
-);
-}
-
-export default MarkingTable;
+export { MarkingTable };

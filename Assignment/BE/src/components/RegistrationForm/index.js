@@ -1,0 +1,1 @@
+export { B2BRegistrationFrom } from './B2BRegistrationFrom'

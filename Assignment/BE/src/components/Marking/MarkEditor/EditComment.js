@@ -43,4 +43,4 @@ const EditComment = (props) => {
     )
 }
 
-export default EditComment
+export { EditComment }

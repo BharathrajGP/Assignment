@@ -17,6 +17,7 @@ export const getPupilsInClass = async (data) => await apiClient.postAPICall(apiR
 export const getSubjectByClassId = async (data) => await apiClient.postAPICall(apiRoutes.getSubjectByClassId, data).then(res => res.data);
 export const inviteUser = async (data) => await apiClient.postAPICall(apiRoutes.inviteUser, data).then(res => res.data);
 export const movePupil = async (data) => await apiClient.postAPICall(apiRoutes.movePupil, data).then(res => res.data);
+export const removeClass = async (data) => await apiClient.postAPICall(apiRoutes.removeClass, data).then(res => res.data);
 export const removeType = async (data) => await apiClient.postAPICall(apiRoutes.removeType, data).then(res => res.data);
 export const renameClass = async (data) => await apiClient.postAPICall(apiRoutes.renameClass, data).then(res => res.data);
 export const userLogin = async (data) => await apiClient.postAPICall(apiRoutes.userLogin, data).then(res => res.data);

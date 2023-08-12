@@ -11,6 +11,7 @@ import * as constants from "../../../helper/constants";
 import { senStatusOptions } from "../../../helper/constants";
 import { isEmptyObject, isEmptyArray } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
+import { styles } from "../";
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -25,6 +26,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
     const [isFsm6, setIsFsm6] = useState();
     const [isEal, setIsEal] = useState();
     const [isSc, setIsSc] = useState();
+    const [isEHCP, setIsEHCP] = useState();
     const MySwal = withReactContent(Swal);
     const navigate = useNavigate();
     const style = {
@@ -61,6 +63,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
             setPupilDetails(individualData);
             setIsSenStatus(individualData.senStatus);
             setIsOtherNeeds(individualData.otherNeeds);
+            setIsEHCP(individualData.ehcp);
         } else {
         }
     };
@@ -113,6 +116,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                             freeSchoolMealsE6: isFsm6,
                             serviceChild: isSc,
                         },
+                        ehcp: isEHCP
                     };
                     updatePupil(pupilFormData);
                 }}
@@ -144,7 +148,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                             {errors.foreName &&
                                 touched.foreName &&
                                 errors.foreName && (
-                                    <small style={{ color: "red" }}>
+                                    <small style={styles.error_message}>
                                         {errors.foreName}
                                     </small>
                                 )}
@@ -162,13 +166,12 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                             {errors.surName &&
                                 touched.surName &&
                                 errors.surName && (
-                                    <small style={{ color: "red" }}>
+                                    <small style={styles.error_message}>
                                         {errors.surName}
                                     </small>
                                 )}
                         </Form.Group>
                         <Form.Group>
-                            {console.log("defaultOption", defaultOption)}
                             <Form.Label for="Sen_Status">
                                 {constants.Common.senStatus}
                             </Form.Label>
@@ -203,12 +206,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                         </Form.Group>
                         <Form.Group>
                             <Row>
-                                <Col
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
-                                >
+                                <Col className="d-flex flex-column">
                                     <label>
                                         <input
                                             type="checkbox"
@@ -220,7 +218,6 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                                             value={
                                                 constants.Common.ChildLookedAfter
                                             }
-                                            style={{ padding: "5px" }}
                                             checked={isCla && isCla}
                                         />
                                         {constants.Common.ChildLookedAfter}
@@ -252,12 +249,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                                         {constants.Common.ServiceChild}
                                     </label>
                                 </Col>
-                                <Col
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
-                                >
+                                <Col className="d-flex flex-column">
                                     <label>
                                         <input
                                             type="checkbox"
@@ -293,6 +285,19 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                                         />
                                         {constants.Common.FreeSchoolMealsEver6}
                                     </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            name={constants.Common.myCheck}
+                                            onChange={(e) => {
+                                                setIsEHCP(!isEHCP);
+                                            }}
+                                            onBlur={handleBlur}
+                                            value={constants.Common.EHCP}
+                                            checked={isEHCP && isEHCP}
+                                        />
+                                        {constants.Common.EHCP}
+                                    </label>
                                 </Col>
                             </Row>
 
@@ -324,4 +329,4 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
     );
 }
 
-export default EditPupil;
+export { EditPupil };

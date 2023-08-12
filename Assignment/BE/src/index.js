@@ -4,6 +4,7 @@ import { BrowserRouter as Router, } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import { ToastNotification } from './components/Shared/Notification/ToastNotification';
+import "react-tooltip/dist/react-tooltip.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 

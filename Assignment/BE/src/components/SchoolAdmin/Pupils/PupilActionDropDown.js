@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Button, Dropdown, DropdownButton, Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
@@ -6,7 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import * as constants from "../../../helper/constants";
 import { Common } from "../../../helper/constants";
-import EditPupil from "./EditPupil";
+import { EditPupil } from "./";
 import * as commonApi from "../../../api/commonApi";
 
 import "../../../assets/stlyes/Modals.css";
@@ -64,7 +64,7 @@ const Action = ({ pupilId, getData, foreName, surName }) => {
             </DropdownButton>
             <Modal show={IsEditPupil} onHide={(e) => { setEditPupil(false); }} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">
+                    <Modal.Title >
                         {Common.EditPupil}
                     </Modal.Title>
                 </Modal.Header>
@@ -77,4 +77,4 @@ const Action = ({ pupilId, getData, foreName, surName }) => {
     );
 }
 
-export default Action;
+export { Action };

@@ -6,8 +6,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import * as constants from "../../../helper/constants";
 import * as commonApi from '../../../api/commonApi';
-import AssignClass from "./AssignClass";
-import AssignRole from "./AssignRole";
+import { AssignClass, AssignRole } from "./";
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -20,12 +19,11 @@ const Action = ({ userId, foreName, surName, getData }) => {
 
     const DeleteTeacher = () => {
         MySwal.fire({
-            title: constants.Common.Success,
+            title: constants.Common.Delete,
             text: constants.DeleteTeacherById({ foreName, surName }),
-            // text: 'Delete Maadla',
             type: "success",
             showCancelButton: true,
-            confirmButtonText: 'Delete user',
+            confirmButtonText: constants.Common.DisableUser,
         }).then((result) => {
             if (result.value) {
                 // MySwal.fire({
@@ -68,7 +66,7 @@ const Action = ({ userId, foreName, surName, getData }) => {
                     }}
                     className="modal-button"
                 >
-                    Assign Class
+                    {constants.Common.AssignClass}
                 </Button>
                 <Button
                     onClick={(e) => {
@@ -77,12 +75,12 @@ const Action = ({ userId, foreName, surName, getData }) => {
                     }}
                     className="modal-button"
                 >
-                    Assign Role
+                    {constants.Common.AssignRole}
                 </Button>
 
                 <Dropdown.Divider />
                 <Button onClick={DeleteTeacher} className="modal-button-danger">
-                    Disable User
+                    {constants.Common.DisableUser}
                 </Button>
             </DropdownButton>
 
@@ -96,7 +94,7 @@ const Action = ({ userId, foreName, surName, getData }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">AssignClass</Modal.Title>
+                    <Modal.Title>{constants.Common.AssignClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AssignClass
@@ -118,7 +116,7 @@ const Action = ({ userId, foreName, surName, getData }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">Assign Role</Modal.Title>
+                    <Modal.Title>{constants.Common.AssignRole}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AssignRole
@@ -133,4 +131,4 @@ const Action = ({ userId, foreName, surName, getData }) => {
     );
 }
 
-export default Action;
+export { Action };

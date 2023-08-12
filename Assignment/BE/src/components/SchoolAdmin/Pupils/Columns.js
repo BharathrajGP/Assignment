@@ -47,4 +47,4 @@ const pupilCloumns = [
     },
 ];
 
-export default pupilCloumns;
+export { pupilCloumns };

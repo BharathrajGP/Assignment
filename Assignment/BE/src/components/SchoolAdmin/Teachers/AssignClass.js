@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import Select from "react-select";
 import Form from "react-bootstrap/Form";
-import * as Yup from "yup";
 import { Button } from "react-bootstrap";
 
 import * as constants from "../../../helper/constants";
+import * as messages from "../../../helper/messages";
 import * as commonApi from '../../../api/commonApi';
 import { isEmptyArray } from "../../../util/utils";
+import { styles } from '../'
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -16,19 +17,11 @@ const AssignClass = ({ isUserId, setAssignClass, getData }) => {
     const [selectedSujects, setSelectedSujects] = useState(null);
     const [classOptions, setClassOptions] = useState();
     const [classId, setClassId] = useState();
+    const [classes, setClasses] = useState('');
+    const [sub, setSub] = useState('');
+    const [errMessage, setErrMessage] = useState(false);
+    const [errMessage1, setErrMessage1] = useState(false);
 
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
-
-    const SignupSchema = Yup.object().shape({
-        select_class: Yup.string()
-            .required('Required'),
-        select_subjects: Yup.array()
-            .min(1, 'Please select at least one option.'),
-    });
 
     const getAllClassData = async () => {
         const adminClass = await commonApi.adminClass();
@@ -40,13 +33,10 @@ const AssignClass = ({ isUserId, setAssignClass, getData }) => {
             })
             setClassOptions(array);
         } else {
-            console.log("adminClass", adminClass);
         }
     }
 
     const getAllSubjectData = async (e) => {
-        console.log("selectedClass", selectedClass && selectedClass)
-        console.log({ e });
         setClassId(e.value);
         const getSubjects = await commonApi.getSubjectByClassId({ classId: e.value });
         if (!isEmptyArray(getSubjects.Items)) {
@@ -79,21 +69,28 @@ const AssignClass = ({ isUserId, setAssignClass, getData }) => {
     return (
         <Formik
             initialValues={{
-                select_class: '',
-                select_subjects: [],
+                selectClass: '',
+                selectSubjects: [],
             }}
-            // validationSchema={SignupSchema}
             validate={(values) => {
                 const errors = {};
                 return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-                const classData = {
-                    id: isUserId,
-                    classId: classId,
-                    subject: [selectedSujects.value].flat(),
+                if (classes === undefined || classes === '' || classes === null) {
+                    setErrMessage(true)
                 }
-                AssignClasses(classData);
+                else if (sub === undefined || sub === '' || sub === null) {
+                    setErrMessage1(true)
+                }
+                else {
+                    const classData = {
+                        id: isUserId,
+                        classId: classId,
+                        subject: [selectedSujects.value].flat(),
+                    }
+                    AssignClasses(classData);
+                }
             }}
         >
             {({
@@ -105,46 +102,40 @@ const AssignClass = ({ isUserId, setAssignClass, getData }) => {
                 handleSubmit,
                 isSubmitting,
             }) => (
-                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                <Form onSubmit={handleSubmit} style={styles.modal_form}>
                     <Form.Group>
                         <label for="Class">{constants.Common.Class} </label>
-
                         <Select
                             defaultValue={selectedClass}
                             onChange={(e) => {
                                 setSelectedClass(e)
                                 getAllSubjectData(e)
+                                setClasses(e.value);
+                                setErrMessage(false)
                             }}
-                            id='select_class'
-                            // onChange={setSelectedClass}
                             options={classOptions}
                             placeholder="please select"
                         />
-                        {errors.select_class && touched.select_class && errors.select_class && (
-                            <small style={{ color: "red" }}>
-                                {errors.select_class}
-                            </small>
-                        )}
+                        {errMessage && (<small className="text-danger">{messages.VALIDATION.PLEASE_SELECT_A_CLASS}</small>)}
                     </Form.Group>
 
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.radioMargin}>
                         <label for="Subjects">{constants.Common.Subjects} </label>
 
                         <Select
                             defaultValue={selectedSujects}
-                            onChange={setSelectedSujects}
-                            id='select_subjects'
-                            // options={constants.AssignSubjects}
+                            onChange={(e) => {
+                                setSelectedSujects(e)
+                                setSub(e.value);
+                                setErrMessage1(false)
+                            }}
                             options={selectedSujects}
                             placeholder="please select"
+                            isDisabled={selectedClass === null}
                         />
-                        {errors.select_subjects && touched.select_subjects && errors.select_subjects && (
-                            <small style={{ color: "red" }}>
-                                {errors.select_subjects}
-                            </small>
-                        )}
+                        {errMessage1 && (<small className="text-danger">{messages.VALIDATION.PLEASE_SELECT_A_SUBJECT}</small>)}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.button}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -156,7 +147,6 @@ const AssignClass = ({ isUserId, setAssignClass, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
                             {constants.Common.AddClass}
                         </Button>
@@ -167,4 +157,4 @@ const AssignClass = ({ isUserId, setAssignClass, getData }) => {
     );
 }
 
-export default AssignClass;
+export { AssignClass };

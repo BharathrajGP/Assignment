@@ -9,6 +9,7 @@ import { Common } from "../../../helper/constants";
 import * as commonApi from "../../../api/commonApi";
 import { isEmptyObject } from "../../../util/utils";
 import * as constants from "../../../helper/constants";
+import { styles } from '../'
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -20,13 +21,7 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
     const [isClassData, setIsClassData] = useState();
     const SignupSchema = Yup.object().shape({
         className: Yup.string().required(Common.Required),
-        // myRadio: Yup.string().required(Common.Required),
     });
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
 
     const updateClass = async (formData) => {
         const getClassById = await commonApi.renameClass(formData);
@@ -39,7 +34,6 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
         //     });
         // }
         getData();
-        console.log(getClassById);
     }
 
     const getClassData = async () => {
@@ -49,7 +43,6 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
         });
         if (!isEmptyObject(getClassById)) {
             const resultData = getClassById.Items
-            console.log("resultData----------", resultData);
             setIsClassData(resultData);
             setIsGroup(resultData.isRegistrationGroup)
         }
@@ -87,7 +80,7 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                 handleSubmit,
                 isSubmitting,
             }) => (
-                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                <Form onSubmit={handleSubmit} style={styles.modal_form}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>{Common.ClassName}</Form.Label>
                         <Form.Control
@@ -101,13 +94,13 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                         {errors.className &&
                             touched.className &&
                             errors.className && (
-                                <small style={{ color: "red" }}>
+                                <small style={styles.error_message}>
                                     {errors.className}
                                 </small>
                             )}
                     </Form.Group>
                     <Form.Group>
-                        <div style={{ marginTop: "20px" }}>
+                        <div style={styles.radioMargin}>
                             <label>
                                 <input
                                     type="radio"
@@ -115,7 +108,7 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                                     onChange={(e) => { setIsGroup(!isGroup) }}
                                     onBlur={handleBlur}
                                     value={constants.Common.registrationGroup}
-                                    style={{ padding: "5px" }}
+                                    style={styles.radioPadding}
                                     checked={isGroup && isGroup}
                                 />
                                 {constants.Common.RegistrationGroup}
@@ -127,24 +120,15 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                                     onChange={(e) => { setIsGroup(!isGroup) }}
                                     onBlur={handleBlur}
                                     value={constants.Common.teachingGroup}
-                                    style={{
-                                        padding: "5px",
-                                        marginLeft: "7px",
-                                    }}
+                                    style={styles.radioPadding}
                                     checked={!isGroup}
                                 />
                                 {constants.Common.TeachingGroup}
                             </label>
                         </div>
-                        {errors.myRadio &&
-                            touched.myRadio &&
-                            errors.myRadio && (
-                                <small style={{ color: "red" }}>
-                                    {errors.myRadio}
-                                </small>
-                            )}
+                        {errors.myRadio && touched.myRadio && errors.myRadio && (<small style={styles.error_message}>{errors.myRadio}</small>)}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.radioMargin}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -156,7 +140,6 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
                             {Common.Update}
                         </Button>
@@ -167,4 +150,4 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
     );
 }
 
-export default RenameClass;
+export { RenameClass };

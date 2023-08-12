@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Button, DropdownButton, Modal } from "react-bootstrap";
 
-import MoveForm from "./MoveForm";
+import { MoveForm } from "./";
 import * as constants from '../../../../helper/constants';
 
 import "../../../../assets/stlyes/Modals.css";
 
 
-const Action = ({ pupilId, pupilClassID, getData }) => {
+const PupilAction = ({ pupilId, pupilClassID, getData }) => {
 
     const [move, setMove] = useState(false);
     const [isPupilId, setIsPupilId] = useState("");
@@ -40,7 +40,7 @@ const Action = ({ pupilId, pupilClassID, getData }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.MovePupil}</Modal.Title>
+                    <Modal.Title>{constants.Common.MovePupil}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <MoveForm isPupilId={isPupilId} setMove={setMove} pupilClassID={pupilClassID} getData={getData} />
@@ -51,4 +51,4 @@ const Action = ({ pupilId, pupilClassID, getData }) => {
     );
 }
 
-export default Action;
+export { PupilAction };

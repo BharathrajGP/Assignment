@@ -54,4 +54,4 @@ const DropFiles = () => {
   )
 }
 
-export default DropFiles
+export { DropFiles };

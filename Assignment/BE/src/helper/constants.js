@@ -48,7 +48,10 @@ export const Common = {
     TimeFormat_LT: "LT",
     Submit: "Submit",
     Year: "Year",
-
+    className: 'className',
+    subjectName: 'subjectName',
+    categoryName: 'categoryName',
+    eKey: 'eKey',
 
     Login: "Login",
     beamEducationLink: "beam-education.co.uk",
@@ -162,6 +165,7 @@ export const Common = {
     RenameClass: 'RenameClass',
     DeleteClass: 'DeleteClass',
     PupilMovedSuccessfully: 'Pupil Moved Successfully!',
+    ClassDataDeletedSuccessfully: 'Class data deleted Successfully',
     pleaseSelectClassToMove: 'Please Select Class To Move Pupil',
     Move: 'Move',
     MovePupil: 'Move Pupil',
@@ -171,12 +175,27 @@ export const Common = {
     Roles: 'Roles',
     Classes: 'Classes',
     InviteUser: 'Invite User',
+    EnableUser: 'Enable User',
+    AssignClass: 'Assign Class',
+    AssignRole: 'Assign Role',
+    DisableUser: 'Disable User',
+    RemoveRole: 'Remove Role',
+    RemoveClass: 'Remove Class',
+    remove: 'remove',
+    NoUserFound: 'No User Found',
+    EHCP: 'Education, Health and Child Care',
+    PerformaceProgress: "Performace Progress",
+    Trend: "Trend",
+    KS1Result: "KS1 Result",
+    Progress: "Progress",
+    PlaceValue: "Place Value"
 }
 export const Accessors = {
     lastName: "lastName",
     firstName: "firstName",
     upn: "upn",
     schoolYear: "schoolYear",
+    year: 'year',
     gender: "gender",
     dob: "dob",
     ethnicity: "ethnicity",
@@ -189,6 +208,9 @@ export const Accessors = {
     Subjects: 'Subjects',
     className: 'className',
     classSize: 'classSize',
+    email: 'email',
+    type: 'type',
+    classes: 'classes',
 };
 
 export const AssignSubjects = [
@@ -202,12 +224,14 @@ export const AssignSubjects = [
 ];
 export const senStatusOptions = [
     // { value: " ", label: "Please Select" },
-    { value: "Not SEN", label: "--" },
-    { value: "SA", label: "SA" },
-    { value: "SA+", label: "SA+" },
-    { value: "Statement", label: "Statement" },
-    { value: "Sen Support", label: "Sen Support" },
-    { value: "EHCP", label: "Education, Health and Care Plan" },
+    // { value: "Not SEN", label: "--" },
+    // { value: "SA", label: "SA" },
+    // { value: "SA+", label: "SA+" },
+    // { value: "Statement", label: "Statement" },
+    // { value: "Sen Support", label: "Sen Support" },
+    // { value: "EHCP", label: "Education, Health and Care Plan" },
+    { value: true, label: 'Yes' },
+    { value: false, label: 'No' },
 ];
 
 export const TeacherRoles = [
@@ -402,7 +426,9 @@ export const SessionStorageKeys = {
     year: "year",
     subjectClassId: 'subjectClassId',
     Error: 'Error',
-    subjectName: 'subjectName'
+    subjectName: 'subjectName',
+    categoryName: 'categoryName',
+    categoryIndex: 'categoryIndex',
 }
 
 export const LocalStorageKeys = {
@@ -419,12 +445,16 @@ export const marking = {
     Geometry: 'Geometry',
     subjectClassId: 'subjectClassId',
     classId: 'classId',
-    PlaceValueAttainment: 'Place Value Attainment',
+    Attainment: 'Attainment',
     Actual: 'Actual',
     Predicted: 'Predicted',
     ff: 'ff',
     dd: 'dd',
-    UpdateComment: 'Update comment',
+    serviceChild: 'S',
+    eal: 'EAL',
+    peoplePremium: 'PP',
+    NoDataFound: 'No data found!',
+
     ObjectivesList: [
         { value: "Overall", label: "Overall" },
         { value: "Year 1 Objectives", label: "Year 1 Objectives" },
@@ -452,6 +482,14 @@ export const marking = {
     ]
 }
 
+export const markingColors = {
+    greaterDepth: '#26CB89',
+    expected: '#AABB5D',
+    emerging: '#F4C900',
+    below: '#F34970',
+    absent: '#FFFFFF',
+}
+
 export const data = [
     { name: 'Leslie Alexander', valueOne: '1', valueTwo: '2', valueThree: '3', valueFour: '4', valueFive: '5', valueSix: '6', per: '30%', _per: '60%' },
 ]
@@ -474,3 +512,10 @@ export const DeleteTeacherById = ({ foreName, surName }) =>
 
 export const EnableTeacherById = ({ foreName, surName }) =>
     `Do you want to Enable ${foreName + ' ' + surName}`;
+
+
+//overviewPage
+export const OverallSubjectScore = (subjectName) => `Overall ${subjectName} Score`;
+export const KPISubjectScore = (subjectName) => `KPI ${subjectName} Score`;
+export const FullName = (firstName, lastName) => `${firstName} ${lastName}`;
+export const OverViewHeader = (className, subjectName) => `${className} - ${subjectName} - ${Common.Overview}`;

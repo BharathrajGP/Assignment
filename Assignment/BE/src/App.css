@@ -64,7 +64,10 @@ a {
 .rs-sidenav,
 .rs-sidenav-default ::selection {
   color: #F34970;
-} 
+}
+.rs-sidenav-default.rs-sidenav-collapse-in .rs-sidenav-item.rs-sidenav-item-active{
+  color: #F34970 !important;
+}
 .nav-bar {
   background-color: var(--nav-bar-colour);
   min-height: 100vh;
@@ -72,7 +75,7 @@ a {
   width: 250px;
   overflow: hidden;
   position: fixed;
-  top: 70px;
+  /* top: 70px; */
   .nav-link {
     display: flex;
     flex-direction: row;
@@ -80,6 +83,18 @@ a {
     padding: 0px;
     gap: 30px;
   }
+}
+.nav-logo{
+  cursor: pointer;
+}
+.nav-logo-style{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 23px;
+  padding-bottom: 14px;
+  padding-left: 23px;
 }
 /* } */
 

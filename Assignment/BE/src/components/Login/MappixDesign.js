@@ -1,12 +1,12 @@
 import React from 'react'
 
-import logo from "../../assets/images/MappixLogo.png";
 import facebookSquare from "../../assets/images/facebook-square.png";
 import linkedin from "../../assets/images/linkedin.png";
+import logo from "../../assets/images/MappixLogo.png";
 
 import { Common, ExternalLinks } from '../../helper/constants';
 
-export default function MappixDesign() {
+function MappixDesign() {
   return (
     <>
         <img src={logo} className="mappixLogo" alt="maapix-logo"></img>
@@ -22,3 +22,5 @@ export default function MappixDesign() {
       </>
   )
 }
+
+export {  MappixDesign }

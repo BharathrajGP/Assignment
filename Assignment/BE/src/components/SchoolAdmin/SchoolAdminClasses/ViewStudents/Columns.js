@@ -19,7 +19,7 @@ const studentColumns = [
     },
     {
         Header: constants.Common.schoolYear,
-        accessor: constants.Accessors.schoolYear,
+        accessor: constants.Accessors.year,
     },
     {
         Header: constants.Common.gender,
@@ -31,4 +31,4 @@ const studentColumns = [
     },
 ];
 
-export default studentColumns;
+export { studentColumns };

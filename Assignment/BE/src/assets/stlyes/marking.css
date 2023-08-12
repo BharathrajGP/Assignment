@@ -62,6 +62,9 @@
   padding-left: 0px !important;
   gap: 2px;
 }
+.no-data-found{
+  text-align: center !important;
+}
 .marking-tabs {
   width: 225px;
   background: #084059;
@@ -82,10 +85,24 @@
   cursor: pointer;
 }
 .react-tabs__tab--selected{
+  width: 225px;
   background-color: #ffffff;
   color: #084059;
   border: solid rgba(0, 0, 0, 0.23);
   border-width: 1px 1px 0px 1px ;
+  border-radius: 20px 20px 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  letter-spacing: 0.4px;
+  text-transform: capitalize;
+  cursor: pointer;
 }
 
 .marking-table {
@@ -266,6 +283,9 @@
   }
 }
 
+.tooltip-style{
+  width: 200px;
+}
 .comment-style{
   cursor: pointer;
 }

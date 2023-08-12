@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Manrope:300,700,600,400");
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,700,600,400");
+
 .overview-page {
   position: fixed;
   left: 250px;
@@ -31,6 +32,7 @@
     align-items: center;
   }
 }
+
 .overview-table-overall-headers {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
@@ -51,6 +53,7 @@
     color: #011c25;
     border: solid rgba(0, 0, 0, 0.12);
     border-width: 1px 0px 0px 1px;
+
     .sub-heading-column {
       color: #000000;
     }
@@ -74,6 +77,7 @@
   .overall-data {
     display: flex;
     flex-direction: row;
+
     .sub-heading-column {
       height: 49px;
     }
@@ -110,101 +114,108 @@
 }
 
 .overview-table {
-  margin: 32px 0px 0px 24px;
+  margin: 24px 15px 0px 15px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+  
+/* NEW */
+.table-header {
+  padding: 0px;
+  min-width: 1000px;
+  width: -webkit-fill-available;
+}
 
-  .overview-table-pupils {
-    width: 276px;
-    padding-top: 116px;
-
-    .pupil {
-      border-width: 1px 1px 1px 0px;
-      border-style: solid;
-      height: 49px;
-      border-color: rgba(0, 0, 0, 0.12);
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-around;
-      font-family: "Roboto";
-      font-style: normal;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 24px;
-      letter-spacing: 0.17px;
-      color: #011c25;
-
-      .S-chip {
-        background-color: #e0e0e0;
-        border-radius: 16px;
-        width: 28px;
-        height: 24px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .EAL-chip {
-        background-color: #e0e0e0;
-        border-radius: 16px;
-        width: 44px;
-        height: 24px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-    .overview-table-pupils-total {
-      .pupil {
-        justify-content: flex-start;
-        padding-left: 14px;
-      }
-    }
+.top-row {
+  .top-row-text {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #011C25;
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 14px;
+    padding: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.17px;
   }
+}
 
-  .overview-table-overall {
-    width: 330px;
-    border: solid rgba(0, 0, 0, 0.12);
-    border-width: 1px 1px 1px 0px;
-    .overall-data-actual {
-      background: #f34970;
-    }
-    .overall-data-predicted {
-      background: #f4c900;
-    }
+.bottom-row {
+  max-height: 60px;
+
+  .bottom-row-text {
+    max-height: 58px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #011C25;
+    text-align: center;
+    font-family: 'Roboto';
+    font-size: 14px;
+    padding: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.17px;
   }
-  .overview-table-KPI {
-    width: 206.5px;
-    border: solid rgba(0, 0, 0, 0.12);
-    border-width: 1px 1px 1px 0px;
-    .overall-data-actual {
-      background: #26c8b9;
-    }
-    .overall-data-predicted {
-      background: #f34970;
-    }
-  }
-  .overview-table-performance {
-    width: 330px;
-    border: solid rgba(0, 0, 0, 0.12);
-    border-width: 1px 1px 1px 0px;
-    .overall-data-actual {
-      background: #aabb5d;
-    }
-    .overall-data-predicted {
-      background: #26c8b9;
-    }
-    .overall-data-trend {
-      border-radius: 50px;
-      width: 83.25px;
-      height: 29px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #aabb5d;
-    }
-  }
+}
+
+.pupil {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  margin: 0px !important;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.speaker-icon {
+  background-color: '#E0E0E0';
+  width: 18px;
+  height: 18px;
+}
+
+.row-overall,
+.row-kpi,
+.row-ks1,
+.row-place-value {
+  height: 60px;
+}
+
+.row-overall-actual,
+.row-overall-predicted,
+.row-overall-trend,
+.kpi-actual,
+.kpi-predicted,
+.ks1-actual,
+.ks1-progress,
+.place-value {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actual-chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border-radius: 50px;
+  width: 90px;
+  height: 30px;
+  padding: 0px 24px;
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.17px;
 }

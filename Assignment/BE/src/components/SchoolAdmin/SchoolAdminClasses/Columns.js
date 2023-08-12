@@ -23,4 +23,4 @@ const classcolumn = [
     },
 ];
 
-export default classcolumn;
+export { classcolumn };

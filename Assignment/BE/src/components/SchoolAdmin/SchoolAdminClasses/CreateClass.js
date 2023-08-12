@@ -8,6 +8,7 @@ import withReactContent from "sweetalert2-react-content";
 
 import * as constants from "../../../helper/constants";
 import * as commonApi from "../../../api/commonApi";
+import { styles } from '../'
 
 
 const CreateClass = ({ setcreateClass, getData }) => {
@@ -16,11 +17,6 @@ const CreateClass = ({ setcreateClass, getData }) => {
         className: Yup.string().required(constants.Common.Required),
         myRadio: Yup.string().required(constants.Common.Required),
     });
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
 
     const addClass = async (newClass) => {
         console.log({ newClass });
@@ -64,7 +60,7 @@ const CreateClass = ({ setcreateClass, getData }) => {
             }) => (
                 <Form
                     onSubmit={handleSubmit}
-                    style={style.modal_form}
+                    style={styles.modal_form}
                 >
                     <Form.Group
                         className="mb-3 "
@@ -84,13 +80,13 @@ const CreateClass = ({ setcreateClass, getData }) => {
                         {errors.className &&
                             touched.className &&
                             errors.className && (
-                                <small style={{ color: "red" }}>
+                                <small style={styles.error_message}>
                                     {errors.className}
                                 </small>
                             )}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
-                        <div style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.radioMargin}>
+                        <div style={styles.radioMargin}>
                             <label>
                                 <input
                                     type="radio"
@@ -98,7 +94,7 @@ const CreateClass = ({ setcreateClass, getData }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={constants.Common.registrationGroup}
-                                    style={{ padding: "5px" }}
+                                    style={styles.radioPadding}
                                 />
                                 {constants.Common.RegistrationGroup}
                             </label>
@@ -109,10 +105,7 @@ const CreateClass = ({ setcreateClass, getData }) => {
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={constants.Common.teachingGroup}
-                                    style={{
-                                        padding: "5px",
-                                        marginLeft: "7px",
-                                    }}
+                                    style={styles.radioPadding}
                                 />
                                 {constants.Common.TeachingGroup}
                             </label>
@@ -120,12 +113,12 @@ const CreateClass = ({ setcreateClass, getData }) => {
                         {errors.myRadio &&
                             touched.myRadio &&
                             errors.myRadio && (
-                                <small style={{ color: "red" }}>
+                                <small style={styles.error_message}>
                                     {errors.myRadio}
                                 </small>
                             )}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.button}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -137,7 +130,6 @@ const CreateClass = ({ setcreateClass, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
                             {constants.Common.AddClass}
                         </Button>
@@ -148,4 +140,4 @@ const CreateClass = ({ setcreateClass, getData }) => {
     )
 }
 
-export default CreateClass
+export { CreateClass };

@@ -3,23 +3,23 @@ import * as constants from "../../../helper/constants";
 const teacherColumn = [
     {
         Header: constants.Common.SurName,
-        accessor: "lastName",
+        accessor: constants.Accessors.lastName,
     },
     {
         Header: constants.Common.ForeName,
-        accessor: "firstName",
+        accessor: constants.Accessors.firstName,
     },
     {
         Header: constants.Common.Email,
-        accessor: "email",
+        accessor: constants.Accessors.email,
     },
     {
         Header: constants.Common.Roles,
-        accessor: "type",
+        accessor: constants.Accessors.type,
     },
     {
         Header: constants.Common.Classes,
-        accessor: "classes",
+        accessor: constants.Accessors.classes,
     },
     {
         Header: "",
@@ -27,4 +27,4 @@ const teacherColumn = [
     },
 ];
 
-export default teacherColumn;
+export { teacherColumn };

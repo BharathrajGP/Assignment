@@ -1,42 +1,33 @@
-import React, { useState } from "react";
+import { React, useRef } from "react";
 import { Formik } from 'formik';
 import { Form } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 import "../../assets/stlyes/Common/Login.css";
+import "../../assets/stlyes/Common/registration.css";
 
+import Account from "../../assets/images/IconAccount.png";
 import RightArrow from "../../assets/images/RightArrow.png";
 
 import { Common, SessionStorageKeys } from '../../helper/constants';
-import { SessionStorage } from "../../util/SessionStorage";
 import { RegValidationSchema } from "../../validators/registrationValidator";
-import LoadingSpinner from '../Shared/Loader/Loader';
+import { SessionStorage } from "../../util/SessionStorage";
 
-import MappixDesign from "./MappixDesign";
-import * as commonApi from '../../api/commonApi';
-import { CommonPages } from '../../helper/routes';
-import "../../assets/stlyes/Common/registration.css";
+import { MappixDesign } from "./";
 
-import logo from "../../assets/images/MappixLogo.png";
-import Account from "../../assets/images/IconAccount.png";
-import facebookSquare from "../../assets/images/facebook-square.png";
-import linkedin from "../../assets/images/linkedin.png";
-import { useRef } from "react";
 
 function Registration() {
   const navigate = useNavigate();
   const emailRef = useRef(null)
   const mouseEnter = () => { }
   const mouseOut = () => { }
-  const [isVerify, setIsVerify] = useState(true);
 
-  function sendOtp(formData) {
+  const sendOtp = async(formData) => {
     var email = formData.email;
     SessionStorage.setItem(SessionStorageKeys.Email, email)
-
   }
-  function navigateToLogin() {
-
+  const navigateToLogin = async() => {
+    navigate("/")
   }
 
   return (
@@ -99,4 +90,4 @@ function Registration() {
   );
 }
 
-export default Registration;
+export { Registration };

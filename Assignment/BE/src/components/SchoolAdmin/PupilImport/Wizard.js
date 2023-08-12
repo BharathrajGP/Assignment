@@ -3,8 +3,7 @@ import { Button, Step, StepLabel, Stepper, Typography } from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles";
 import { FormProvider, useForm } from "react-hook-form";
 
-import { Yearss } from "./Year";
-import DropFiles from "./DropFiles";
+import { Yearss, DropFiles } from "./";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -38,7 +37,7 @@ const getStepContent = (step) => {
   }
 }
 
-const LinearStepper = () => {
+const Wizard = () => {
   const classes = useStyles();
   const methods = useForm({
     defaultValues: {
@@ -126,4 +125,4 @@ const LinearStepper = () => {
   );
 };
 
-export default LinearStepper;
+export { Wizard };

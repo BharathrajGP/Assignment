@@ -1,8 +1,7 @@
 import React from "react";
 
 import Header from "../Shared/Header";
-import SchoolAdminTabs from "./SchoolAdminTabs";
-import Footer from "./Footer/Footer";
+import { SchoolAdminTabs, Footer } from "./";
 
 
 const SchoolAdmin = () => {
@@ -20,4 +19,4 @@ const SchoolAdmin = () => {
     );
 }
 
-export default SchoolAdmin;
+export { SchoolAdmin };

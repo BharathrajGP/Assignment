@@ -4,8 +4,9 @@ import "../../assets/stlyes/Classes.css";
 
 import { Common } from '../../helper/constants'
 
-export function ClassPupilBlock() {
+function ClassPupilBlock(pupils) {
     let [classData, setClassData] = useState();
+    setClassData(pupils);
   return (
     <div className="pupils-section">
               <div>
@@ -31,3 +32,5 @@ export function ClassPupilBlock() {
             </div>
   )
 }
+
+export { ClassPupilBlock }

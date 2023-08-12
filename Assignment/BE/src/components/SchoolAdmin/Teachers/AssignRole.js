@@ -6,8 +6,10 @@ import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
 import * as constants from "../../../helper/constants";
+import * as messages from "../../../helper/messages";
 import * as commonApi from '../../../api/commonApi';
 import { isEmptyArray } from "../../../util/utils";
+import { styles } from '../'
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -15,18 +17,9 @@ import "../../../assets/stlyes/Modals.css";
 const AssignRole = ({ isUserId, setAssignRole, getData }) => {
     const [selectedOption, setSelectedOption] = useState(null);
     const [isRole, setIsRole] = useState();
-    const SignupSchema = Yup.object().shape(
-        // console.log(isRole)
-        // {
+    const [role, setRole] = useState('');
+    const [errMessage, setErrMessage] = useState(false);
 
-        //     isRole: Yup.string().min(2).required("Role is Required"),
-        // }
-    );
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
     const AssignRoles = async (assignRoleData) => {
         console.log(assignRoleData);
         const assignRole = await commonApi.assignRole(assignRoleData);
@@ -43,18 +36,21 @@ const AssignRole = ({ isUserId, setAssignRole, getData }) => {
             initialValues={{
                 role: "",
             }}
-            validationSchema={SignupSchema}
             validate={(values) => {
                 const errors = {};
                 return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-                const assignRoleData = {
-                    // id: '39e3cdb2-febc-4e11-9b9d-ed806049b929',
-                    id: isUserId,
-                    type: isRole,
-                };
-                AssignRoles(assignRoleData);
+                if (role === undefined || role === '' || role === null) {
+                    setErrMessage(true)
+                }
+                else {
+                    const assignRoleData = {
+                        id: isUserId,
+                        type: isRole,
+                    };
+                    AssignRoles(assignRoleData);
+                }
             }}
         >
             {({
@@ -66,22 +62,23 @@ const AssignRole = ({ isUserId, setAssignRole, getData }) => {
                 handleSubmit,
                 isSubmitting,
             }) => (
-                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                <Form onSubmit={handleSubmit} style={styles.modal_form}>
                     <Form.Group>
                         <label for="Class">{constants.Common.Role} </label>
 
                         <Select
                             defaultValue={selectedOption}
-                            // onChange={setSelectedOption}
                             onChange={(e) => {
                                 getSelectedValue(e);
+                                setRole(e.value);
+                                setErrMessage(false)
                             }}
                             options={constants.TeacherRoles}
                             placeholder="please select"
                         />
-                        {errors.role && touched.role && errors.role}
+                        {errMessage && (<small className="text-danger">{messages.VALIDATION.PLEASE_SELECT_A_ROLE}</small>)}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.button}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -93,7 +90,6 @@ const AssignRole = ({ isUserId, setAssignRole, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
                             {constants.Common.AddRole}
                         </Button>
@@ -104,4 +100,4 @@ const AssignRole = ({ isUserId, setAssignRole, getData }) => {
     );
 }
 
-export default AssignRole;
+export { AssignRole };

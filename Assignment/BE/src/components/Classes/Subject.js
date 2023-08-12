@@ -1,22 +1,17 @@
-import React from 'react'
+import { React , useState , useEffect } from 'react'
 
 import "../../assets/stlyes/Classes.css";
 
 import { ActualChip, PredictedChip } from "./ChipComponents";
 import { Common, Subjects, Colors } from '../../helper/constants';
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 
-function ClassSubjectBlock({ heading , classData}) {
-  const [subject , setSubject ] = useState();
-  const [classPupils , setClassPupils ] = useState();
-  console.log({heading});
-  console.log({classData});
-  
+function Subject({ heading , classData}) {
+  const [ subjectheading , setSubjectHeading ] = useState();
+  const [ subject , setSubject ] = useState();
   const getClassInfo = async(a,b) =>{
-    console.log("a",a);
-    console.log("b",b);
+    setSubjectHeading(heading)
+    setSubject(classData)
   }
   var bgColor = Colors.White;
   switch (subject) {
@@ -38,7 +33,7 @@ function ClassSubjectBlock({ heading , classData}) {
   return (
     <div className='classSubjectBlock' style={{ background: bgColor}}>
       <div className='subject-heading'>
-        {heading}
+        {subjectheading}
       </div>
       <div className='table-columns'>
         <div className='col-xs-6 subject-ks-result-col'>
@@ -67,4 +62,4 @@ function ClassSubjectBlock({ heading , classData}) {
   )
 }
 
-export default ClassSubjectBlock;
+export { Subject };

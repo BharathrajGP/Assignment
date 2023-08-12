@@ -10,6 +10,7 @@ import { Common } from "../../../../helper/constants";
 import * as commonApi from "../../../../api/commonApi"
 import { isEmptyArray, isEmptyObject } from "../../../../util/utils";
 import * as constants from '../../../../helper/constants';
+import { styles } from "../../";
 
 import "../../../../assets/stlyes/Modals.css";
 
@@ -22,11 +23,11 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
     const MySwal = withReactContent(Swal);
 
 
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
+    // const style = {
+    //     modal_form: {
+    //         width: "100%",
+    //     },
+    // };
     const getAllClassData = async () => {
         const adminClass = await commonApi.adminClass();
         if (!isEmptyArray(adminClass.Items)) {
@@ -41,7 +42,6 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
             })
             setClassOptions(array);
         } else {
-            console.log("adminClass", adminClass);
         }
     }
 
@@ -83,7 +83,6 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                         id: isPupilId,
                         present_class_id: selectedClass
                     }
-                    console.log({ formData });
                     movePupilClass(formData)
                 }
             }}
@@ -97,7 +96,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                 handleSubmit,
                 isSubmitting,
             }) => (
-                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                <Form onSubmit={handleSubmit} style={styles.modal_form}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>{Common.MoveFrom}</Form.Label>
                         <Form.Control
@@ -112,7 +111,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                         {errors.moveFrom &&
                             touched.moveFrom &&
                             errors.moveFrom && (
-                                <small style={{ color: "red" }}>
+                                <small style={styles.error_message}>
                                     {errors.moveFrom}
                                 </small>
                             )}
@@ -132,7 +131,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                         />
                         {errMessage && (<small className="text-danger">{constants.Common.pleaseSelectClassToMove}</small>)}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.button}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -144,7 +143,6 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
                             {constants.Common.Move}
                         </Button>
@@ -155,4 +153,4 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
     );
 }
 
-export default MoveForm;
+export { MoveForm };

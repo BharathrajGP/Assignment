@@ -7,21 +7,26 @@ import Form from "react-bootstrap/Form";
 
 import * as constants from '../../../helper/constants';
 import * as commonApi from '../../../api/commonApi';
-import { isEmptyArray } from "../../../util/utils";
+import { isEmptyArray, isEmptyObject } from "../../../util/utils";
 
 import "../../../assets/stlyes/Modals.css";
 
-const InviteUser = ({ setInviteUser }) => {
-    const [selectedClass, setSelectedClass] = useState(null);
-    const [selectedSubjects, setSelectedSubjects] = useState(null);
+const InviteUser = ({ setInviteUser, getData }) => {
+    const [selectedClass, setSelectedClass] = useState();
+    const [selectedClassName, setSelectedClassName] = useState();
+    const [selectedSubjects, setSelectedSubjects] = useState();
+    const [selectedSubName, setSelectedSubName] = useState();
     const [classSub, setClassSub] = useState([{ class: '', sub: '' }]);
     const [selectedSujects, setSelectedSujects] = useState(null);
     const [classOptions, setClassOptions] = useState();
     const [classId, setClassId] = useState();
+    const [classSubjectNames, setClassSubjectNames] = useState([]);
+    const [selectedClassSub, setSelectedClassSub] = useState([]);
+    const [errMessage, setErrMessage] = useState(false);
 
 
     const SignupSchema = Yup.object().shape({
-        email: Yup.string().required("Required"),
+        email: Yup.string().trim().email().required(),
         // myCheck: Yup.string()
         // .oneOf(["Admin", "LeadTeacher", "Teacher", "SupportStaff"])
         // .required("Role is Required"),
@@ -36,25 +41,85 @@ const InviteUser = ({ setInviteUser }) => {
         class: Yup.string().oneOf(["Elephant", "Lion", "Tiger", "Cheetah"]),
     });
 
-    const addItem = (event, e1) => {
-        console.log("selectedClass", selectedClass && selectedClass);
-        console.log({ selectedSubjects });
-        console.log({ event })
-        console.log({ e1 });
-        let newItem = { class: selectedClass && selectedClass.value, sub: selectedSubjects && selectedSubjects.value };
-        console.log({ newItem })
-        setClassSub([...classSub, newItem]);
-        console.log({ classSub })
+    const addItem = (event) => {
+        console.log("event", event.label);
+        setSelectedClassName(event.label)
+        setClassSub(event);
     };
-    const addSub = (event) => {
-        const newItem = { sub: event.value };
-        console.log({ newItem })
-        // setClassSub([...classSub, newItem]);
-        // console.log({ classSub })
+    const addSubject = (event) => {
+        const data = [...classSubjectNames];
+        console.log(isEmptyArray(classSubjectNames))
+        console.log({ event })
+        if (isEmptyArray(classSubjectNames)) {
+            console.log('1st ')
+            data.push({ className: classSub, subjectName: event });
+            setClassSubjectNames(data);
+        }
+        else {
+
+            console.log(classSubjectNames.length);
+            var count = 0;
+            for (let i = 0; i < classSubjectNames.length; i++) {
+                console.log(classSubjectNames[i].subjectName.value)
+                console.log(classSubjectNames[i].className.value)
+                console.log(event.value);
+                console.log({ selectedClass })
+                if (classSubjectNames[i].subjectName.value === event.value && classSubjectNames[i].className.value === selectedClass) {
+                    console.log(classSubjectNames[i].subjectName.value !== event.value);
+                    count++;
+                }
+            }
+            if (count === 0) {
+                data.push({ className: classSub, subjectName: event })
+                setClassSubjectNames(data);
+                setErrMessage(false);
+            }
+            else {
+                console.log({ count })
+                setErrMessage(true);
+            }
+        }
     }
-    // setClassSub({ class: addItem, sub: addSub })
 
+    const finalClassSub = () => {
+        let data = [];
+        let classData = {};
+        let subData = [];
+        let classzz = '';
+        console.log({ classSubjectNames })
+        let dataName = classSubjectNames;
+        for (let i = 0; i < classSubjectNames.length; i++) {
+            let c = 0;
+            for (let j = 0; j < classSubjectNames.length; j++) {
+                if (classSubjectNames[i].className.value === classSubjectNames[j].className.value) {
+                    console.log(classSubjectNames[i].subjectName.value)
+                    // subData.push(classSubjectNames[i].subjectName.value);
+                    // classSubjectNames[j].className.value = ''
+                    if (classSubjectNames[i].subjectName.value !== classSubjectNames[j].subjectName.value && classSubjectNames[i].className.value === classSubjectNames[j].className.value) {
+                        subData.push(classSubjectNames[i].classSubjectNames.value);
+                        c++;
+                        // classSubjectNames[j].className.value = '';
+                        break;
+                    }
 
+                }
+            }
+            if (c >= 1) {
+                // subData.push(classSubjectNames[i].subjectName.value);
+                data.push({ id: classSubjectNames[i].className.value, subject: subData })
+                // subData = [];
+            }
+            // subData = [];
+
+            // data.push([classSubjectNames[i].className.value, subData]);
+            // console.log({ data })
+            // classSubjectNames[i].className.value = '';
+        }
+        console.log({ subData });
+        console.log({ data })
+        return (data)
+
+    }
     const getAllClassData = async () => {
         const adminClass = await commonApi.adminClass();
         if (!isEmptyArray(adminClass.Items)) {
@@ -84,9 +149,6 @@ const InviteUser = ({ setInviteUser }) => {
             const subId = [];
             responseData.map((idz) => { subId.push(idz.id) })
             console.log({ subId })
-            array.push({
-                value: subId, label: 'All'
-            })
             responseData.map((item) => {
                 array.push({ value: item.id, label: item.subjectName })
             })
@@ -97,14 +159,24 @@ const InviteUser = ({ setInviteUser }) => {
 
     const invite = async (userData) => {
         const inviteUser = await commonApi.inviteUser(userData);
-        console.log(inviteUser)
+        console.log(isEmptyObject(inviteUser))
+        console.log(isEmptyArray(inviteUser))
+        console.log({ inviteUser });
+        getData();
+        setInviteUser(false);
     }
+
+    // const remove=(idx)=>{
+    //     array.splice(index, 1)
+    // }
 
     useEffect(() => {
         getAllClassData();
         // invite();
     }, [])
-
+    var verificationLink = `${window.location.href.replace("/SchoolAdmin", "")}`;
+    verificationLink += "/NewUser";
+    let i = 0;
     return (
         <Formik
             initialValues={{
@@ -120,12 +192,13 @@ const InviteUser = ({ setInviteUser }) => {
             }}
             onSubmit={(values, { setSubmitting }) => {
                 const userData = {
+                    verificationLink: verificationLink,
                     email: values.email,
-                    class: selectedClass.value,
-                    subjects: selectedSubjects.value,
+                    classes: finalClassSub(),
                     type: values.myCheck,
                 };
                 invite(userData);
+                // finalClassSub();
             }}
         >
             {({
@@ -242,6 +315,34 @@ const InviteUser = ({ setInviteUser }) => {
                             Classes - Select Classes that this user
                             will be teaching or supporting
                         </p>
+                        <div style={{
+                            display: "flex",
+                            flexDirection: "row",
+                        }}>
+                            <label for="Class" style={{
+                                width: "48%",
+                                marginRight: "40px",
+                                fontWeight: 'bold'
+                            }}>{constants.Common.Class} </label>
+                            <label for="Subjects" style={{
+                                width: "48%",
+                                marginRight: "20px", fontWeight: 'bold'
+                            }}>
+                                {constants.Common.Subjects}{" "}
+                            </label></div>
+                        <div>
+                            {
+                                classSubjectNames.map((item, index) => {
+                                    return (
+                                        <Row style={{ display: 'flex', justifyContent: "space-between" }}>
+                                            <Col>{item.className.label}</Col>
+                                            <Col style={{ paddingLeft: '110px' }}>{item.subjectName.label}</Col>
+                                            <Col> <button onClick={() => { classSubjectNames.splice(index, 1); console.log({ index }) }}>remove</button></Col>
+                                        </Row>
+                                    )
+                                })}
+                            {errMessage && (<small className='text-danger'>This combination Already Exists</small>)}
+                        </div>
                         <div
                             style={{
                                 display: "flex",
@@ -254,17 +355,18 @@ const InviteUser = ({ setInviteUser }) => {
                                     marginRight: "20px",
                                 }}
                             >
-                                <label for="Class">{constants.Common.Class} </label>
+
 
                                 <Select
                                     defaultValue={selectedClass}
                                     onChange={(e) => {
-                                        setSelectedClass(e);
+                                        setSelectedClass(e.value);
                                         addItem(e);
                                         getAllSubjectData(e);
                                     }}
                                     options={classOptions}
                                     placeholder="please select"
+                                // value={selectedClass}
                                 />
                                 {errors.class &&
                                     touched.class &&
@@ -275,35 +377,29 @@ const InviteUser = ({ setInviteUser }) => {
                                     width: "48%",
                                 }}
                             >
-                                <label for="Subjects">
-                                    {constants.Common.Subjects}{" "}
-                                </label>
+
 
                                 <Select
                                     defaultValue={selectedSubjects}
-                                    onChange={(e1) => {
-                                        setSelectedSubjects(e1);
-                                        addItem(e1)
+                                    onChange={(e) => {
+                                        setSelectedSubjects(e.value);
+                                        addSubject(e);
+
                                     }}
                                     // options={constants.AssignSubjects}
                                     options={selectedSujects}
                                     placeholder="please select"
+                                    // value={selectedSubName}
+                                    isDisabled={selectedClass === null || selectedClass === ''}
                                 />
                                 {errors.subjects &&
                                     touched.subjects &&
                                     errors.subjects}
-                                {console.log(selectedClass && selectedClass)}
-                                {console.log(selectedSubjects && selectedSubjects)}
-                                {/* {setClassSub({ class: selectedClass && selectedClass, subject: selectedSubjects && selectedSubjects })} */}
                             </Form.Group>
-                            {console.log("classSublength", classSub.length)}
-                            {console.log("classSublength", classSub)}
-                            {/* {classSub.class !== '' && classSub.sub !== '' ? (classSub.map((item) => {
-                                return (item.sub.map((subs) => {
-                                    return (item.class + "  " + subs);
-                                }))
-                            })) : ''} */}
                         </div>
+
+
+
                     </Form.Group>
                     <Form.Group style={{ marginTop: "20px" }}>
                         <Button
@@ -317,7 +413,9 @@ const InviteUser = ({ setInviteUser }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
+                        // onClick={(e) => {
+                        //     setInviteUser(false);
+                        // }}
                         >
                             {constants.Common.InviteUser}
                         </Button>
@@ -328,4 +426,4 @@ const InviteUser = ({ setInviteUser }) => {
     )
 }
 
-export default InviteUser
+export { InviteUser };
