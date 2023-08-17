@@ -1,7 +1,7 @@
 import React from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 
-export const ToastNotification = () => {
+const ToastNotification = () => {
     return (
         <div>
             <Toaster
@@ -36,26 +36,28 @@ export const ToastNotification = () => {
     );
 };
 
-export const success = (msg) => {
+const success = (msg) => {
     toast.success(msg);
 };
 
-export const errorMsg = (msg) => {
+const errorMsg = (msg) => {
     toast.error(msg);
 };
 
-export const loading = (msg) => {
+const loading = (msg) => {
     toast.loading(msg, { style: { background: "#1877f2", color: "white", }, theme: { primary: "green", secondary: "black", } });
 };
 
-export const custom = (msg) => {
+const custom = (msg) => {
     toast.custom(msg);
 };
 
-export const dismiss = (toastId) => {
+const dismiss = (toastId) => {
     toast.dismiss(toastId);
 };
 
-export const remove = (toastId) => {
+const remove = (toastId) => {
     toast.remove(toastId);
 };
+
+export { ToastNotification, success, errorMsg, loading, custom, dismiss, remove };

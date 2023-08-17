@@ -6,10 +6,10 @@ import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { Common } from "../../../../helper/constants";
+import { Common } from "../../../../helper";
 import * as commonApi from "../../../../api/commonApi"
 import { isEmptyArray, isEmptyObject } from "../../../../util/utils";
-import * as constants from '../../../../helper/constants';
+import { styles } from "../../";
 
 import "../../../../assets/stlyes/Modals.css";
 
@@ -22,11 +22,11 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
     const MySwal = withReactContent(Swal);
 
 
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
+    // const style = {
+    //     modal_form: {
+    //         width: "100%",
+    //     },
+    // };
     const getAllClassData = async () => {
         const adminClass = await commonApi.adminClass();
         if (!isEmptyArray(adminClass.Items)) {
@@ -36,12 +36,11 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
             const array = [];
             responseData.map((item) => {
                 if (pupilClassID !== item.classId) {
-                    array.push({ value: item.classId, label: item.className })
+                    array.push({ value: item.classId, label: item.name })
                 }
             })
             setClassOptions(array);
         } else {
-            console.log("adminClass", adminClass);
         }
     }
 
@@ -52,7 +51,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
         // if (movePupil.status === 200) {
         //     setMove(false);
         //     MySwal.fire({
-        //         title: constants.Common.PupilMovedSuccessfully,
+        //         title: Common.PupilMovedSuccessfully,
         //         icon: "success",
         //     }).then(() => {
         //         getData();
@@ -67,7 +66,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
         <Formik
             enableReinitialize
             initialValues={{
-                moveFrom: presentClass && presentClass.className,
+                moveFrom: presentClass && presentClass.name,
                 to: "",
             }}
 
@@ -81,9 +80,8 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                 } else {
                     const formData = {
                         id: isPupilId,
-                        present_class_id: selectedClass
+                        presentClassId: selectedClass
                     }
-                    console.log({ formData });
                     movePupilClass(formData)
                 }
             }}
@@ -97,7 +95,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                 handleSubmit,
                 isSubmitting,
             }) => (
-                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                <Form onSubmit={handleSubmit} style={styles.modal_form}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>{Common.MoveFrom}</Form.Label>
                         <Form.Control
@@ -112,7 +110,7 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                         {errors.moveFrom &&
                             touched.moveFrom &&
                             errors.moveFrom && (
-                                <small style={{ color: "red" }}>
+                                <small style={styles.error_message}>
                                     {errors.moveFrom}
                                 </small>
                             )}
@@ -130,9 +128,9 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                             options={classOptions}
                             placeholder={Common.To}
                         />
-                        {errMessage && (<small className="text-danger">{constants.Common.pleaseSelectClassToMove}</small>)}
+                        {errMessage && (<small className="text-danger">{Common.pleaseSelectClassToMove}</small>)}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.button}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -144,9 +142,8 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
-                            {constants.Common.Move}
+                            {Common.Move}
                         </Button>
                     </Form.Group>
                 </Form>
@@ -155,4 +152,4 @@ const MoveForm = ({ isPupilId, setMove, pupilClassID, getData }) => {
     );
 }
 
-export default MoveForm;
+export { MoveForm };

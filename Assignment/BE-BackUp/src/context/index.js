@@ -1,5 +1,1 @@
-const userContext = require('./userContext');
-
-module.exports = {
-    ...userContext,
-}
+export { UserContext, UserProvider } from "./userContext"

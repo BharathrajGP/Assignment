@@ -1,50 +1,50 @@
-import * as constants from "../../../helper/constants";
+import { Common, Accessors } from "../../../helper";
 
 const pupilCloumns = [
     {
-        Header: constants.Common.SurName,
-        accessor: constants.Accessors.lastName,
+        Header: Common.SurName,
+        accessor: Accessors.lastName,
     },
     {
-        Header: constants.Common.ForeName,
-        accessor: constants.Accessors.firstName,
+        Header: Common.ForeName,
+        accessor: Accessors.firstName,
     },
     {
-        Header: constants.Common.Characteristics,
-        accessor: constants.Accessors.otherNeeds,
+        Header: Common.Characteristics,
+        accessor: Accessors.otherNeeds,
     },
     {
-        Header: constants.Common.Upn,
-        accessor: constants.Accessors.upn,
+        Header: Common.Upn,
+        accessor: Accessors.upn,
     },
     {
-        Header: constants.Common.schoolYear,
-        accessor: constants.Accessors.schoolYear,
+        Header: Common.schoolYear,
+        accessor: Accessors.schoolYear,
     },
     {
-        Header: constants.Common.gender,
-        accessor: constants.Accessors.gender,
+        Header: Common.gender,
+        accessor: Accessors.gender,
     },
     {
-        Header: constants.Common.dob,
-        accessor: constants.Accessors.dob,
+        Header: Common.dob,
+        accessor: Accessors.dob,
     },
     {
-        Header: constants.Common.ethnicity,
-        accessor: constants.Accessors.ethnicity,
+        Header: Common.ethnicity,
+        accessor: Accessors.ethnicity,
     },
     {
-        Header: constants.Common.senStatus,
-        accessor: constants.Accessors.senStatus,
+        Header: Common.senStatus,
+        accessor: Accessors.senStatus,
     },
     {
-        Header: constants.Common.ks1Result,
-        accessor: constants.Accessors.ksResults,
+        Header: Common.ks1Result,
+        accessor: Accessors.ksResults,
     },
     {
         Header: "",
-        accessor: constants.Accessors.action,
+        accessor: Accessors.action,
     },
 ];
 
-export default pupilCloumns;
+export { pupilCloumns };

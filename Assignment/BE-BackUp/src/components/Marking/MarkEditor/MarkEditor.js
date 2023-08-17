@@ -1,83 +1,133 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
+
+import { Common, marking,VALIDATION } from "../../../helper";
+import { MarkEditorDescriptions, MarkEditorHeader, MarkEditorRow } from "./";
+import { LoadingSpinner, Header, success } from "../../Shared";
+import { isEmptyArray, isEmptyObject } from "../../../util/utils";
+import { fetchDescription, fetchDescriptionMark, pupilCategoryAttainment, pupilCategoryUpdate } from "../../../api/markingApi";
 
 import "../../../App.css";
 import "../../../assets/stlyes/MarkEditor.css";
 
-import Header from "../../Shared/Header";
-import CustomRadio from "../../Shared/CustomRadio";
-
-import HelpIcon from "../../../assets/images/LightIcon.png";
 import SaveIcon from "../../../assets/images/Save.png";
-import CommentIcon from "../../../assets/images/Comments.png";
 
-import { Common } from "../../../helper/constants";
-import MarkEditorDescriptions from "./MarkEditorDescriptions";
-import MarkEditorHeader from "./MarkEditorHeader";
+const MarkEditor = () => {
+  const params = useParams();
+  const categoryName = params.categoryName;
+  const subjectName = params.subjectName;
+  const _subjectClassId = params._subjectClassId;
+  const _classId = params._classId;
+  const year = params.year;
+  const _description = params._description;
+  const identifier = params.identifier;
 
-function MarkEditor() {
-  const ObjectivesList = [
-    { value: "Overall", label: "Overall" },
-    { value: "Year 1 Objectives", label: "Year 1 Objectives" },
-    { value: "Year 2 Objectives", label: "Year 2 Objectives" },
-    { value: "Year 3 Objectives", label: "Year 3 Objectives" },
-    { value: "Year 4 Objectives", label: "Year 4 Objectives" },
-    { value: "Year 5 Objectives", label: "Year 5 Objectives" },
-  ];
-  const [selectedOption, setselectedOption] = useState(null);
-  const getSelectedValue = (e) => {
-    setselectedOption(e.value);
-  };
-  const pupilsList = [
-    "Leslie Alexander",
-    "Jane Cooper",
-    "Ralph Edwards",
-    "Devon Lane",
-    "Arlene McCoy",
-    "Marvin McKinney",
-    "Darlene Robertson",
-    "Theresa Webb",
-    "Theresa Webb",
-    "Theresa Webb",
-    "Theresa Webb",
-  ];
+  const [editorData, setEditorData] = useState([]);
+  const [_markings, setMarkings] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [pupilUpn, setPupilUpn] = useState([]);
+  const [PupilUpn, set_PupilUpn] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const updateMarks = (index, i, firstName, lastName, upn) => {
+    const data = [..._markings];
+    data[index].markings = i + 1;
+    setMarkings(data);
+    setPupilUpn(data.map((ele) => ele.upn));
+    set_PupilUpn(data.map((ele) => { return { upn: ele.upn, marks: ele.markings } }));
+  }
+
+  const _fetchDescriptionMark = async () => {
+    setIsLoading(true);
+    const data = { id: _classId, subject: subjectName, category: categoryName, year: Number(year), description: _description }
+
+    const response = await fetchDescriptionMark(data);
+    const result = !isEmptyObject(response) && response.Items;
+
+    const arr = result.map((ele) => { return { ...ele, markings: !isEmptyArray(ele.description) && ele.description[0].markings } });
+    !isEmptyArray(arr) && setEditorData(arr);
+
+    const _arr = arr.map((ele) => { return { markings: ele.markings, firstName: ele.firstName, lastName: ele.lastName, upn: ele.upn } });
+    !isEmptyArray(_arr) && setMarkings(_arr);
+    setIsLoading(false);
+  }
+
+  const _fetchDescription = async () => {
+    setIsLoading(true);
+    const data = { id: _subjectClassId, description: _description, category: categoryName }
+    const response = await fetchDescription(data);
+    !isEmptyObject(response) && setCards(response.Items);
+    setIsLoading(false);
+  }
+
+  const _pupilCategoryAttainment = async () => {
+    setIsLoading(true);
+    const pupilCategoryAttainmentData = { pupil_upn: pupilUpn, subject: subjectName, category: categoryName }
+    const pupilCategoryUpdateData = { pupil_upn: PupilUpn, subject: subjectName, category: categoryName, generalIdentifier: identifier }
+    await pupilCategoryAttainment(pupilCategoryAttainmentData);
+    await pupilCategoryUpdate(pupilCategoryUpdateData);
+    success(VALIDATION.MarksUpdated);
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    _fetchDescriptionMark();
+    _fetchDescription();
+  }, [])
+
   return (
     <div className="Page-layout">
-      <div className="Marking-editor-page">
-        <Header />
-        <div className="marking-editor-page-header">
-          <MarkEditorHeader/>
-        </div>
-        <div className="marking-editor-page-content">
-          <div className="col-md-9 left-content">
-            <div className="marking-sheet">
-              {pupilsList.map((pupils, i) => {
-                return (
-                  <div className="marking-row">
-                    <div className="pupil">
-                      <span className="pupil-text">{pupils}</span>
-                      <img src={CommentIcon} alt="Comments" />
-                    </div>
-                    <CustomRadio i={i} />
-                  </div>
-                );
-              })}
+      {isLoading ? <LoadingSpinner /> :
+        <div className="Marking-editor-page">
+          <Header />
+          <div className="marking-editor-page-header">
+            <MarkEditorHeader />
+          </div>
+          <div className="marking-editor-page-content">
+            <div className="left-content">
+              <div className="marking-sheet">
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {editorData.map((ele, index) =>
+                      <MarkEditorRow {...ele} key={index} index={index} _markings={_markings} CheckBox={marking.CheckBox} updateMarks={updateMarks} />
+                    )}
+                  </tbody>
+                </table>
+              </div>
+              <div className="cancel-save-buttons">
+                <div>
+                  <button className="cancel-button">
+                    <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5px' }}>
+                      {Common.Cancel}
+                    </p>
+                  </button>
+                </div>
+                <div>
+                  <button className="save-button" onClick={() => _pupilCategoryAttainment()}>
+                    <img src={SaveIcon} alt="Save" />
+                    <p style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '5px' }}>
+                      {Common.Save}
+                    </p>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <MarkEditorDescriptions cards={cards} />
             </div>
           </div>
-          <div className="col-md-3 right-content">
-            <MarkEditorDescriptions />
-          </div>
         </div>
-        <div className="cancel-save-buttons">
-          <button className="cancel-button">{Common.Cancel}</button>
-          <button className="save-button">
-            <img src={SaveIcon} alt="Save" />
-            {Common.Save}
-          </button>
-        </div>
-      </div>
+      }
     </div>
   );
 }
 
-export default MarkEditor;
+export { MarkEditor }

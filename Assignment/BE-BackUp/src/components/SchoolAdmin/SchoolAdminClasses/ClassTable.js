@@ -4,16 +4,12 @@ import BTable from "react-bootstrap/Table";
 import { useGlobalFilter, usePagination, useSortBy, useTable, } from "react-table";
 import { Link } from "react-router-dom";
 
-import { GlobalFilter } from "../../../helper/GlobalFilter";
-import * as constants from "../../../helper/constants";
-import Action from "./ClassesActionDropDown";
-import classcolumn from "./Columns";
-import LoadingSpinner from "../../Shared/Loader/LoadingSpinner";
+import { Accessors, Common, GlobalFilter } from "../../../helper";
+import { LoadingSpinner } from "../../Shared";
 import { isEmptyArray, isEmptyObject } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
-import ViewStudentTable from './ViewStudents/ViewStudentTable';
-import CreateClass from "./CreateClass";
-import TeachingAction from "./TeachingGroupDropDown";
+import { CreateClass, TeachingAction, PuiplTable, Action, classcolumn } from "./";
+import { styles } from '../';
 
 import "../../../assets/stlyes/SchoolAdminTableStyle.css";
 
@@ -58,6 +54,7 @@ const Table = ({ columns, data, getData }) => {
                     <GlobalFilter
                         filter={globalFilter}
                         setFilter={setGlobalFilter}
+                        searchBy={'Search by ClassName'}
                     />
                 </Col>
                 <Col className="d-flex justify-content-end">
@@ -70,7 +67,7 @@ const Table = ({ columns, data, getData }) => {
                         getData={getData}
                     >
                         {/* <PersonAddIcon /> */}
-                        {constants.Common.AddClass}
+                        {Common.AddClass}
                     </Button>
                 </Col>
             </Row>
@@ -81,21 +78,9 @@ const Table = ({ columns, data, getData }) => {
                             {headerGroup.headers.map((column) => (
                                 <th
                                     {...column.getHeaderProps(
-                                        column.getSortByToggleProps()
                                     )}
                                 >
                                     {column.render("Header")}
-                                    <span>
-                                        {column.isSorted ? (
-                                            column.isSortedDesc ? (
-                                                <span className="feather icon-arrow-down text-muted float-right" />
-                                            ) : (
-                                                <span className="feather icon-arrow-up text-muted float-right" />
-                                            )
-                                        ) : (
-                                            ""
-                                        )}
-                                    </span>
                                 </th>
                             ))}
                         </tr>
@@ -121,10 +106,10 @@ const Table = ({ columns, data, getData }) => {
 
             <div
                 className="d-flex justify-content-end"
-                style={{ gap: "10px", marginTop: "20px", marginBottom: "0px" }}
+                style={styles.paginate}
             >
                 <span className="d-flex align-items-baseline">
-                    {constants.Common.RowsPerPage}
+                    {Common.RowsPerPage}
                     <select
                         className="form-control w-auto mx-2"
                         value={pageSize}
@@ -143,7 +128,7 @@ const Table = ({ columns, data, getData }) => {
                     className="d-flex align-items-center"
                     style={{ marginBottom: "13px" }}
                 >
-                    {constants.Common.Page}{" "}
+                    {Common.Page}{" "}
                     <strong>
                         {" "}
                         {pageIndex + 1} of {pageOptions.length}{" "}
@@ -160,7 +145,7 @@ const Table = ({ columns, data, getData }) => {
 
             <Modal show={createClass} onHide={(e) => { setcreateClass(false); }} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.AddClass}</Modal.Title>
+                    <Modal.Title >{Common.AddClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <CreateClass setcreateClass={setcreateClass} getData={getData} />
@@ -187,10 +172,10 @@ const ClassTable = () => {
             let responseData = adminClass.Items;
             var finalData = [];
             for (let i = 0; i < responseData.length; i++) {
-                responseData[i][constants.Accessors.action] = (
+                responseData[i][Accessors.action] = (
                     <>
                         {
-                            responseData[i][constants.Accessors.isRegistrationGroup] ? (
+                            responseData[i][Accessors.isRegistrationGroup] ? (
                                 <Action classId={responseData[i].classId} setSwitchTab={setSwitchTab} SetPupilClassId={SetPupilClassId} getData={getData} />
                             ) : (<TeachingAction classId={responseData[i].classId} setSwitchTab={setSwitchTab} SetPupilClassId={SetPupilClassId} getData={getData} />)
                         }
@@ -198,16 +183,16 @@ const ClassTable = () => {
 
                 );
 
-                responseData[i][constants.Accessors.isRegistrationGroup] = (
-                    <div className="d-flex" style={{ gap: "10px" }}>
-                        {responseData[i][constants.Accessors.isRegistrationGroup]
+                responseData[i][Accessors.isRegistrationGroup] = (
+                    <div className="d-flex">
+                        {responseData[i][Accessors.isRegistrationGroup]
                             && (<span>Yes</span>
                             )}
 
                     </div>
                 );
 
-                responseData[i][constants.Accessors.Subjects] = (
+                responseData[i][Accessors.Subjects] = (
                     <div className="d-flex flex-column">
                         <Link>{`Writing`}</Link>
                         <Link>{`Science`}</Link>
@@ -257,14 +242,14 @@ const ClassTable = () => {
                                     </div>
                                 ) : (
                                     <div>
-                                        <ViewStudentTable pupilClassID={pupilClassID} />
+                                        <PuiplTable pupilClassID={pupilClassID} />
                                     </div>
                                 )
                             }
                         </div>
                     ) : (
                         <div className="d-flex justify-content-center">
-                            <h1>{constants.Common.NoClassesFound}</h1>
+                            <h1>{Common.NoClassesFound}</h1>
                         </div>
                     )}
                 </>
@@ -273,4 +258,4 @@ const ClassTable = () => {
     );
 };
 
-export default ClassTable;
+export { ClassTable };

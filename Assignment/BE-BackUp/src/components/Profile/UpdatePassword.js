@@ -1,22 +1,21 @@
 import { React, useRef, useState } from "react";
 import { Formik } from "formik";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router";
+
 
 import "../../assets/stlyes/Profile/UpdatePassword.css";
 import "../../assets/stlyes/Common/Login.css";
 
-import Header from "../Shared/Header";
-import LoadingSpinner from "../Shared/Loader/Loader";
 import HideVisibility from "../../assets/images/IconNotVisible.png";
 import ShowVisibility from "../../assets/images/IconVisible.png";
 
-import { Common, dataType } from "../../helper/constants";
-import { PasswordUpdateValidationSchema } from "../../validators/ProfileValidators";
-import { EditProfileConstants } from "../../helper/constants";
+import { Header, LoadingSpinner } from "../Shared";
+import { Common, dataType, EditProfileConstants } from "../../helper";
+import { PasswordUpdateValidationSchema } from "../../validators";
 import * as commonApi from '../../api/commonApi';
-import { useNavigate } from "react-router";
 
-function ChangePassword() {
+function PasswordUpdate() {
     const newPasswordRef = useRef(null);
     const confirmPasswordRef = useRef(null);
     const navigate = useNavigate();
@@ -34,17 +33,17 @@ function ChangePassword() {
             setInputType(dataType.password)
         }
     }
-    const _updatePassword = async(formData)=>{
+    const _updatePassword = async (formData) => {
         console.log(formData);
         setIsLoading(true);
-        if(formData.newPassword === formData.confirmPassword){
-            const updatePassword = await commonApi.updatePassword({password : formData.newPassword});
-            console.log({updatePassword});
+        if (formData.newPassword === formData.confirmPassword) {
+            const updatePassword = await commonApi.updatePassword({ password: formData.newPassword });
+            console.log({ updatePassword });
             navigate(0)
         }
         setIsLoading(false);
     }
-    
+
     return (
         <div className="Page-layout">
             {isLoading && <LoadingSpinner />}
@@ -106,4 +105,4 @@ function ChangePassword() {
     );
 }
 
-export default ChangePassword;
+export { PasswordUpdate };

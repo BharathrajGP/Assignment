@@ -14,7 +14,7 @@
 }
 
 .schoolAdminTab-marking-tabs {
-    width: 225px;
+    width: 14.063rem;
     background: #084059;
     border-radius: 20px 20px 0px 0px;
     margin-right: 2px;
@@ -34,3 +34,4 @@
 .marking-tablist li {
     cursor: pointer !important;
 }
+

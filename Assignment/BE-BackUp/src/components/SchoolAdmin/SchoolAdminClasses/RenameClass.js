@@ -5,10 +5,10 @@ import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import { Common } from "../../../helper/constants";
+import { Common } from "../../../helper";
 import * as commonApi from "../../../api/commonApi";
 import { isEmptyObject } from "../../../util/utils";
-import * as constants from "../../../helper/constants";
+import { styles } from '../'
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -19,27 +19,20 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
     const [isGroup, setIsGroup] = useState();
     const [isClassData, setIsClassData] = useState();
     const SignupSchema = Yup.object().shape({
-        className: Yup.string().required(Common.Required),
-        // myRadio: Yup.string().required(Common.Required),
+        className: Yup.string().trim(' ').required(Common.Required),
     });
-    const style = {
-        modal_form: {
-            width: "100%",
-        },
-    };
 
     const updateClass = async (formData) => {
         const getClassById = await commonApi.renameClass(formData);
         // if (getClassById.status === 200) {
         //     MySwal.fire({
-        //         title: constants.Common.ClassUpdatedSuccessfully,
+        //         title: Common.ClassUpdatedSuccessfully,
         //         icon: "success",
         //     }).then(() => {
         //         getData();
         //     });
         // }
         getData();
-        console.log(getClassById);
     }
 
     const getClassData = async () => {
@@ -49,7 +42,6 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
         });
         if (!isEmptyObject(getClassById)) {
             const resultData = getClassById.Items
-            console.log("resultData----------", resultData);
             setIsClassData(resultData);
             setIsGroup(resultData.isRegistrationGroup)
         }
@@ -87,7 +79,7 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                 handleSubmit,
                 isSubmitting,
             }) => (
-                <Form onSubmit={handleSubmit} style={style.modal_form}>
+                <Form onSubmit={handleSubmit} style={styles.modal_form}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>{Common.ClassName}</Form.Label>
                         <Form.Control
@@ -101,24 +93,24 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                         {errors.className &&
                             touched.className &&
                             errors.className && (
-                                <small style={{ color: "red" }}>
+                                <small style={styles.error_message}>
                                     {errors.className}
                                 </small>
                             )}
                     </Form.Group>
                     <Form.Group>
-                        <div style={{ marginTop: "20px" }}>
+                        <div style={styles.radioMargin}>
                             <label>
                                 <input
                                     type="radio"
                                     name="myRadio"
                                     onChange={(e) => { setIsGroup(!isGroup) }}
                                     onBlur={handleBlur}
-                                    value={constants.Common.registrationGroup}
-                                    style={{ padding: "5px" }}
+                                    value={Common.registrationGroup}
+                                    style={styles.radioPadding}
                                     checked={isGroup && isGroup}
                                 />
-                                {constants.Common.RegistrationGroup}
+                                {Common.RegistrationGroup}
                             </label>
                             <label>
                                 <input
@@ -126,25 +118,16 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                                     name="myRadio"
                                     onChange={(e) => { setIsGroup(!isGroup) }}
                                     onBlur={handleBlur}
-                                    value={constants.Common.teachingGroup}
-                                    style={{
-                                        padding: "5px",
-                                        marginLeft: "7px",
-                                    }}
+                                    value={Common.teachingGroup}
+                                    style={styles.radioPadding}
                                     checked={!isGroup}
                                 />
-                                {constants.Common.TeachingGroup}
+                                {Common.TeachingGroup}
                             </label>
                         </div>
-                        {errors.myRadio &&
-                            touched.myRadio &&
-                            errors.myRadio && (
-                                <small style={{ color: "red" }}>
-                                    {errors.myRadio}
-                                </small>
-                            )}
+                        {errors.myRadio && touched.myRadio && errors.myRadio && (<small style={styles.error_message}>{errors.myRadio}</small>)}
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.radioMargin}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -156,7 +139,6 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
                             {Common.Update}
                         </Button>
@@ -167,4 +149,4 @@ const RenameClass = ({ isClassId, setEditClass, getData }) => {
     );
 }
 
-export default RenameClass;
+export { RenameClass };

@@ -35,150 +35,199 @@
       display: flex;
       flex-direction: row-reverse;
       align-items: center;
-      }
     }
   }
+}
 
-  .marking-editor-page-content {
-    display: flex;
-    padding: 0px 0px 0px 10px;
+.header-container{
+  width: 100vw;
+}
+.header-container-right{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
 
-    .left-content {
-      display: flex;
-      overflow-y: auto;
+.tr-border-bottom{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
 
-      .marking-sheet {
-        height: 700px;
-        border-top: 1px solid rgba(0, 0, 0, 0.12);
-        display: flex;
-        flex-direction: column;
+.marking-editor-page-content {
+  display: flex;
+  padding: 0px 0px 0px 0px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 
-        .marking-row {
-          display: flex;
-          flex-direction: row;
-          height: 60px;
-          border-bottom: 1px solid rgba(8, 64, 89, 0.25);
-          padding: 15px 0px;
+  .left-content {
+    /* display: flex; */
+    padding-left: 24px;
 
-          .pupil {
-            width: 250px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-
-            .pupil-text {
-              font-family: "Manrope";
-              font-style: normal;
-              font-weight: 500;
-              font-size: 14px;
-              line-height: 24px;
-              letter-spacing: 0.17px;
-              color: #011c25;
-              padding-left: 20px;
-              width: 250px;
-            }
-          }
-
-          .custom-marking-chips {
-            width: 400px;
-          }
-        }
-      }
-    }
-
-    .right-content {
-      margin-left: 15px;
-    }
-
-    .explanation-cards {
+    .marking-sheet {
+      /* background-color: aqua; */
+      max-height:100vh;
+      overflow-y:auto;
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
 
-      .greater-card,
-      .expected-card,
-      .emerging-card,
-      .below-card,
-      .absent-card {
-        width: 300px;
-        height: 120px;
-        border-radius: 20px;
-        border: 1px solid var(--greater-colour);
-        margin-top: 20px;
+      .marking-row {
+        display: flex;
+        flex-direction: row;
+        height: 60px;
+        border-bottom: 1px solid rgba(8, 64, 89, 0.25);
+        padding: 15px 0px;
 
-        .title {
+        .pupil {
+          width: 250px;
           display: flex;
           flex-direction: row;
-          align-items: center;
-          padding-left: 20px;
-          background-color: var(--greater-colour);
-          height: 40px;
-          border-radius: 28px;
-          font-family: "Roboto";
-          font-style: normal;
-          font-weight: 600;
-          font-size: 14px;
-          line-height: 150%;
-          letter-spacing: 0.15px;
-          text-transform: uppercase;
-          color: #011c25;
+          justify-content: space-between;
+
+          .pupil-text {
+            font-family: "Manrope";
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 24px;
+            letter-spacing: 0.17px;
+            color: #011c25;
+            padding-left: 20px;
+            width: 250px;
+          }
         }
 
-        .description {
-          font-family: "Roboto";
-          font-style: normal;
-          font-weight: 400;
-          font-size: 12px;
-          line-height: 166%;
-          color: #011c25;
-          width: 260px;
-          padding: 10px 0px 0px 30px;
-        }
-      }
-
-      .expected-card {
-        border: 1px solid var(--expected-colour);
-        height: 100px;
-
-        .title {
-          background-color: var(--expected-colour);
-        }
-      }
-
-      .emerging-card {
-        border: 1px solid var(--emerging-colour);
-
-        .title {
-          background-color: var(--emerging-colour);
-        }
-      }
-
-      .below-card {
-        border: 1px solid var(--below-colour);
-        height: 41px;
-
-        .title {
-          background-color: var(--below-colour);
-        }
-      }
-
-      .absent-card {
-        border: 1px solid var(--absent-colour);
-        height: 41px;
-
-        .title {
-          background-color: var(--absent-colour);
+        .custom-marking-chips {
+          /* width: 400px; */
         }
       }
     }
   }
+
+  .marking-row {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    border-bottom: 1px solid rgba(8, 64, 89, 0.25);
+    padding: 15px 0px;
+  }
+
+  .pupil {
+    width: 250px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .pupil-text {
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.17px;
+    color: #011c25;
+    padding-left: 20px;
+    width: 250px;
+  }
+
+
+  .right-content {
+    /* margin-left: 15px; */
+  }
+
+  .explanation-cards {
+    display: flex;
+    flex-direction: column;
+    margin-left: 24px;
+
+    .greater-card,
+    .expected-card,
+    .emerging-card,
+    .below-card,
+    .absent-card {
+      width: 300px;
+      height: fit-content;
+      padding-bottom: 20px;
+      border-radius: 20px;
+      border: 1px solid var(--greater-colour);
+      margin-bottom: 20px;
+
+      .title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 20px;
+        background-color: var(--greater-colour);
+        height: 40px;
+        border-radius: 28px;
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 150%;
+        letter-spacing: 0.15px;
+        text-transform: uppercase;
+        color: #011c25;
+      }
+
+      .description {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 166%;
+        color: #011c25;
+        width: 260px;
+        padding: 10px 0px 0px 30px;
+      }
+    }
+
+    .expected-card {
+      border: 1px solid var(--expected-colour);
+      padding-bottom: 20px;
+
+      .title {
+        background-color: var(--expected-colour);
+      }
+    }
+
+    .emerging-card {
+      border: 1px solid var(--emerging-colour);
+
+      .title {
+        background-color: var(--emerging-colour);
+      }
+    }
+
+    .below-card {
+      border: 1px solid var(--below-colour);
+      height: 41px;
+
+      .title {
+        background-color: var(--below-colour);
+      }
+    }
+
+    .absent-card {
+      border: 1px solid var(--absent-colour);
+      height: 41px;
+
+      .title {
+        background-color: var(--absent-colour);
+      }
+    }
+  }
+}
 
 .cancel-save-buttons {
   position: relative;
-  left: 600px;
-  gap: 25px;
+  left: 0px;
+  gap: 10px;
   display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   margin-top: 20px;
+
   .save-button,
   .cancel-button {
     width: 92px;
@@ -198,6 +247,7 @@
     letter-spacing: 0.4px;
     text-transform: uppercase;
   }
+
   .cancel-button {
     background-color: #ffffff;
     color: #084059;
@@ -221,15 +271,18 @@
 }
 
 /* Hide the browser's default radio button */
-.container input {
+.container>input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  height: 0 !important;
+  width: 0 !important;
+  display: none !important;
 }
 
 /* Create a custom radio button */
 .checkmark {
-  position: absolute;
+  /* position: absolute; */
   top: 0;
   left: 0;
   height: 29px;
@@ -261,33 +314,33 @@
   border: 2px solid var(--greater-colour);
 }
 
-.container:hover input ~ .checkmark {
+.container:hover input~.checkmark {
   background-color: #ffffff;
 }
 
-.container input:checked ~ .check-absent {
+.container input:checked~.check-absent {
   background-color: var(--absent-colour);
-  
+
 }
 
-.container input:checked ~ .check-below {
+.container input:checked~.check-below {
   background-color: var(--below-colour);
 }
 
-.container input:checked ~ .check-emerging {
+.container input:checked~.check-emerging {
   background-color: var(--emerging-colour);
 }
 
-.container input:checked ~ .check-expected {
+.container input:checked~.check-expected {
   background-color: var(--expected-colour);
 }
 
-.container input:checked ~ .check-greater {
+.container input:checked~.check-greater {
   background-color: var(--greater-colour);
 }
 
 /* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
+.container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -307,4 +360,14 @@
   background: white;
 }
 
+.mark-editor-table-td {
+  margin: 12px 0px 0px 0px !important;
+}
 /* =========================================== */
+
+.button-text-align {
+  display: 'flex';
+  justify-content: 'center';
+  align-items: 'center';
+  padding-top: '5px'
+}

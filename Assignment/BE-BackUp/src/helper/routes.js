@@ -1,22 +1,41 @@
-export const AdminPages = {
+const AdminPages = {
     schools: "/Schools",
     schoolData: "/School-Data"
 
 }
-export const CommonPages = {
+
+const CommonPages = {
     dashboard: "/Dashboard",
     login: "/",
     authentication: "/Authentication",
     registration: "/Registration",
     addPassword: "/Password",
+    updatePassword: '/UpdatePassword',
+    UpdateProfile: '/Update-Profile',
 }
-export const SchoolPages = {
+
+const SchoolPages = {
     classes: "/Classes",
     subjectOverview: "/Overview",
     subjectMarking: "/Marking",
-    topicMarkEditor: "/MarkEditor"
+    subjectMarkings: "/Markings",
+    topicMarkEditor: "/MarkEditor/:categoryName/:subjectName/:_subjectClassId/:_classId/:year/:_description/:identifier"
 }
 
-export const SchoolAdmin = {
+const SchoolAdmin = {
     schoolAdmin: '/SchoolAdmin',
 }
+
+const InviteUser = {
+    newUser: '/NewUser',
+    setPassword: '/SetPassword'
+}
+
+const RegistrationProcess = {
+    b2bRegister: '/B2BRegister',
+    b2cRegister: '/B2CRegister'
+}
+
+const topicMarkEditor = (categoryName, subjectName, _subjectClassId, _classId, year, _description, identifier) => `/MarkEditor/${categoryName}/${subjectName}/${_subjectClassId}/${_classId}/${year}/${_description}/${identifier}`;
+
+export { AdminPages, CommonPages, SchoolPages, SchoolAdmin, InviteUser, RegistrationProcess, topicMarkEditor };

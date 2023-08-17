@@ -1,0 +1,70 @@
+._logoName {
+    margin-top: 20.13rem;
+    margin-left: 4.94rem;
+    margin-right: 4.87rem;
+    width: 18.4375rem;
+    height: 3.9355rem;
+    flex-shrink: 0;
+    color: #fff;
+}
+._mappixLogo {
+    margin-top: 20.13rem;
+    /* margin-top: 82%; */
+    margin-left: 4.94rem;
+    margin-right: 4.87rem;
+    width: 18.4375rem;
+    height: 6.9355rem;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+._logo-text {
+    margin-top: 15%;
+    width: 18.4375rem;
+    height: 3.625rem;
+    color: #fff;
+    text-align: center;
+    font-family: "Manrope";
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+._link {
+    margin-top: 10.69rem;
+    /* margin-top: 40%; */
+    color: #fff;
+    text-align: center;
+    font-family: "Manrope";
+    font-size: 1.1875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    width: 18.4375rem;
+    height: 1.44rem;
+}
+
+._social-media {
+    display: flex;
+    flex-direction: row;
+    margin-top: 3%;
+    gap: 50px;
+}
+
+._fb-logo,
+._linkedin-logo {
+    width: 30px;
+}
+
+._copyright {
+    position: fixed;
+    bottom: 10px;
+    left: 20px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 25px;
+    color: var(--white-color);
+}

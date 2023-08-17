@@ -7,10 +7,10 @@ import Select from "react-select";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import * as constants from "../../../helper/constants";
-import { senStatusOptions } from "../../../helper/constants";
+import { Common, senStatusOptions } from "../../../helper";
 import { isEmptyObject, isEmptyArray } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
+import { styles } from "../";
 
 import "../../../assets/stlyes/Modals.css";
 
@@ -25,6 +25,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
     const [isFsm6, setIsFsm6] = useState();
     const [isEal, setIsEal] = useState();
     const [isSc, setIsSc] = useState();
+    const [isEHCP, setIsEHCP] = useState();
     const MySwal = withReactContent(Swal);
     const navigate = useNavigate();
     const style = {
@@ -34,8 +35,8 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
     };
 
     const SignupSchema = Yup.object().shape({
-        foreName: Yup.string().required(constants.Common.Required),
-        surName: Yup.string().required(constants.Common.Required),
+        foreName: Yup.string().trim(' ').required(Common.Required),
+        surName: Yup.string().trim(' ').required(Common.Required),
     });
 
     const getSelectedValue = (event) => {
@@ -43,11 +44,10 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
     };
 
     const getPupilData = async () => {
-        console.log("isPupilId", isPupilId);
         const getPupil = await commonApi.getPupil({
             id: isPupilId,
         });
-        if (!isEmptyArray(getPupil.Items)) {
+        if (!isEmptyObject(getPupil.Items)) {
             const individualData = getPupil.Items;
             const found = senStatusOptions.find(
                 (element) => element.value === individualData.senStatus
@@ -61,6 +61,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
             setPupilDetails(individualData);
             setIsSenStatus(individualData.senStatus);
             setIsOtherNeeds(individualData.otherNeeds);
+            setIsEHCP(individualData.ehcp);
         } else {
         }
     };
@@ -73,7 +74,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
         // if (updateIndividualPupil.status === 200) {
         //     setEditPupil(false);
         //     MySwal.fire({
-        //         title: constants.Common.PupilUpdatedSuccessfully,
+        //         title: Common.PupilUpdatedSuccessfully,
         //         icon: "success",
         //     }).then(() => {
         //         getData();
@@ -113,6 +114,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                             freeSchoolMealsE6: isFsm6,
                             serviceChild: isSc,
                         },
+                        ehcp: isEHCP
                     };
                     updatePupil(pupilFormData);
                 }}
@@ -132,11 +134,11 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                         style={style.modal_form}
                     >
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>{constants.Common.ForeName}</Form.Label>
+                            <Form.Label>{Common.ForeName}</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder={constants.Common.ForeName}
-                                name={constants.Common.foreName}
+                                placeholder={Common.ForeName}
+                                name={Common.foreName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.foreName}
@@ -144,17 +146,17 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                             {errors.foreName &&
                                 touched.foreName &&
                                 errors.foreName && (
-                                    <small style={{ color: "red" }}>
+                                    <small style={styles.error_message}>
                                         {errors.foreName}
                                     </small>
                                 )}
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Label>{constants.Common.SurName}</Form.Label>
+                            <Form.Label>{Common.SurName}</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder={constants.Common.SurName}
-                                name={constants.Common.surName}
+                                placeholder={Common.SurName}
+                                name={Common.surName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.surName}
@@ -162,15 +164,14 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                             {errors.surName &&
                                 touched.surName &&
                                 errors.surName && (
-                                    <small style={{ color: "red" }}>
+                                    <small style={styles.error_message}>
                                         {errors.surName}
                                     </small>
                                 )}
                         </Form.Group>
                         <Form.Group>
-                            {console.log("defaultOption", defaultOption)}
                             <Form.Label for="Sen_Status">
-                                {constants.Common.senStatus}
+                                {Common.senStatus}
                             </Form.Label>
                             {defaultOption === undefined ? (
                                 <Select
@@ -179,7 +180,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                                         getSelectedValue(e);
                                     }}
                                     options={senStatusOptions}
-                                    placeholder={constants.Common.pleaseSelect}
+                                    placeholder={Common.pleaseSelect}
                                 />
                             ) : (
                                 <div>
@@ -190,7 +191,7 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                                                 getSelectedValue(e);
                                             }}
                                             options={senStatusOptions}
-                                            placeholder={constants.Common.pleaseSelect}
+                                            placeholder={Common.pleaseSelect}
                                         />
                                     )}
                                 </div>
@@ -203,95 +204,97 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                         </Form.Group>
                         <Form.Group>
                             <Row>
-                                <Col
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
-                                >
+                                <Col className="d-flex flex-column">
                                     <label>
                                         <input
                                             type="checkbox"
-                                            name={constants.Common.myCheck}
+                                            name={Common.myCheck}
                                             onChange={(e) => {
                                                 setIsCla(!isCla);
                                             }}
                                             onBlur={handleBlur}
                                             value={
-                                                constants.Common.ChildLookedAfter
+                                                Common.ChildLookedAfter
                                             }
-                                            style={{ padding: "5px" }}
                                             checked={isCla && isCla}
                                         />
-                                        {constants.Common.ChildLookedAfter}
+                                        {Common.ChildLookedAfter}
                                     </label>
                                     <label>
                                         <input
                                             type="checkbox"
-                                            name={constants.Common.myCheck}
+                                            name={Common.myCheck}
                                             onChange={(e) => {
                                                 setIsFsm(!isFsm);
                                             }}
                                             onBlur={handleBlur}
-                                            value={constants.Common.FreeSchoolMeals}
+                                            value={Common.FreeSchoolMeals}
                                             checked={isFsm && isFsm}
                                         />
-                                        {constants.Common.FreeSchoolMeals}
+                                        {Common.FreeSchoolMeals}
                                     </label>
                                     <label>
                                         <input
                                             type="checkbox"
-                                            name={constants.Common.myCheck}
+                                            name={Common.myCheck}
                                             onChange={(e) => {
                                                 setIsSc(!isSc);
                                             }}
                                             onBlur={handleBlur}
-                                            value={constants.Common.ServiceChild}
+                                            value={Common.ServiceChild}
                                             checked={isSc && isSc}
                                         />
-                                        {constants.Common.ServiceChild}
+                                        {Common.ServiceChild}
                                     </label>
                                 </Col>
-                                <Col
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                    }}
-                                >
+                                <Col className="d-flex flex-column">
                                     <label>
                                         <input
                                             type="checkbox"
-                                            name={constants.Common.myCheck}
+                                            name={Common.myCheck}
                                             onChange={(e) => {
                                                 setIsEal(!isEal);
                                             }}
                                             onBlur={handleBlur}
                                             value={
-                                                constants.Common
+                                                Common
                                                     .EnglishAsAnAdditionalLanguage
                                             }
                                             checked={isEal && isEal}
                                         />
                                         {
-                                            constants.Common
+                                            Common
                                                 .EnglishAsAnAdditionalLanguage
                                         }
                                     </label>
                                     <label>
                                         <input
                                             type="checkbox"
-                                            name={constants.Common.myCheck}
+                                            name={Common.myCheck}
                                             onChange={(e) => {
                                                 setIsFsm6(!isFsm6);
                                             }}
                                             onBlur={handleBlur}
                                             value={
-                                                constants.Common
+                                                Common
                                                     .FreeSchoolMealsEver6
                                             }
                                             checked={isFsm6 && isFsm6}
                                         />
-                                        {constants.Common.FreeSchoolMealsEver6}
+                                        {Common.FreeSchoolMealsEver6}
+                                    </label>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            name={Common.myCheck}
+                                            onChange={(e) => {
+                                                setIsEHCP(!isEHCP);
+                                            }}
+                                            onBlur={handleBlur}
+                                            value={Common.EHCP}
+                                            checked={isEHCP && isEHCP}
+                                        />
+                                        {Common.EHCP}
                                     </label>
                                 </Col>
                             </Row>
@@ -306,14 +309,14 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
                                     setEditPupil(false);
                                 }}
                             >
-                                {constants.Common.Cancel}
+                                {Common.Cancel}
                             </Button>
                             <Button
                                 type="submit"
                                 variant="success"
                                 disabled={isSubmitting}
                             >
-                                {constants.Common.Update}
+                                {Common.Update}
                             </Button>
                         </Form.Group>
                     </Form>
@@ -324,4 +327,4 @@ const EditPupil = ({ isPupilId, setEditPupil, getData }) => {
     );
 }
 
-export default EditPupil;
+export { EditPupil };

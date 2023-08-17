@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { ToastNotification } from './components/Shared/Notification/ToastNotification';
+import { ToastNotification } from './components/Shared';
+import "react-tooltip/dist/react-tooltip.css";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 

@@ -2,8 +2,8 @@ import React from "react";
 
 import '../App.css'
 
-import NavBar from '../components/Shared/NavBar'
-import Header from '../components/Shared/Header';
+import { NavBar, Header } from './'
+// import Header from '../components/Shared/Header';
 
 function Dashboard() {
     return (

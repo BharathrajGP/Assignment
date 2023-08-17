@@ -4,15 +4,14 @@ import { Button, Dropdown, DropdownButton, Modal } from "react-bootstrap";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import * as constants from "../../../helper/constants";
-import { Common } from "../../../helper/constants";
-import AssignClass from "./AssignClass";
-import AssignRole from "./AssignRole";
+import { Common, DeleteTeacherById } from "../../../helper";
+import * as commonApi from '../../../api/commonApi';
+import { AssignClass, AssignRole } from "./";
 
 import "../../../assets/stlyes/Modals.css";
 
 
-const Action = ({ userId }) => {
+const Action = ({ userId, foreName, surName, getData }) => {
     const [assignClass, setAssignClass] = useState(false);
     const [assignRole, setAssignRole] = useState(false);
     const [isUserId, setIsUserId] = useState("");
@@ -20,11 +19,11 @@ const Action = ({ userId }) => {
 
     const DeleteTeacher = () => {
         MySwal.fire({
-            title: Common.Success,
-            text: constants.DeleteTeacherById(userId),
+            title: Common.Delete,
+            text: DeleteTeacherById({ foreName, surName }),
             type: "success",
             showCancelButton: true,
-            confirmButtonText: Common.DeletePupil,
+            confirmButtonText: Common.DisableUser,
         }).then((result) => {
             if (result.value) {
                 // MySwal.fire({
@@ -38,7 +37,20 @@ const Action = ({ userId }) => {
         });
     };
 
-    const confirmDeleteTeacher = () => { };
+    const confirmDeleteTeacher = async () => {
+        const deleteTeacher = await commonApi.updateUserActiveStatus({
+            id: userId,
+            active: false
+        });
+        console.log(deleteTeacher);
+        // if (deletePupil.status === 200) {
+        //     MySwal.fire({
+        //         icon: "success",
+        //         text: Common.PupilDeletedSuccesfully,
+        //     }).then(() => getData());
+        // }
+        getData();
+    };
 
     return (
         <>
@@ -52,23 +64,23 @@ const Action = ({ userId }) => {
                         setIsUserId(userId);
                         setAssignClass(true);
                     }}
-                    className="modal-button"
+                    className="modal-button d-flex justify-content-start"
                 >
-                    Assign Class
+                    {Common.AssignClass}
                 </Button>
                 <Button
                     onClick={(e) => {
                         setIsUserId(userId);
                         setAssignRole(true);
                     }}
-                    className="modal-button"
+                    className="modal-button d-flex justify-content-start"
                 >
-                    Assign Role
+                    {Common.AssignRole}
                 </Button>
 
                 <Dropdown.Divider />
-                <Button onClick={DeleteTeacher} className="modal-button-danger">
-                    Disable User
+                <Button onClick={DeleteTeacher} className="modal-button-danger d-flex justify-content-start">
+                    {Common.DisableUser}
                 </Button>
             </DropdownButton>
 
@@ -82,12 +94,13 @@ const Action = ({ userId }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">AssignClass</Modal.Title>
+                    <Modal.Title>{Common.AssignClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AssignClass
                         isUserId={isUserId}
                         setAssignClass={setAssignClass}
+                        getData={getData}
                     />
                 </Modal.Body>
                 <Modal.Footer></Modal.Footer>
@@ -103,12 +116,13 @@ const Action = ({ userId }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">Assign Role</Modal.Title>
+                    <Modal.Title>{Common.AssignRole}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <AssignRole
                         isUserId={isUserId}
                         setAssignRole={setAssignRole}
+                        getData={getData}
                     />
                 </Modal.Body>
                 <Modal.Footer></Modal.Footer>
@@ -117,4 +131,4 @@ const Action = ({ userId }) => {
     );
 }
 
-export default Action;
+export { Action };

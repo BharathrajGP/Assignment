@@ -7,10 +7,10 @@ import ProfileIcon from "../../assets/images/ProfileIcon.png";
 import HelpIcon from "../../assets/images/HelpIcon.png";
 import NotificationIcon from "../../assets/images/NotificationIcon.png";
 
-import { CommonPages } from "../../helper/routes";
-import Action from "../Profile/Action";
+import { CommonPages } from "../../helper";
+import { Action } from "../Profile";
 
-export default function HeaderNavIcons() {
+function HeaderNavIcons() {
     return (
         <div className="header-nav-icons">
             <Nav defaultActiveKey="/Classes">
@@ -44,3 +44,5 @@ export default function HeaderNavIcons() {
 function Profile() {
     window.location = CommonPages.updateProfile;
 }
+
+export { HeaderNavIcons };

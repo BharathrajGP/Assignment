@@ -5,8 +5,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import "../../assets/stlyes/Actions.css";
 import ProfileIcon from "../../assets/images/ProfileIcon.png";
-import { Common } from "../../helper/constants";
-import { EditProfileConstants } from "../../helper/constants";
+import { Common, EditProfileConstants } from "../../helper";
 
 const StyledMenu = styled((props) => (
     <Menu
@@ -51,7 +50,7 @@ const StyledMenu = styled((props) => (
     },
 }));
 
-export default function Action() {
+function Action() {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -122,3 +121,5 @@ export default function Action() {
         </div>
     );
 }
+
+export { Action };

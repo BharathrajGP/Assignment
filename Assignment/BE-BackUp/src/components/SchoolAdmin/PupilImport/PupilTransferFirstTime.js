@@ -14,4 +14,4 @@ const PupilTransferFirstTime = () => {
   )
 }
 
-export default PupilTransferFirstTime
+export { PupilTransferFirstTime };

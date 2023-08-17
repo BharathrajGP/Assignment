@@ -1,11 +1,10 @@
 import React from "react";
 
-import Header from "../Shared/Header";
-import SchoolAdminTabs from "./SchoolAdminTabs";
-import Footer from "./Footer/Footer";
+import { Header } from "../Shared";
+import { SchoolAdminTabs, Footer } from "./";
 
 
-const SchoolAdmin = () => {
+const SchoolAdminPages = () => {
 
     return (
         <div className="Page-layout">
@@ -20,4 +19,4 @@ const SchoolAdmin = () => {
     );
 }
 
-export default SchoolAdmin;
+export { SchoolAdminPages };

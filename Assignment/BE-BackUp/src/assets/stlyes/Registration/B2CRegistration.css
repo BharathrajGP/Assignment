@@ -1,0 +1,362 @@
+@import url("https://fonts.googleapis.com/css?family=Manrope:300,700,600,400");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,700,600,400");
+
+.RegPage {
+    height: 100vh;
+    display: grid;
+    /* grid-template-columns: auto auto auto auto; */
+    grid-template-columns: 1fr 2.35fr;
+    /* grid-template-columns: 1fr 1fr; */
+    /* grid-template-rows: 1fr; */
+}
+*/
+/* @media screen {
+    min
+} */
+.C_leftPart {
+    /* grid-column: 1; */
+    /* grid-row: 1; */
+    background: url("../../../assets/images/BG1.png");
+    align-items: center;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    height: 64rem;
+    width: 30%;
+    position: absolute;
+}
+._leftPart {
+    grid-column: 1;
+    grid-row: 1;
+    background: url("../../../assets/images/BG1.png");
+    align-items: center;
+    background-size: 100% 100%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    height: 1024px;
+    width: 30%;
+    position: absolute;
+
+    .mappixLogo {
+        margin-top: 25%;
+        height: 12%;
+        width: 45%;
+    }
+
+    .logo-text {
+        margin-top: 10%;
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 120%;
+        max-width: 250px;
+        color: var(--white-color);
+    }
+
+    .link {
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 120%;
+        color: var(--white-color);
+        margin-top: 10%;
+    }
+
+    .social-media {
+        display: flex;
+        flex-direction: row;
+        margin-top: 3%;
+        gap: 50px;
+
+        .fb-logo,
+        .linkedin-logo {
+            width: 30px;
+        }
+    }
+
+    .copyright {
+        position: fixed;
+        bottom: 10px;
+        left: 20px;
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 25px;
+        color: var(--white-color);
+    }
+}
+
+.C_rightPart {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background-color: #fef4eb !important;
+    height: 64rem !important;
+    z-index: 1 !important;
+    /* padding: 5% 10% !important; */
+    /* padding-top: 38%; */
+    padding-top: 19.62rem;
+    padding-left: 15%;
+    width: 149.9%;
+    /* width: 61.75rem; */
+
+    .AcoountLogo,
+    .mailLogo,
+    .visibleLogo,
+    .schoolLogo {
+        position: relative;
+        left: 18rem;
+        bottom: 2.5rem;
+        width: 21px;
+        height: 21px;
+    }
+
+    .login-forgot {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+
+        .login-button {
+            margin-top: 4%;
+            height: 51px;
+            width: 164px;
+            background: var(--below-colour);
+            border-radius: 50px;
+            border: 1px solid var(--below-colour);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            font-family: "Manrope";
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--white-color);
+            padding: 12px 0px;
+
+            .login-button-text {
+                margin-top: 10px;
+            }
+        }
+
+        .forgot-password {
+            font-family: "Manrope";
+            font-style: normal;
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 120%;
+            color: var(--below-colour);
+            margin-left: 2%;
+        }
+    }
+
+    .hexagon-logo {
+        /* width: min-content;
+        height: fit-content; */
+        /* margin-top: 10%; */
+        margin-left: 50%;
+        margin-right: 20%;
+        margin-top: 3.13rem;
+        /* margin-right: 7.56rem; */
+        display: flex;
+        width: 20rem;
+        height: 15.25rem;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+    }
+}
+
+.C_rightPart .C_welcome-title {
+    color: #000;
+    font-family: "Manrope";
+    font-size: 1.6875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    width: 17.87rem;
+    height: 2rem;
+}
+
+.C_welcome-subtitle {
+    margin-bottom: 2.38rem !important;
+    margin-top: 0.5rem !important;
+    width: 17.87rem;
+    height: 1rem;
+    color: #000;
+    font-family: "Manrope";
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.logo-textbox {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.Home-loayout {
+    display: flex;
+}
+
+.C_reg-link {
+    display: flex;
+    width: 10.6875rem;
+    height: 0.875rem;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #f34970;
+    font-family: "Manrope";
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 0.975rem */
+    margin-left: 2.31rem;
+    /* width: 300px;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    top: 30px;
+    left: 100px;
+    font-family: "Manrope";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 120%;
+    color: var(--below-colour); */
+}
+
+.user_name,
+.user_name_active,
+.user_password,
+.user_password_active {
+    /* color: #f34970 !important; */
+    width: 335px !important;
+    height: 51px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50px !important;
+    border: 1px solid var(--below-colour) !important;
+    padding: 15px 20px 15px 30px !important;
+    background-color: transparent !important;
+    color: var(--below-colour) !important;
+    font-family: "Manrope" !important;
+    font-size: 13px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 120% !important;
+}
+
+.error-message {
+    color: var(--below-colour);
+    font-family: "Manrope";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    padding: 0px 30px;
+}
+
+.user_name_active,
+.user_password_active {
+    border-color: var(--white-color) 1px;
+}
+
+.submit-button {
+    height: 51px;
+    width: 164px;
+    background: var(--below-colour);
+    border-radius: 50px;
+    border: 1px solid var(--below-colour);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "Manrope";
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--white-color);
+    padding: 12px 0px;
+    .login-icon {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        stroke-width: 2px;
+        stroke: var(--white-color);
+    }
+}
+
+.submit-button-div {
+    /* display: flex; */
+    align-items: center;
+}
+
+.selectClass {
+    border: none !important;
+    background: none !important;
+    /* margin: -10px; */
+    width: 335px !important;
+    height: 51px !important;
+    flex-shrink: 0 !important;
+    border-radius: 50px !important;
+    border: 1px solid var(--below-colour) !important;
+    padding: 15px 20px 15px 30px !important;
+    background-color: transparent !important;
+    color: var(--below-colour) !important;
+    font-family: "Manrope" !important;
+    font-size: 13px !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    line-height: 120% !important;
+}
+
+.css-13cymwt-control,
+.css-t3ipsp-control {
+    /* border: none !important;
+    background: none !important;
+    margin: -3% !important; */
+}
+.css-t3ipsp-control:hover {
+    border-color: "#fef4eb" !important;
+}
+
+.css-15lsz6c-indicatorContainer {
+    border: none !important;
+    background: none !important;
+    margin: -3% !important;
+}
+
+.checkBox {
+    margin-top: 3.31rem;
+    margin-bottom: 2.75rem;
+}
+.termCondition {
+    width: 15.625rem;
+    height: 1.125rem;
+    color: #f34970;
+    font-family: "Manrope";
+    font-size: 0.8125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    margin-left: 1.55rem;
+}
+
+.checkeddd {
+    width: 1.2rem;
+    height: 1.2rem;
+    background-color: #f34970;
+    border: #f34970;
+}

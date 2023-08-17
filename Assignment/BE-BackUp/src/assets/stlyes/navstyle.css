@@ -1,0 +1,13 @@
+.navBar-items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.nav-link-logo{
+    height: auto;
+    margin-right: 10px;
+}
+
+.rs-dropdown-menu-collapse-in{
+  color: red;
+}

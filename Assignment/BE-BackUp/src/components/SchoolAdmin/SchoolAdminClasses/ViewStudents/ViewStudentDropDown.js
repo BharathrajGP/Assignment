@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { Button, DropdownButton, Modal } from "react-bootstrap";
 
-import MoveForm from "./MoveForm";
-import * as constants from '../../../../helper/constants';
+import { MoveForm } from "./";
+import { Common } from '../../../../helper';
 
 import "../../../../assets/stlyes/Modals.css";
 
 
-const Action = ({ pupilId, pupilClassID, getData }) => {
+const PupilAction = ({ pupilId, pupilClassID, getData }) => {
 
     const [move, setMove] = useState(false);
     const [isPupilId, setIsPupilId] = useState("");
@@ -25,9 +25,9 @@ const Action = ({ pupilId, pupilClassID, getData }) => {
                         setIsPupilId(pupilId);
                         setMove(true);
                     }}
-                    className="modal-button"
+                    className="modal-button d-flex justify-content-start"
                 >
-                    {constants.Common.Move}
+                    {Common.Move}
                 </Button>
             </DropdownButton>
 
@@ -40,7 +40,7 @@ const Action = ({ pupilId, pupilClassID, getData }) => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.MovePupil}</Modal.Title>
+                    <Modal.Title>{Common.MovePupil}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <MoveForm isPupilId={isPupilId} setMove={setMove} pupilClassID={pupilClassID} getData={getData} />
@@ -51,4 +51,4 @@ const Action = ({ pupilId, pupilClassID, getData }) => {
     );
 }
 
-export default Action;
+export { PupilAction };

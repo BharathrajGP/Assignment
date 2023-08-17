@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 import BTable from 'react-bootstrap/Table';
 import { useTable, useFilters, useGlobalFilter, useAsyncDebounce } from 'react-table';
+
+import { LoadingSpinner } from '../Shared';
+import { isEmptyArray, isNullOrEmpty } from '../../util/utils';
+import { Common, marking, topicMarkEditor } from '../../helper';
+
+import '../../assets/stlyes/marking.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+
 import VolumeGrey from "../../assets/images/VolumeGrey.png";
 import EditSvg from "../../assets/images/Edit.svg";
-import { isEmptyArray } from 'formik';
+import KeyIcon from "../../assets/images/keyIcon.svg";
 
 const styles = {
     sChip: {
         backgroundColor: '#e0e0e0',
+        color: '#011C25',
         borderRadius: '16px',
         width: '28px',
         height: '24px',
@@ -20,6 +30,7 @@ const styles = {
     },
     ealChip: {
         backgroundColor: '#e0e0e0',
+        color: '#011C25',
         borderRadius: '16px',
         width: '44px',
         height: '24px',
@@ -48,13 +59,12 @@ const styles = {
         paddingBottom: '5px',
         color: '#FFFFFF'
     },
-    percentage: {
-        backgroundColor: '#26C8B9',
-        // backgroundColor: '#F34970',
-        // backgroundColor: '#F4C900',
-        // backgroundColor: '#E0E0E0',
-        // backgroundColor: '#AABB5D',
-        width: '100px',
+    flexCenter: { display: 'flex', justifyContent: 'center', alignItems: 'center' },
+    actualPredicted: {
+        backgroundColor: '#E0E0E0',
+        color: '#011C25',
+        width: '80px',
+        height: '30px',
         borderRadius: '100px',
         display: 'flex',
         alignItems: 'center',
@@ -65,6 +75,80 @@ const styles = {
         justifyContent: 'center',
         alignItems: 'center'
     },
+    actualPredictedFont: {
+        color: '#011C25'
+    },
+    1: {
+        backgroundColor: '#E0E0E0',
+        width: '80px',
+        height: '30px',
+        borderRadius: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    2: {
+        backgroundColor: '#F34970',
+        width: '80px',
+        height: '30px',
+        borderRadius: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    3: {
+        backgroundColor: '#F4C900',
+        width: '80px',
+        height: '30px',
+        borderRadius: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    4: {
+        backgroundColor: '#AABB5D',
+        width: '80px',
+        height: '30px',
+        borderRadius: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    5: {
+        backgroundColor: '#26C8B9',
+        width: '80px',
+        height: '30px',
+        borderRadius: '100px',
+        display: 'flex',
+        alignItems: 'center',
+        paddingTop: '5px',
+        paddingBottom: '5px',
+        color: '#FFFFFF',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+
 }
 
 function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter } }) {
@@ -80,17 +164,6 @@ function DefaultColumnFilter({ column: { filterValue, preFilteredRows, setFilter
         //   }}
         //   placeholder={`Search ${count} records...`}
         // />
-    );
-}
-
-function SliderColumnFilter({ column: { filterValue, setFilter, preFilteredRows, id } }) {
-    return (
-        <div className="d-flex align-items-center">
-            <button style={styles.markButton} onClick={() => setFilter(undefined)}>
-                <img src={EditSvg} alt="vol" style={{ marginRight: '2px', marginLeft: '5px' }} />
-                MARK
-            </button>
-        </div>
     );
 }
 
@@ -122,17 +195,7 @@ function Table({ columns, data }) {
         []
     );
 
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        state,
-        visibleColumns,
-        preGlobalFilteredRows,
-        setGlobalFilter
-    } = useTable(
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, visibleColumns, preGlobalFilteredRows, setGlobalFilter } = useTable(
         {
             columns,
             data,
@@ -154,8 +217,11 @@ function Table({ columns, data }) {
                     {headerGroups.map((headerGroup) => (
                         <tr {...headerGroup.getHeaderGroupProps()}>
                             {headerGroup.headers.map((column) => (
-                                <th {...column.getHeaderProps()}>
-                                    {column.render('Header')}
+                                <th {...column.getHeaderProps()} >
+                                    <div className='marking-header-style'>
+                                        {column.render('Header')}
+                                        {((column.columns !== undefined && column.columns[0].isKPI === true)) && <div>{<img src={KeyIcon} />}</div>}
+                                    </div>
                                     {/* Render the columns filter UI */}
                                     <div>{column.canFilter ? column.render('Filter') : null}</div>
                                 </th>
@@ -181,7 +247,6 @@ function Table({ columns, data }) {
     );
 }
 
-// Define a custom filter filter function!
 function filterGreaterThan(rows, id, filterValue) {
     return rows.filter((row) => {
         const rowValue = row.values[id];
@@ -189,61 +254,81 @@ function filterGreaterThan(rows, id, filterValue) {
     });
 }
 
-// This is an autoRemove method on the filter function that
-// when given the new filter value and returns true, the filter
-// will be automatically removed. Normally this is just an undefined
-// check, but here, we want to remove the filter if it's not a number
 filterGreaterThan.autoRemove = (val) => typeof val !== 'number';
 
 const MarkingTable = (props) => {
-    const { headersData, _subjectClassId, _classId } = props;
+    const { headersData, tableBodyData, categoryName, subjectName, _subjectClassId, _classId, year } = props;
+    const navigate = useNavigate();
+    const [studentData, setStudentData] = useState([]);
+
+    const SliderColumnFilter = (categoryName, subjectName, _subjectClassId, _classId, year, _description, identifier) => {
+        return (
+            <div className="d-flex align-items-center">
+                <button style={styles.markButton} onClick={() => navigate(topicMarkEditor(categoryName, subjectName, _subjectClassId, _classId, year, _description, identifier))}>
+                    <img src={EditSvg} alt="vol" style={{ marginRight: '2px', marginLeft: '5px' }} />
+                    {Common.MARK}
+                </button>
+            </div>
+        );
+    }
 
     const columns = React.useMemo(() =>
         headersData.map((ele, i) => {
             return (
                 (i === 0) ? {
-                    Header: ele.description === ele.description ? `${ele.description} ` : ele.description,
-                    columns: [{ Header: ' ', accessor: ele.description === ele.description ? `${ele.description} ` : ele.description }]
+                    Header: ele.description === ele.description ? `${ele.description}` : ele.description,
+                    columns: [{ Header: ' ', accessor: ele.description === ele.description ? `${ele.description}` : ele.description, isKPI: false }]
                 } : (i === headersData.length - 1) ?
                     {
-                        Header: ele.description === ele.description ? `${ele.description} ` : ele.description,
-                        columns: [{ Header: ele.actual, accessor: ele.actual }, { Header: ele.predicted, accessor: ele.predicted }]
+                        Header: ele.description === ele.description ? `${ele.description}` : ele.description,
+                        columns: [{ Header: ele.actual, accessor: ele.actual, isKPI: false }, { Header: ele.predicted, accessor: ele.predicted, isKPI: false }]
                     } :
                     {
-                        Header: ele.description === ele.description ? `${ele.description} ` : ele.description,
-                        columns: [{ Header: ' ', accessor: ele.description === ele.description ? `${ele.description} ` : ele.description, Filter: SliderColumnFilter, filter: 'equals' }]
+                        Header: ele.description === ele.description ? `${ele.description}` : ele.description,
+                        columns: [{ Header: ' ', accessor: ele.description === ele.description ? `${ele.description}` : ele.description, isKPI: ele.isKPI, Filter: SliderColumnFilter(categoryName, subjectName, _subjectClassId, _classId, year, ele.description, ele.identifier), filter: 'equals' }]
                     }
             )
-        })
-        , [headersData])
+        }), [headersData])
 
-    //   const data = React.useMemo(() => makeData(1000), []);
-    const data = [
-        {
-            "firstName": <div className="pupil" style={{ display: 'flex', alignItems: 'center' }}>
-                <span>Leslie Alexander</span>
-                <img src={VolumeGrey} alt="vol" style={{ marginRight: '10px' }} />
-                <span className="S-chip" style={styles.sChip}>S </span>
-                <span className="EAL-chip" style={styles.ealChip}>EAL </span>
-            </div>,
-            "digitalValues": <span style={styles.percentage}>30%</span>,
-            "powers": <span style={styles.percentage}>30%</span>,
-            "negativeNumbers": <span style={styles.percentage}>30%</span>,
-            "roundingNumbers": <span style={styles.percentage}>30%</span>,
-            "solvingProblems": <span style={styles.percentage}>30%</span>,
-            "romanNumerals": <span style={styles.percentage}>30%</span>,
-            "actual": <span style={styles.percentage}>30%</span>,
-            "predicted": <span style={styles.percentage}>30%</span>
+    const getstudentData = () => {
+        const arrayData = [];
+        for (let i = 0; i < tableBodyData.length; i++) {
+            tableBodyData[i]['fullName'] =
+                <span style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+                    <div>
+                        <small>{`${tableBodyData[i].firstName} ${tableBodyData[i].lastName}`} </small>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
+                        <img src={VolumeGrey} />&nbsp;&nbsp;
+                        {tableBodyData[i].otherNeeds.serviceChild && <span className="S-chip" style={styles.sChip}>{marking.serviceChild}</span>}
+                        {tableBodyData[i].otherNeeds.eal && <span className="EAL-chip" style={styles.ealChip}>{marking.eal}</span>}
+                        {(tableBodyData[i].otherNeeds.childLookedAfter || tableBodyData[i].otherNeeds.eal || tableBodyData[i].otherNeeds.serviceChild || tableBodyData[i].otherNeeds.freeSchoolMeals || tableBodyData[i].otherNeeds.freeSchoolMealsE6) && <span className="S-chip" style={styles.ealChip}>{marking.peoplePremium}</span>}
+                    </div>
+                </span>
+
+            tableBodyData[i]['Actual'] = <small style={styles.actualPredicted}><p style={styles.actualPredictedFont}>{`${Math.round(tableBodyData[i].category[0].actual)}%`}</p></small>
+            tableBodyData[i]['Predicted'] = <small style={styles.actualPredicted}><p style={styles.actualPredictedFont}>{`${Math.round(tableBodyData[i].category[0].predicted)}%`}</p></small>
+            for (let j = 0; j < tableBodyData[i].category[0].description.length; j++) {
+                var colorNo = tableBodyData[i].category[0].description[j].markings;
+                tableBodyData[i][tableBodyData[i].category[0].description[j].name] = <span style={styles[colorNo]}></span>
+            }
+
+            arrayData.push(tableBodyData[i]);
         }
-    ];
+        setStudentData(arrayData);
+    }
+
+    useEffect(() => {
+        getstudentData();
+    }, [tableBodyData])
 
     return (
         <Row>
             <Col>
-                <Table columns={columns} data={data} />
+                <Table columns={columns} data={studentData} />
             </Col>
         </Row>
     );
 }
 
-export default MarkingTable;
+export { MarkingTable };

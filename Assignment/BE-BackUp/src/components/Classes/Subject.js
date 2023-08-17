@@ -1,33 +1,39 @@
-import React from 'react'
+import { React, useState, useEffect } from 'react'
 
 import "../../assets/stlyes/Classes.css";
 
 import { ActualChip, PredictedChip } from "./ChipComponents";
-import { Common, Subjects, Colors } from '../../helper/constants';
+import { Common, Subjects, Colors } from '../../helper';
 
 
-export default function classSubjectBlock({ heading }) {
-  let bgColor = Colors.White;
-
-  switch (heading) {
+function Subject({ heading, classData }) {
+  const [subjectheading, setSubjectHeading] = useState();
+  const [subject, setSubject] = useState();
+  const getClassInfo = async (a, b) => {
+    setSubjectHeading(heading)
+    setSubject(classData)
+  }
+  var bgColor = Colors.White;
+  switch (subject) {
+    case Subjects.Writing:
+      bgColor = Colors.Secondary;
+      break;
     case Subjects.Maths:
       bgColor = Colors.Secondary;
       break;
-    case Subjects.Reading:
-      bgColor = Colors.Secondary;
-      break;
-    case Subjects.Writing:
+    case Subjects.PE:
       bgColor = Colors.Secondary;
       break;
     default:
       bgColor = Colors.White;
   }
 
+  useEffect(() => { getClassInfo(heading, classData) }, []);
 
   return (
-    <div className='classSubjectBlock' style={{ background: bgColor}}>
+    <div className='classSubjectBlock' style={{ background: bgColor }}>
       <div className='subject-heading'>
-        {heading}
+        {subjectheading}
       </div>
       <div className='table-columns'>
         <div className='col-xs-6 subject-ks-result-col'>
@@ -55,3 +61,5 @@ export default function classSubjectBlock({ heading }) {
     </div>
   )
 }
+
+export { Subject };

@@ -1,4 +1,4 @@
-import { React, useRef, useState ,useEffect } from "react";
+import { React, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import Form from "react-bootstrap/Form";
@@ -6,43 +6,41 @@ import Form from "react-bootstrap/Form";
 import "../../assets/stlyes/Profile/UpdatePassword.css";
 import "../../assets/stlyes/Common/Login.css";
 
-import Header from "../Shared/Header";
-import LoadingSpinner from "../Shared/Loader/Loader";
-
-import { EditProfileConstants } from "../../helper/constants";
-import {isEmptyObject} from "../../util/utils";
-import { profileUpdateValidationSchema } from "../../validators/ProfileValidators";
+import { Header, LoadingSpinner } from "../Shared";
+import { EditProfileConstants } from "../../helper";
+import { isEmptyObject } from "../../util/utils";
+import { profileUpdateValidationSchema } from "../../validators";
 import * as commonApi from '../../api/commonApi';
 
-function ChangePassword() {
+function ProfileUpdate() {
     const navigate = useNavigate();
     const FirstNameRef = useRef(null);
     const LastNameRef = useRef(null);
-    const [_firstName , _setFirstName] = useState("")
-    const [_lastName , _setLastName] = useState("")
+    const [_firstName, _setFirstName] = useState("")
+    const [_lastName, _setLastName] = useState("")
     const [isLoading, setIsLoading] = useState(false);
 
-    const _getProfile =async() =>{
+    const _getProfile = async () => {
         setIsLoading(true);
         const Profile = await commonApi.getProfile();
-        console.log("Profile",Profile.Items);
-        console.log("FirstName",Profile.Items.firstName);
-        console.log("LastName",Profile.Items.lastName);
-        if(isEmptyObject(Profile)){navigate(0);}
-        else{_setFirstName(Profile.Items.firstName);_setLastName(Profile.Items.lastName);setIsLoading(false);}
+        console.log("Profile", Profile.Items);
+        console.log("FirstName", Profile.Items.firstName);
+        console.log("LastName", Profile.Items.lastName);
+        if (isEmptyObject(Profile)) { navigate(0); }
+        else { _setFirstName(Profile.Items.firstName); _setLastName(Profile.Items.lastName); setIsLoading(false); }
     };
 
     const _updateProfile = async (formData) => {
         setIsLoading(true);
-        console.log("formData",formData);
+        console.log("formData", formData);
         const updateProfile = await commonApi.updateProfile(formData);
-        console.log({updateProfile});
+        console.log({ updateProfile });
         navigate(0)
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         _getProfile();
-    },[]);
+    }, []);
     return (
         <div className="Page-layout">
             {isLoading && <LoadingSpinner />}
@@ -70,7 +68,7 @@ function ChangePassword() {
                             handleChange,
                             handleBlur,
                             handleSubmit,
-                            isSubmitting,}) => (
+                            isSubmitting, }) => (
                             <div className="profile-form">
                                 <Form onSubmit={handleSubmit} className="profileForm">
                                     <Form.Group className="form-group">
@@ -88,7 +86,7 @@ function ChangePassword() {
                                         {touched.LastName && errors.LastName ? (<p className="error-message">{errors.LastName}</p>) : <p>{''}&nbsp;</p>}
                                     </Form.Group>
                                     <div className='submit-button-div'>
-                                        <button type='submit' className='submit-button'>{EditProfileConstants.UpdateProfile }</button>
+                                        <button type='submit' className='submit-button'>{EditProfileConstants.UpdateProfile}</button>
                                     </div>
                                 </Form>
                             </div>
@@ -100,4 +98,4 @@ function ChangePassword() {
     );
 }
 
-export default ChangePassword;
+export { ProfileUpdate };

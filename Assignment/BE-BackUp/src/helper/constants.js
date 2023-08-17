@@ -1,4 +1,7 @@
-export const Common = {
+import tickmark from '../assets/images/tickCheckbox.png'
+
+const Common = {
+    MARK: 'MARK',
     Confirm: "Confirm",
     SignIn: "Sign In",
     SignOut: "Sign Out",
@@ -45,7 +48,10 @@ export const Common = {
     TimeFormat_LT: "LT",
     Submit: "Submit",
     Year: "Year",
-
+    className: 'className',
+    subjectName: 'subjectName',
+    categoryName: 'categoryName',
+    eKey: 'eKey',
 
     Login: "Login",
     beamEducationLink: "beam-education.co.uk",
@@ -61,6 +67,9 @@ export const Common = {
     Pleaseenteryouremailaddresstoregister: "Please enter your email address to register.",
     SendOtp: "Send OTP",
     ClicktoLogin: "Click here to Login",
+    PleaseCreateYourUniqueUserLogin: "Please create your unique user login.",
+    Register: 'Register',
+    AlreadyRegisteredLogin: 'AlreadyRegistered?Login',
 
     //Authentication Page
     EnterValidOTPtoLogin: "Enter Valid OTP to Login",
@@ -159,15 +168,39 @@ export const Common = {
     RenameClass: 'RenameClass',
     DeleteClass: 'DeleteClass',
     PupilMovedSuccessfully: 'Pupil Moved Successfully!',
+    ClassDataDeletedSuccessfully: 'Class data deleted Successfully',
     pleaseSelectClassToMove: 'Please Select Class To Move Pupil',
     Move: 'Move',
     MovePupil: 'Move Pupil',
+    deleteClass: 'Delete Class',
+    Role: 'Role',
+    AddRole: 'Add Role',
+    Roles: 'Roles',
+    Classes: 'Classes',
+    InviteUser: 'Invite User',
+    EnableUser: 'Enable User',
+    AssignClass: 'Assign Class',
+    AssignRole: 'Assign Role',
+    DisableUser: 'Disable User',
+    RemoveRole: 'Remove Role',
+    RemoveClass: 'Remove Class',
+    remove: 'remove',
+    NoUserFound: 'No User Found',
+    EHCP: 'Education, Health and Child Care',
+    PerformaceProgress: "Performace Progress",
+    Trend: "Trend",
+    KS1Result: "KS1 Result",
+    Progress: "Progress",
+    PlaceValue: "Place Value"
+
+
 }
-export const Accessors = {
+const Accessors = {
     lastName: "lastName",
     firstName: "firstName",
     upn: "upn",
     schoolYear: "schoolYear",
+    year: 'year',
     gender: "gender",
     dob: "dob",
     ethnicity: "ethnicity",
@@ -179,37 +212,51 @@ export const Accessors = {
     isRegistrationGroup: 'isRegistrationGroup',
     Subjects: 'Subjects',
     className: 'className',
+    name: 'name',
     classSize: 'classSize',
+    email: 'email',
+    type: 'type',
+    classes: 'classes',
 };
 
-export const AssignSubjects = [
-    { value: " ", label: "Please Select" },
-    { value: "All", label: "All" },
-    { value: "Maths", label: "Maths" },
-    { value: "Science", label: "Science" },
-    { value: "PE", label: "PE" },
-    { value: "Writing", label: "Writing" },
-    { value: "Reading", label: "Reading" },
-];
-export const senStatusOptions = [
-    { value: " ", label: "Please Select" },
-    { value: "Not SEN", label: "--" },
-    { value: "SA", label: "SA" },
-    { value: "SA+", label: "SA+" },
-    { value: "Statement", label: "Statement" },
-    { value: "Sen Support", label: "Sen Support" },
-    { value: "EHCP", label: "Education, Health and Care Plan" },
-];
-
-export const TeacherRoles = [
-    { value: " ", label: "Please Select" },
+//Registration
+const optionsss = [
+    { value: "", label: "Your Role" },
     { value: "Admin", label: "Admin" },
     { value: "Lead Teacher", label: "Lead Teacher" },
     { value: "Teacher", label: "Teacher" },
     { value: "Support Staff", label: "Support Staff" },
 ];
 
-export const AssignClasses = [
+const AssignSubjects = [
+    // { value: " ", label: "Please Select" },
+    { value: ["Maths", "Science", "PE", "Writing", "Reading"], label: "All" },
+    { value: "Maths", label: "Maths" },
+    { value: "Science", label: "Science" },
+    { value: "PE", label: "PE" },
+    { value: "Writing", label: "Writing" },
+    { value: "Reading", label: "Reading" },
+];
+const senStatusOptions = [
+    // { value: " ", label: "Please Select" },
+    // { value: "Not SEN", label: "--" },
+    // { value: "SA", label: "SA" },
+    // { value: "SA+", label: "SA+" },
+    // { value: "Statement", label: "Statement" },
+    // { value: "Sen Support", label: "Sen Support" },
+    // { value: "EHCP", label: "Education, Health and Care Plan" },
+    { value: true, label: 'Yes' },
+    { value: false, label: 'No' },
+];
+
+const TeacherRoles = [
+    { value: "Admin", label: "Admin" },
+    { value: "Lead Teacher", label: "Lead Teacher" },
+    { value: "Teacher", label: "Teacher" },
+    { value: "Support Staff", label: "Support Staff" },
+];
+
+const AssignClasses = [
     { value: " ", label: "Please Select" },
     { value: "Elephant", label: "Elephant" },
     { value: "Lion", label: "Lion" },
@@ -217,7 +264,7 @@ export const AssignClasses = [
     { value: "Cheetah", label: "Cheetah" },
     { value: "SenSupport", label: "Sen Support" },
 ];
-export const NavigationBar = {
+const NavigationBar = {
     Dashboard: "Dashboard",
     MyClasses: "My Classes",
     ClassHome: "Class Home",
@@ -228,6 +275,7 @@ export const NavigationBar = {
     Writing: "Writing",
     Pupils: "Pupils",
     Admin: "Admin",
+    AccountSettings: "Account Settings",
     BigPicture: "Big Picture",
     Resouces: "Resouces",
     Overview: "Overview",
@@ -235,11 +283,11 @@ export const NavigationBar = {
     TokenError: 'A token is required for authentication'
 }
 
-export const ExternalLinks = {
+const ExternalLinks = {
     BeamEduWebsite: "https://www.beam-education.co.uk/"
 }
 
-export const Subjects = {
+const Subjects = {
     //Subjects
     Maths: "Maths",
     PE: "PE",
@@ -248,7 +296,7 @@ export const Subjects = {
     Writing: "Writing"
 }
 
-export const MarkingLevels = {
+const MarkingLevels = {
     ABSENT: "ABSENT",
     BELOW: "BELOW",
     EMERGING: "EMERGING",
@@ -256,54 +304,55 @@ export const MarkingLevels = {
     GREATER_DEPTH: "GREATER DEPTH",
 }
 
-export const Colors = {
+const Colors = {
     White: "#FFFFFF",
     Secondary: "rgba(56,56,56,0.05)"
 }
 
-export const dataType = {
+const dataType = {
     text: "text",
     password: "password"
 }
 
-export const submitStatus = {
+const submitStatus = {
     Saved: "Saved",
     Pending: "Pending",
 }
-export const SignIn = {
+const SignIn = {
     Sign_In: "Sign in",
     StaySignedIn: "Stay signed in",
     CantSignIn: "Can't Sign in?",
     CreateAccount: "Create Account",
 }
 
-export const UserStatus = {
+const UserStatus = {
     Active: "Active",
     InActive: "InActive"
 }
 
-export const Roles = {
+const Roles = {
     Admin: "Admin",
     SchoolAdmin: "School Admin",
     Teacher: "Teacher",
     LeadTeacher: "Lead Teacher",
+    SupportStaff: 'Support Staff',
 }
 
-export const ProfileRoles = [
+const ProfileRoles = [
     { name: "Admin", value: "Admin" },
     { name: "SchoolAdmin", value: "SchoolAdmin" },
     { name: "Teacher", value: "Teacher" },
     { name: "LeadTeacher", value: "LeadTeacher" },
 ]
 
-export const Array = {
+const Array = {
     Array: Roles.Array,
     TellUsBitMoreAboutYou: "Tell us bit more about you",
     IAmAPartOf: "I am a part of:",
     AndMyRoleIs: "And my role is:"
 }
 
-export const EditProfileConstants = {
+const EditProfileConstants = {
     Hello: "Hello",
     FullName: "Full Name",
     FirstName: "First Name",
@@ -345,7 +394,7 @@ export const EditProfileConstants = {
     MyRoleIs: "My Role is:"
 }
 
-export const WeekDays = {
+const WeekDays = {
     Monday: "Monday",
     Tuesday: "Tuesday",
     Wednesday: "Wednesday",
@@ -355,7 +404,7 @@ export const WeekDays = {
     Sunday: "Sunday"
 }
 
-export const WeekDaysEnum = {
+const WeekDaysEnum = {
     None: 0,
     Monday: 1 << 0,    // 1
     Tuesday: 1 << 1,   // 2
@@ -366,7 +415,7 @@ export const WeekDaysEnum = {
     Sunday: 1 << 6     // 64
 }
 
-export const RolesEnum = {
+const RolesEnum = {
     None: 0,
     Founder: 1 << 0,  // 1
     Investor: 1 << 1, // 2
@@ -374,7 +423,7 @@ export const RolesEnum = {
     Array: 1 << 3     // 8
 }
 
-export const SessionStorageKeys = {
+const SessionStorageKeys = {
     SessionId: "SessionId",
     UserId: "UserId",
     Location: "Location",
@@ -388,18 +437,22 @@ export const SessionStorageKeys = {
     CreatePersonaPath: "CreatePersonaPath",
     SessionToken: "SessionToken",
     classId: 'classId',
-    subjectClassId: 'subjectClassId',
     className: 'className',
-    Error : 'Error',
-    
+    userType: "userType",
+    year: "year",
+    subjectClassId: 'subjectClassId',
+    Error: 'Error',
+    subjectName: 'subjectName',
+    categoryName: 'categoryName',
+    categoryIndex: 'categoryIndex',
 }
 
-export const LocalStorageKeys = {
+const LocalStorageKeys = {
     StaySignedInUser: "StaySignedInUser",
     StaySignedInSocialUser: "StaySignedInSocialUser"
 }
 
-export const marking = {
+const marking = {
     Marking: 'Marking',
     PlaceValue: 'Place Value',
     AdditionSubtractionMultiplicationDivision: 'Addition, subtraction, multiplication & division',
@@ -408,11 +461,16 @@ export const marking = {
     Geometry: 'Geometry',
     subjectClassId: 'subjectClassId',
     classId: 'classId',
-    PlaceValueAttainment: 'Place Value Attainment',
+    Attainment: 'Attainment',
     Actual: 'Actual',
     Predicted: 'Predicted',
     ff: 'ff',
     dd: 'dd',
+    serviceChild: 'S',
+    eal: 'EAL',
+    peoplePremium: 'PP',
+    NoDataFound: 'No data found!',
+
     ObjectivesList: [
         { value: "Overall", label: "Overall" },
         { value: "Year 1 Objectives", label: "Year 1 Objectives" },
@@ -420,27 +478,62 @@ export const marking = {
         { value: "Year 3 Objectives", label: "Year 3 Objectives" },
         { value: "Year 4 Objectives", label: "Year 4 Objectives" },
         { value: "Year 5 Objectives", label: "Year 5 Objectives" },
-      ],
+    ],
 
-    headers: [{ name: '', mark: '' }, { name: 'Digital Values', mark: 'MARK' }, { name: 'Powers of 10', mark: 'MARK' }, { name: 'Negative Numbers', mark: 'MARK' }, { name: 'Rounding Numbers', mark: 'MARK' }, { name: 'Solving Problems', mark: 'MARK' }, { name: 'Roman Numerals', mark: 'MARK' }]
+    headers: [
+        { name: '', mark: '' },
+        { name: 'Digital Values', mark: 'MARK' },
+        { name: 'Powers of 10', mark: 'MARK' },
+        { name: 'Negative Numbers', mark: 'MARK' },
+        { name: 'Rounding Numbers', mark: 'MARK' },
+        { name: 'Solving Problems', mark: 'MARK' },
+        { name: 'Roman Numerals', mark: 'MARK' }
+    ],
+    CheckBox: [
+        { className: 'checkmark check-absent', image: tickmark },
+        { className: 'checkmark check-below', image: tickmark },
+        { className: 'checkmark check-emerging', image: tickmark },
+        { className: 'checkmark check-expected', image: tickmark },
+        { className: 'checkmark check-greater', image: tickmark },
+    ]
 }
 
-export const data = [
+const markingColors = {
+    greaterDepth: '#26CB89',
+    expected: '#AABB5D',
+    emerging: '#F4C900',
+    below: '#F34970',
+    absent: '#FFFFFF',
+}
+
+const data = [
     { name: 'Leslie Alexander', valueOne: '1', valueTwo: '2', valueThree: '3', valueFour: '4', valueFive: '5', valueSix: '6', per: '30%', _per: '60%' },
 ]
 
-export const ProfileCreateConfirmationHeader = (roleName) => <p className='name-head'>{`Create ${roleName} Profile`}</p>;
+const ProfileCreateConfirmationHeader = (roleName) => <p className='name-head'>{`Create ${roleName} Profile`}</p>;
 
-export const ProfileCreateConfirmationBody = (roleName) => `You don't have ${roleName} profile enabled. Please create now.`;
+const ProfileCreateConfirmationBody = (roleName) => `You don't have ${roleName} profile enabled. Please create now.`;
 
-export const ScheduleDeleteConfirmationBody = (userName) => `Hi ${userName}, unfortunately this meeting request has been withdrawn.`;
+const ScheduleDeleteConfirmationBody = (userName) => `Hi ${userName}, unfortunately this meeting request has been withdrawn.`;
 
-export const RescheduleMeetingMessage = (userName) => `Hi ${userName}, by clicking on open calender you can reschedule the meeting.`;
+const RescheduleMeetingMessage = (userName) => `Hi ${userName}, by clicking on open calender you can reschedule the meeting.`;
 
-export const CloseProjectMessage = () => `You're about to close this project.`;
+const CloseProjectMessage = () => `You're about to close this project.`;
 
-export const DeletePupilById = ({ foreName, surName }) =>
+const DeletePupilById = ({ foreName, surName }) =>
     `Do you want to delete the details of ${foreName + ' ' + surName}`;
 
-export const DeleteTeacherById = ({ foreName, surName }) =>
-    `Do you want to delete the details of User id ${foreName + ' ' + surName}`;
+const DeleteTeacherById = ({ foreName, surName }) =>
+    `Do you want to delete the details of User ${foreName + ' ' + surName}`;
+
+const EnableTeacherById = ({ foreName, surName }) =>
+    `Do you want to Enable ${foreName + ' ' + surName}`;
+
+
+//overviewPage
+const OverallSubjectScore = (subjectName) => `Overall ${subjectName} Score`;
+const KPISubjectScore = (subjectName) => `KPI ${subjectName} Score`;
+const FullName = (firstName, lastName) => `${firstName} ${lastName}`;
+const OverViewHeader = (className, subjectName) => `${className} - ${subjectName} - ${Common.Overview}`;
+
+export { Common, Accessors, optionsss, AssignSubjects, senStatusOptions, TeacherRoles, AssignClasses, NavigationBar, ExternalLinks, Subjects, MarkingLevels, Colors, dataType, submitStatus, SignIn, UserStatus, Roles, ProfileRoles, Array, EditProfileConstants, WeekDays, WeekDaysEnum, RolesEnum, SessionStorageKeys, LocalStorageKeys, marking, markingColors, data, ProfileCreateConfirmationHeader, ProfileCreateConfirmationBody, ScheduleDeleteConfirmationBody, RescheduleMeetingMessage, CloseProjectMessage, DeletePupilById, DeleteTeacherById, EnableTeacherById, OverallSubjectScore, KPISubjectScore, FullName, OverViewHeader };

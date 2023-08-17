@@ -5,7 +5,7 @@ import "../../App.css";
 
 import MappixLogo from "../../assets/images/HomePageLogo.png";
 
-import HeaderNavIcons from "./HeaderNavIcons";
+import { HeaderNavIcons } from "./";
 
 function Header() {
     return (
@@ -26,4 +26,4 @@ function Header() {
     );
 }
 
-export default Header;
+export { Header };

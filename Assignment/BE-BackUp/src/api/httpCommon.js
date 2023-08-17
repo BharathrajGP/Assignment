@@ -1,11 +1,11 @@
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 
-import { errorMsg } from '../components/Shared/Notification/ToastNotification';
-import { Url } from "../helper/apiRoutes";
+import { errorMsg } from '../components/Shared';
+import { Url } from "../helper";
 import { SessionStorage } from '../util/SessionStorage'
 import { fortmatData } from '../util/utils';
-import { SessionStorageKeys } from '../helper/constants';
+import { SessionStorageKeys } from '../helper';
 
 export const axiosInstance = axios.create({
     baseURL: `${Url.baseApiUrl}`,

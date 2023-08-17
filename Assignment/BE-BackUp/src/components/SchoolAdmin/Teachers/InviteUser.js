@@ -1,32 +1,129 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Modal, Row } from "react-bootstrap";
 import { Formik } from "formik";
 import Select from "react-select";
 import * as Yup from "yup";
 import Form from "react-bootstrap/Form";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
-import { AssignClasses, AssignSubjects, Common } from "../../../helper/constants";
+import { amplifyUrl, Common, MESSAGES, Roles, SUCCESS, VALIDATION } from '../../../helper';
+import * as commonApi from '../../../api/commonApi';
+import { isEmptyArray, isEmptyObject } from "../../../util/utils";
+import { styles } from '../';
+
 
 import "../../../assets/stlyes/Modals.css";
 
-const InviteUser = ({ setInviteUser }) => {
+const InviteUser = ({ setInviteUser, getData }) => {
     const [selectedClass, setSelectedClass] = useState(null);
-    const [selectedSubjects, setSelectedSubjects] = useState(null);
+    const [selectedClassName, setSelectedClassName] = useState();
+    const [selectedSubjects, setSelectedSubjects] = useState();
+    const [classSub, setClassSub] = useState([{ class: '', sub: '' }]);
+    const [selectedSujects, setSelectedSujects] = useState(null);
+    const [classOptions, setClassOptions] = useState();
+    const [classId, setClassId] = useState();
+    const [classSubjectNames, setClassSubjectNames] = useState([]);
+    const [errMessage, setErrMessage] = useState(false);
+    const [classes, setClasses] = useState('');
+    const [sub, setSub] = useState('');
+    const [errMessage2, setErrMessage2] = useState(false);
+    const [errMessage1, setErrMessage1] = useState(false);
+    const MySwal = withReactContent(Swal);
+
+
+
     const SignupSchema = Yup.object().shape({
-        email: Yup.string().required("Required"),
-        // myCheck: Yup.string()
-        // .oneOf(["Admin", "LeadTeacher", "Teacher", "SupportStaff"])
-        // .required("Role is Required"),
-        subjects: Yup.string().oneOf([
-            "All",
-            "Maths",
-            "Science",
-            "PE",
-            "Writing",
-            "Reading",
-        ]),
-        class: Yup.string().oneOf(["Elephant", "Lion", "Tiger", "Cheetah"]),
+        email: Yup.string().trim().email().required(),
     });
+
+    const addItem = (event) => {
+        setSelectedClassName(event.label)
+        setClassSub(event);
+    };
+    const addSubject = (event) => {
+        const data = [...classSubjectNames];
+        if (isEmptyArray(classSubjectNames)) {
+            data.push({ className: classSub, subjectName: event });
+            setClassSubjectNames(data);
+        }
+        else {
+            var count = 0;
+            for (let i = 0; i < classSubjectNames.length; i++) {
+                if (classSubjectNames[i].subjectName.value === event.value && classSubjectNames[i].className.value === selectedClass) {
+                    count++;
+                }
+            }
+            if (count === 0) {
+                data.push({ className: classSub, subjectName: event })
+                setClassSubjectNames(data);
+                setErrMessage(false);
+            }
+            else {
+                setErrMessage(true);
+            }
+        }
+    }
+
+    const finalClassSub = () => {
+        var finalData = [];
+        classSubjectNames.map((item) => {
+            var arrData = [];
+            var data = classSubjectNames.filter((e) => e.className.value === item.className.value);
+            data.map(ele => arrData.push(ele.subjectName.value))
+            finalData.push({ id: item.className.value, subject: arrData })
+        })
+        const finalarr = finalData.filter((ele, index) => finalData.findIndex((item) => item.id === ele.id) === index)
+        return (finalarr);
+    }
+
+
+    const getAllClassData = async () => {
+        const adminClass = await commonApi.adminClass();
+        if (!isEmptyArray(adminClass.Items)) {
+            const responseData = adminClass.Items
+            const array = [];
+            responseData.map((item) => {
+                array.push({ value: item.classId, label: item.name })
+            })
+            setClassOptions(array);
+        }
+    }
+
+    const getAllSubjectData = async (e) => {
+        setClassId(e.value);
+        const getSubjects = await commonApi.getSubjectByClassId({ classId: e.value });
+        if (!isEmptyArray(getSubjects.Items)) {
+            const responseData = getSubjects.Items;
+            const array = [];
+            const subId = [];
+            responseData.map((idz) => { subId.push(idz.id) })
+            responseData.map((item) => {
+                array.push({ value: item.id, label: item.subjectName })
+            })
+            setSelectedSujects(array);
+        }
+    }
+
+    const invite = async (userData) => {
+        const inviteUser = await commonApi.inviteUser(userData);
+        if (isEmptyObject(inviteUser)) {
+            MySwal.fire({
+                icon: "success",
+                text: SUCCESS.User_Invited,
+            }).then(() => getData());
+        }
+        setInviteUser(false);
+    }
+
+    useEffect(() => {
+        getAllClassData();
+    }, [])
+
+    // var verificationLink = `${window.location.href.replace("/SchoolAdmin", "")}`;
+    // verificationLink += "/NewUser";
+    var verificationLink = `${amplifyUrl.devUrl}/NewUser`
+
     return (
         <Formik
             initialValues={{
@@ -41,17 +138,21 @@ const InviteUser = ({ setInviteUser }) => {
                 return errors;
             }}
             onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                    alert(
-                        JSON.stringify({
-                            email: values.email,
-                            class: selectedClass.value,
-                            subjects: selectedSubjects.value,
-                            role: values.myCheck,
-                        })
-                    );
-                    setSubmitting(false);
-                }, 400);
+                if (classes === undefined || classes === '' || classes === null) {
+                    setErrMessage1(true)
+                }
+                else if (sub === undefined || sub === '' || sub === null) {
+                    setErrMessage2(true)
+                }
+                else {
+                    const userData = {
+                        verificationLink: verificationLink,
+                        email: values.email,
+                        classes: finalClassSub(),
+                        type: [values.myCheck].flat(),
+                    };
+                    invite(userData);
+                }
             }}
         >
             {({
@@ -74,7 +175,7 @@ const InviteUser = ({ setInviteUser }) => {
                         <Form.Label>{Common.Email}</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder={Common.ClassName}
+                            placeholder={Common.email}
                             name={Common.email}
                             onChange={handleChange}
                             onBlur={handleBlur}
@@ -83,27 +184,18 @@ const InviteUser = ({ setInviteUser }) => {
                         {errors.email &&
                             touched.email &&
                             errors.email && (
-                                <small style={{ color: "red" }}>
+                                <small className='text-danger'>
                                     {errors.email}
                                 </small>
                             )}
                     </Form.Group>
                     <Form.Group>
-                        <p
-                            style={{
-                                borderBottom: "1px solid grey",
-                            }}
-                        >
-                            Roles - Select Role(s) as agreed by
-                            Headteacher
+                        <p>
+                            {MESSAGES.Roles_Select_Role_As_Agreed_By_Headteacher}
+                            <hr />
                         </p>
                         <Row>
-                            <Col
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                }}
-                            >
+                            <Col style={styles.inviteUserCol}>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -111,9 +203,8 @@ const InviteUser = ({ setInviteUser }) => {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value="Admin"
-                                        style={{ padding: "5px" }}
                                     />
-                                    Admin
+                                    {Roles.Admin}
                                 </label>
                                 <label>
                                     <input
@@ -123,15 +214,10 @@ const InviteUser = ({ setInviteUser }) => {
                                         onBlur={handleBlur}
                                         value="LeadTeacher"
                                     />
-                                    Lead Teacher
+                                    {Roles.LeadTeacher}
                                 </label>
                             </Col>
-                            <Col
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                }}
-                            >
+                            <Col style={styles.inviteUserCol}>
                                 <label>
                                     <input
                                         type="checkbox"
@@ -140,7 +226,7 @@ const InviteUser = ({ setInviteUser }) => {
                                         onBlur={handleBlur}
                                         value="Teacher"
                                     />
-                                    Teacher
+                                    {Roles.Teacher}
                                 </label>
                                 <label>
                                     <input
@@ -150,7 +236,7 @@ const InviteUser = ({ setInviteUser }) => {
                                         onBlur={handleBlur}
                                         value="SupportingStaff"
                                     />
-                                    Support Staff
+                                    {Roles.SupportStaff}
                                 </label>
                             </Col>
                         </Row>
@@ -158,62 +244,65 @@ const InviteUser = ({ setInviteUser }) => {
                             touched.myCheck &&
                             errors.myCheck}
                     </Form.Group>
-                    <Form.Group>
-                        <p
-                            style={{
-                                borderBottom: "1px solid grey",
-                                marginTop: "30px",
-                            }}
-                        >
-                            Classes - Select Classes that this user
-                            will be teaching or supporting
+                    <Form.Group style={styles.inviteUserMar}>
+                        <p>
+                            {MESSAGES.Classes_Select_Classes_That_This_User_Will_Be_Teaching_Or_Supporting}
+                            <hr />
                         </p>
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                            }}
-                        >
-                            <Form.Group
-                                style={{
-                                    width: "48%",
-                                    marginRight: "20px",
-                                }}
-                            >
-                                <label for="Class">Class </label>
-
+                        <div style={styles.inviteUserSelectDiv}>
+                            <label for="Class" style={styles.inviteUserSelectClass}>{Common.Class} </label>
+                            <label for="Subjects" style={styles.inviteUserSelectSub}>{Common.Subjects}{" "}</label>
+                        </div>
+                        <div>
+                            {
+                                classSubjectNames.map((item, index) => {
+                                    return (
+                                        <Row className='d-flex justify-content-between'>
+                                            <Col>{item.className.label}</Col>
+                                            <Col style={{ paddingLeft: '110px' }}>{item.subjectName.label}</Col>
+                                            <Col> <button onClick={() => { classSubjectNames.splice(index, 1); console.log({ index }) }}>{Common.remove}</button></Col>
+                                        </Row>
+                                    )
+                                })}
+                            {errMessage && (<small className='text-danger'>{MESSAGES.This_Combination_Already_Exists}</small>)}
+                        </div>
+                        <div style={styles.inviteUserSelectDiv}>
+                            <Form.Group style={styles.inviteUserSelectClass}>
                                 <Select
                                     defaultValue={selectedClass}
-                                    onChange={setSelectedClass}
-                                    options={AssignClasses}
+                                    onChange={(e) => {
+                                        setSelectedClass(e.value);
+                                        addItem(e);
+                                        getAllSubjectData(e);
+                                        setErrMessage1(false);
+                                        setClasses(e.value);
+                                    }}
+                                    options={classOptions}
                                     placeholder="please select"
                                 />
-                                {errors.class &&
-                                    touched.class &&
-                                    errors.class}
+                                {errMessage1 && (<small className="text-danger">{VALIDATION.PLEASE_SELECT_A_CLASS}</small>)}
                             </Form.Group>
-                            <Form.Group
-                                style={{
-                                    width: "48%",
-                                }}
-                            >
-                                <label for="Subjects">
-                                    Subjects{" "}
-                                </label>
-
+                            <Form.Group style={styles.inviteUserSelectSub}>
                                 <Select
                                     defaultValue={selectedSubjects}
-                                    onChange={setSelectedSubjects}
-                                    options={AssignSubjects}
+                                    onChange={(e) => {
+                                        setSelectedSubjects(e.value);
+                                        addSubject(e);
+                                        setErrMessage2(false);
+                                        setSub(e.value);
+                                    }}
+                                    options={selectedSujects}
                                     placeholder="please select"
+                                    isDisabled={selectedClass === null}
                                 />
-                                {errors.subjects &&
-                                    touched.subjects &&
-                                    errors.subjects}
+                                {errMessage2 && (<small className="text-danger">{VALIDATION.PLEASE_SELECT_A_SUBJECT}</small>)}
                             </Form.Group>
                         </div>
+
+
+
                     </Form.Group>
-                    <Form.Group style={{ marginTop: "20px" }}>
+                    <Form.Group style={styles.inviteUserMar}>
                         <Button
                             variant="light"
                             onClick={(e) => {
@@ -225,9 +314,8 @@ const InviteUser = ({ setInviteUser }) => {
                         <Button
                             type="submit"
                             variant="success"
-                            disabled={isSubmitting}
                         >
-                            Invite User
+                            {Common.InviteUser}
                         </Button>
                     </Form.Group>
                 </Form>
@@ -236,4 +324,4 @@ const InviteUser = ({ setInviteUser }) => {
     )
 }
 
-export default InviteUser
+export { InviteUser };

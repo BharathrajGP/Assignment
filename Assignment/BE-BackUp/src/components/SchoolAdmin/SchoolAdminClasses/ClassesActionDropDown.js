@@ -5,8 +5,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-import * as constants from "../../../helper/constants";
-import RenameClass from "./RenameClass";
+import { Common } from "../../../helper";
+import { RenameClass } from "./";
 
 import "../../../assets/stlyes/Modals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,19 +21,19 @@ const Action = ({ classId, setSwitchTab, SetPupilClassId, getData, classData }) 
     return (
         <>
             <DropdownButton as={ButtonGroup} id="dropdown-variants-Secondary" title={"Action"}>
-                <Button className="modal-button" onClick={(e) => { setIsClassId(classId); setEditClass(true); }}
+                <Button className="modal-button d-flex justify-content-start" onClick={(e) => { setIsClassId(classId); setEditClass(true); }}
                 >
-                    {constants.Common.Rename}
+                    {Common.RenameClass}
                 </Button>
-                <Button className="modal-button" onClick={(e) => { setSwitchTab(false); SetPupilClassId(classId) }}>
+                <Button className="modal-button d-flex justify-content-start" onClick={(e) => { setSwitchTab(false); SetPupilClassId(classId) }}>
                     <VisibilityIcon />
-                    {constants.Common.View}
+                    {Common.View}
                 </Button>
             </DropdownButton>
 
             <Modal show={editClass} onHide={(e) => { setEditClass(false); }} backdrop="static" keyboard={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title className="pupil">{constants.Common.RenameClass}</Modal.Title>
+                    <Modal.Title>{Common.RenameClass}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <RenameClass isClassId={isClassId} setEditClass={setEditClass} getData={getData} classData={classData} />
@@ -44,4 +44,4 @@ const Action = ({ classId, setSwitchTab, SetPupilClassId, getData, classData }) 
     );
 }
 
-export default Action;
+export { Action };

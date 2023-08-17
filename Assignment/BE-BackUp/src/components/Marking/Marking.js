@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Tab, Tabs, TabList } from "react-tabs";
-import Select from "react-select";
 import { Header } from 'rsuite';
+
 import { SessionStorage } from '../../util/SessionStorage';
-import * as constants from '../../helper/constants'
+import { marking, SessionStorageKeys } from '../../helper';
 import * as commonApi from '../../api/markingApi';
-import MarkingTable from './MarkingTable';
-import NavBar from '../Shared/NavBar';
+import { MarkingTable } from './';
+import { NavBar, LoadingSpinner } from '../Shared';
+import { hasText, isEmptyArray, isEmptyObject, isNullOrEmpty } from '../../util/utils';
 
 import '../../assets/stlyes/marking.css'
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,62 +15,88 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import HelpIcon from "../../assets/images/LightIcon.png";
 
 const Marking = () => {
-  const [selectedOption, setselectedOption] = useState(null);
   const [tabsData, setTabsData] = useState([]);
   const [headersData, setHeadersData] = useState([]);
   const [mainHeadersData, setMainHeadersData] = useState([]);
+  const [bodyData, setBodyData] = useState([]);
   const [_subjectClassId, setSubjectClassId] = useState('');
   const [_classId, setClassId] = useState('');
   const [className, setClassName] = useState('');
   const [subjectName, setSubjectName] = useState('');
+  const [year, setYear] = useState('');
+  const [tableBodyData, setTableBodyData] = useState([]);
+  const [categoryName, setCategoryName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const getSelectedValue = (e) => setselectedOption(e.value);
-
-  const getHeadersAndTabs = async (id) => {
+  const getHeadersAndTabs = async (id, cat) => {
+    setIsLoading(true);
     const data = { id: id }
     const response = await commonApi.fetchSubject(data);
-    const result = response.Items.yearData;
+    const result = response.Items.category;
+    !isEmptyArray(result) && setTabsData(result);
+    !isEmptyArray(result) && setMainHeadersData(result);
+    !isEmptyArray(result) && setHeadersData(result);
+    !isEmptyObject(response) && setYear(response.Items.year);
 
-    const tabs = result.map((ele) => {
-      const _result = { category: ele.category, identifier: ele.identifier, isKPI: ele.isKPI }
-      return _result;
-    });
+    const _headers = response.Items.category.filter((ele) => ele.name === hasText(cat) ? cat : response.Items.category[0].name && { description: hasText(cat) ? cat : response.Items.category[0].name, isKPI: response.Items.category[0].description[0].name, identifier: response.Items.category[0].description[0].identifier });
+    const updatedData = _headers[SessionStorage.getItem(SessionStorageKeys.categoryIndex) ? SessionStorage.getItem(SessionStorageKeys.categoryIndex) : 0].description.map((ele) => { return { description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+    updatedData.push({ description: `${!isNullOrEmpty(SessionStorage.getItem(SessionStorageKeys.categoryName)) ? SessionStorage.getItem(SessionStorageKeys.categoryName) : response.Items.category[0].name} ${marking.Attainment}`, actual: marking.Actual, predicted: marking.Predicted, isKPI: false, identifier: marking.ff });
+    updatedData.unshift({ description: 'fullName', isKPI: false, identifier: marking.dd });
+    setHeadersData([...updatedData]);
 
-    setSubjectName(response.Items.subjectName)
-    
-    const uniqueTabs = tabs.filter((obj, index) => {
-      return index === tabs.findIndex(ele => obj.category === ele.category);
-    });
+    const subjectClassId = SessionStorage.getItem(marking.subjectClassId);
+    const className = SessionStorage.getItem(SessionStorageKeys.className);
+    const subjectName = SessionStorage.getItem(SessionStorageKeys.subjectName);
+    const classId = SessionStorage.getItem(marking.classId);
 
-    const headers = result.map((ele) => {
-      const _result = { category: ele.category, description: ele.description, identifier: ele.identifier, isKPI: ele.isKPI }
-      return _result;
-    });
-    setMainHeadersData(headers);
-
-    const _headers = headers.filter((ele) => ele.category === headers[0].category && { category: headers[0].category, description: headers[0].description, isKPI: headers[0].isKPI, identifier: headers[0].identifier });
-    _headers.push({ category: headers[0].category, description: constants.marking.PlaceValueAttainment, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
-    _headers.unshift({ category: headers[0].category, description: ' ', isKPI: false, identifier: constants.marking.dd });
-    setTabsData([...uniqueTabs]);
-    setHeadersData([..._headers]);
+    (!isNullOrEmpty(subjectClassId) || !isNullOrEmpty(className) || !isNullOrEmpty(subjectName) || !isNullOrEmpty(classId)) && _fetchCategoryMark(subjectClassId, className, subjectName, classId, hasText(cat) ? cat : response.Items.category[0].name, response.Items.year)
+    setIsLoading(false);
   }
 
-  const handleTabSelect = (category) => {
-    const uniqueHeader = mainHeadersData.filter((ele) => ele.category === category && { category: headersData[0].category, description: ele.description, isKPI: ele.isKPI, identifier: headersData[0].identifier });
-    uniqueHeader.push({ category: uniqueHeader[0].category, description: constants.marking.PlaceValueAttainment, actual: constants.marking.Actual, predicted: constants.marking.Predicted, isKPI: false, identifier: constants.marking.ff });
-    uniqueHeader.unshift({ category: uniqueHeader[0].category, description: ' ', isKPI: false, identifier: constants.marking.dd });
-    setHeadersData(uniqueHeader);
+  const _fetchCategoryMark = async (subjectClassId, className, subjectName, classId, categoryName, _year) => {
+    const _data = { id: classId, subject: subjectName, category: categoryName, year: Number(_year) }
+    const response = await commonApi.fetchCategoryMark(_data);
+
+    const result = response.Items;
+
+    !isEmptyArray(result) && setBodyData(result.filter((ele) => !isNullOrEmpty(ele) && ele.category[0]?.name === categoryName && ele));
+    !isEmptyArray(result) && setTableBodyData(result.filter((ele) => !isNullOrEmpty(ele) && ele.category[0]?.name === categoryName && ele));
   }
+
+  const handleTabSelect = (category, i) => {
+    SessionStorage.setItem(SessionStorageKeys.categoryName, category);
+    SessionStorage.setItem(SessionStorageKeys.categoryIndex, i);
+    setCategoryName(category);
+  };
 
   useEffect(() => {
-    const subjectClassId = SessionStorage.getItem(constants.marking.subjectClassId);
-    const className = SessionStorage.getItem(constants.SessionStorageKeys.className);
-    const classId = SessionStorage.getItem(constants.marking.classId);
+    const uniqueHeader = mainHeadersData?.filter((ele) => ele.name === SessionStorage.getItem(SessionStorageKeys.categoryName) && ele.description);
+    const headers = uniqueHeader[0]?.description.map((ele) => { return { category: ele.name, description: ele.name, isKPI: ele.isKPI, identifier: ele.identifier } });
+
+    headers?.push({ description: `${SessionStorage.getItem(SessionStorageKeys.categoryName)} ${marking.Attainment}`, actual: marking.Actual, predicted: marking.Predicted, isKPI: false, identifier: marking.ff });
+    headers?.unshift({ description: 'fullName', isKPI: false, identifier: marking.dd });
+    setHeadersData(headers);
+
+    const filterData = (!isNullOrEmpty(_subjectClassId) || !isNullOrEmpty(className) || !isNullOrEmpty(subjectName) || !isNullOrEmpty(_classId)) && _fetchCategoryMark(_subjectClassId, className, subjectName, _classId, SessionStorage.getItem(SessionStorageKeys.categoryName), year)
+    setTableBodyData(filterData);
+  }, [SessionStorage.getItem(SessionStorageKeys.categoryName)]);
+
+  useEffect(() => {
+    setCategoryName(SessionStorage.getItem(SessionStorageKeys.categoryName));
+    const subjectClassId = SessionStorage.getItem(marking.subjectClassId);
+    const className = SessionStorage.getItem(SessionStorageKeys.className);
+    const subjectName = SessionStorage.getItem(SessionStorageKeys.subjectName);
+    const classId = SessionStorage.getItem(marking.classId);
     setClassId(classId);
+    setSubjectName(subjectName);
     setSubjectClassId(subjectClassId);
-    getHeadersAndTabs(subjectClassId);
     setClassName(className);
+    getHeadersAndTabs(subjectClassId, SessionStorage.getItem(SessionStorageKeys.categoryName));
   }, [])
+
+  useEffect(() => {
+    (isNullOrEmpty(SessionStorage.getItem(SessionStorageKeys.categoryIndex)) && !isEmptyArray(tabsData)) && setCategoryName(tabsData[0]?.name);
+  }, [tabsData])
 
   return (
     <div className="Page-layout">
@@ -79,7 +106,7 @@ const Marking = () => {
         <div className="marking-page">
           <div className="marking-header">
             <div className="marking-title">
-              <span>{className} - {subjectName} - {constants.marking.Marking}</span>
+              <span>{className} - {subjectName} - {marking.Marking}</span>
             </div>
             <div className="right-column">
               <img src={HelpIcon} alt="Help" />
@@ -87,22 +114,37 @@ const Marking = () => {
           </div>
           <div className="marking-content">
             <div className="year-dropdown-div">
-              <Select
-                className="select-obj-dropdown"
-                options={constants.marking.ObjectivesList}
-                onChange={(e) => {
-                  getSelectedValue(e);
-                }}
-              />
-
-              <Tabs className='marking-tab'>
-                <TabList className="marking-tablist">
-                  {tabsData.map((ele, i) => {
-                    return <Tab className="marking-tabs" key={i} onClick={() => handleTabSelect(ele.category)}>{ele.category}</Tab>
-                  })}
-                </TabList>
-                <MarkingTable tabsData={tabsData} headersData={headersData} _subjectClassId={_subjectClassId} _classId={_classId} />
-              </Tabs>
+              {SessionStorage.getItem(SessionStorageKeys.categoryName) ?
+                <Tabs className='marking-tab'>
+                  <TabList className="marking-tablist">
+                    {tabsData.map((ele, i) => {
+                      return <Tab
+                        className={ele.name === SessionStorage.getItem(SessionStorageKeys.categoryName) ?
+                          'react-tabs__tab--selected' :
+                          'marking-tabs'} key={i} onClick={() => handleTabSelect(ele.name, i)}
+                        style={(ele.name === SessionStorage.getItem(SessionStorageKeys.categoryName) && SessionStorage.getItem(SessionStorageKeys.categoryName)) ? { backgroundColor: '#ffffff', color: '#084059' } : { backgroundColor: '#084059', color: '#ffffff' }}
+                      >{ele.name}</Tab>
+                    })}
+                  </TabList>
+                  {(isEmptyArray(bodyData) && isLoading) ? <LoadingSpinner /> :
+                    <MarkingTable tabsData={tabsData} headersData={headersData} tableBodyData={tableBodyData} categoryName={categoryName} _subjectClassId={_subjectClassId} _classId={_classId} subjectName={subjectName} year={year} />
+                  }
+                </Tabs> :
+                <Tabs className='marking-tab'>
+                  <TabList className="marking-tablist">
+                    {tabsData.map((ele, i) => {
+                      return <Tab
+                        className={ele.name === SessionStorage.getItem(SessionStorageKeys.categoryName) ?
+                          'react-tabs__tab--selected' :
+                          'marking-tabs'} key={i} onClick={() => handleTabSelect(ele.name, i)}
+                      >{ele.name}</Tab>
+                    })}
+                  </TabList>
+                  {(!isEmptyArray(tableBodyData) && isLoading) ? <LoadingSpinner /> :
+                    <MarkingTable tabsData={tabsData} headersData={headersData} tableBodyData={tableBodyData} categoryName={categoryName} _subjectClassId={_subjectClassId} _classId={_classId} subjectName={subjectName} year={year} />
+                  }
+                </Tabs>
+              }
             </div>
           </div>
         </div>
@@ -111,4 +153,4 @@ const Marking = () => {
   );
 }
 
-export default Marking;
+export { Marking };

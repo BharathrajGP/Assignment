@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ThisYear extends React.Component {
+class ThisYear extends React.Component {
   constructor() {
     super();
 
@@ -23,7 +23,7 @@ export class ThisYear extends React.Component {
     );
   }
 }
-export class PreviousYear extends React.Component {
+class PreviousYear extends React.Component {
   constructor() {
     super();
 
@@ -47,7 +47,7 @@ export class PreviousYear extends React.Component {
   }
 }
 
-export const Yearss = () => {
+const Yearss = () => {
   return (
     <div >
       <div style={{ justifyContent: 'center', padding: '20px', paddingLeft: '80px' }}>
@@ -60,3 +60,4 @@ export const Yearss = () => {
     </div>
   )
 }
+export { Yearss, PreviousYear, ThisYear };

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Col, Card, Pagination, Row } from "react-bootstrap";
+import { Button, Col, Card, Modal, Pagination, Row } from "react-bootstrap";
 import BTable from "react-bootstrap/Table";
 import { useGlobalFilter, usePagination, useSortBy, useTable, } from "react-table";
 
-import * as constants from "../../../helper/constants";
-import { GlobalFilter } from "../../../helper/GlobalFilter";
-import Action from "./PupilActionDropDown";
-import pupilCloumns from "./Columns";
-import LoadingSpinner from "../../Shared/Loader/LoadingSpinner";
+import { Common, Accessors, GlobalFilter } from "../../../helper";
+import { Action, pupilCloumns } from "./";
+import { styles } from '../';
+import { LoadingSpinner } from "../../Shared";
 import { isEmptyArray, isEmptyObject } from "../../../util/utils";
 import * as commonApi from "../../../api/commonApi";
 
 import "../../../assets/stlyes/SchoolAdminTableStyle.css";
+import { InviteUser } from "../Teachers";
 
 const Table = ({ columns, data }) => {
     const {
@@ -51,6 +51,7 @@ const Table = ({ columns, data }) => {
                     <GlobalFilter
                         filter={globalFilter}
                         setFilter={setGlobalFilter}
+                        searchBy={'Search by Name/UPN'}
                     />
                 </Col>
             </Row>
@@ -61,21 +62,9 @@ const Table = ({ columns, data }) => {
                             {headerGroup.headers.map((column) => (
                                 <th
                                     {...column.getHeaderProps(
-                                        column.getSortByToggleProps()
                                     )}
                                 >
                                     {column.render("Header")}
-                                    <span>
-                                        {column.isSorted ? (
-                                            column.isSortedDesc ? (
-                                                <span className="feather icon-arrow-down text-muted float-right" />
-                                            ) : (
-                                                <span className="feather icon-arrow-up text-muted float-right" />
-                                            )
-                                        ) : (
-                                            ""
-                                        )}
-                                    </span>
                                 </th>
                             ))}
                         </tr>
@@ -101,10 +90,10 @@ const Table = ({ columns, data }) => {
 
             <div
                 className="d-flex justify-content-end"
-                style={{ gap: "10px", marginTop: "20px", marginBottom: "0px" }}
+                style={styles.paginate}
             >
                 <span className="d-flex align-items-baseline">
-                    {constants.Common.RowsPerPage}
+                    {Common.RowsPerPage}
                     <select
                         className="form-control w-auto mx-2"
                         value={pageSize}
@@ -123,7 +112,7 @@ const Table = ({ columns, data }) => {
                     className="d-flex align-items-center"
                     style={{ marginBottom: "13px" }}
                 >
-                    {constants.Common.Page}{" "}
+                    {Common.Page}{" "}
                     <strong>
                         {" "}
                         {pageIndex + 1} of {pageOptions.length}{" "}
@@ -160,80 +149,83 @@ const PupilTable = () => {
 
     const getData = async () => {
         setIsLoading(true);
-        const adminUser = await commonApi.adminUser();
-        if (!isEmptyArray(adminUser.Items)) {
-            let responseData = adminUser.Items;
+        const adminPupil = await commonApi.adminPupil();
+        if (!isEmptyArray(adminPupil.Items)) {
+            let responseData = adminPupil.Items;
             var finalData = [];
             for (let i = 0; i < responseData.length; i++) {
-                responseData[i][constants.Accessors.action] = (
+                responseData[i][Accessors.action] = (
                     <Action pupilId={responseData[i].id} getData={getData} foreName={responseData[i].firstName} surName={responseData[i].lastName} />
                 );
 
-                responseData[i][constants.Accessors.otherNeeds] = (
+                responseData[i][Accessors.otherNeeds] = (
                     <div className="d-flex" style={{ gap: "10px" }}>
-                        {responseData[i][constants.Accessors.otherNeeds]
+                        {responseData[i][Accessors.otherNeeds]
                             .childLookedAfter && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
-                                    {constants.Common.cla}
+                                    {Common.cla}
                                 </span>
                             )}
-                        {responseData[i][constants.Accessors.otherNeeds]
+                        {responseData[i][Accessors.otherNeeds]
                             .eal && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
-                                    {constants.Common.eal}
+                                    {Common.eal}
                                 </span>
                             )}
-                        {responseData[i][constants.Accessors.otherNeeds]
+                        {responseData[i][Accessors.otherNeeds]
                             .freeSchoolMeals && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
-                                    {constants.Common.FSM}
+                                    {Common.FSM}
                                 </span>
                             )}
-                        {responseData[i][constants.Accessors.otherNeeds]
+                        {responseData[i][Accessors.otherNeeds]
                             .freeSchoolMealsE6 && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
-                                    {constants.Common.FSM6}
+                                    {Common.FSM6}
                                 </span>
                             )}
-                        {responseData[i][constants.Accessors.otherNeeds]
+                        {responseData[i][Accessors.otherNeeds]
                             .serviceChild && (
                                 <span
-                                    style={{ background: "darkgrey", padding: "5px" }}
+                                    style={styles.characterisctics}
                                 >
-                                    {constants.Common.SC}
+                                    {Common.SC}
                                 </span>
                             )}
                     </div>
                 );
+                responseData[i][Accessors.senStatus] = (
+                    <>{responseData[i][Accessors.senStatus] ? <span>True</span> : <span>False</span>}</>
+                )
 
-                responseData[i][constants.Accessors.ksResults] = (
+                responseData[i][Accessors.ksResults] = (
                     <div>
-                        <span>{`Writing-${responseData[i][constants.Accessors.ksResults][
-                            constants.Accessors.ks1Results
+                        <span>{`Writing-${responseData[i][Accessors.ksResults][
+                            Accessors.ks1Results
                         ].Writing
                             }`}</span>
-                        <span>{`Science-${responseData[i][constants.Accessors.ksResults][
-                            constants.Accessors.ks1Results
+                        <span>{`Science-${responseData[i][Accessors.ksResults][
+                            Accessors.ks1Results
                         ].Science
                             }`}</span>
-                        <span>{`Maths-${responseData[i][constants.Accessors.ksResults][
-                            constants.Accessors.ks1Results
+                        <span>{`Maths-${responseData[i][Accessors.ksResults][
+                            Accessors.ks1Results
                         ].Maths
                             }`}</span>
-                        <span>{`Reading-${responseData[i][constants.Accessors.ksResults][
-                            constants.Accessors.ks1Results
+                        <span>{`Reading-${responseData[i][Accessors.ksResults][
+                            Accessors.ks1Results
                         ].Reading
                             }`}</span>
-                        <span>{`PE-${responseData[i][constants.Accessors.ksResults][
-                            constants.Accessors.ks1Results
+                        <span>{`PE-${responseData[i][Accessors.ksResults][
+                            Accessors.ks1Results
                         ].PE
                             }`}</span>
                     </div>
@@ -244,13 +236,12 @@ const PupilTable = () => {
             setPuiplData(finalData);
         } else {
             setPuiplData();
-            console.log('Empty')
         }
         setIsLoading(false);
     };
 
     useEffect(() => {
-        // getData();
+        getData();
     }, []);
 
     return (
@@ -276,7 +267,7 @@ const PupilTable = () => {
                         </Row>
                     ) : (
                         <div className="d-flex justify-content-center">
-                            <h1>{constants.Common.NoPupilFound}</h1>
+                            <h1>{Common.NoPupilFound}</h1>
                         </div>
                     )}
                 </>
@@ -285,4 +276,4 @@ const PupilTable = () => {
     );
 };
 
-export default PupilTable;
+export { PupilTable };

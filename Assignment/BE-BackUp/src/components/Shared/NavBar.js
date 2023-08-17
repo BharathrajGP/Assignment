@@ -1,90 +1,95 @@
 import React, { useState, useEffect } from 'react';
 import Nav from 'rsuite/Nav';
 import Sidenav from 'rsuite/Sidenav';
-import 'rsuite/dist/rsuite-no-reset.min.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-import '../../App.css'
 
-import SubNavContainer from './SubNavContainer'
-import DashboardIcon from '../../assets/images/Icondashboard.png'
-import * as navBarIcons from '../../assets/icons/NavBarIcons'
-
-import { NavigationBar, SessionStorageKeys } from '../../helper/constants'
+import { Common, CommonPages, NavigationBar, SchoolAdmin, SessionStorageKeys } from '../../helper'
 import { isEmptyObject } from '../../util/utils';
 import * as commonApi from '../../api/commonApi';
-import * as _Routes from '../../helper/routes';
 import { SessionStorage } from '../../util/SessionStorage';
-import { CommonPages } from '../../helper/routes'
+import { SubNavContainer } from './';
+
+import '../../App.css';
+import 'rsuite/dist/rsuite-no-reset.min.css';
+
+import DashboardLogo from '../../assets/images/DashboardLogo.svg';
+import DashboardLogoSelected from '../../assets/images/DashboardLogoSelected.svg';
+import Resource from '../../assets/images/Resource.svg';
+import Admin from '../../assets/images/Admin.svg';
+import AdminSelected from '../../assets/images/AdminSelected.svg';
+import AccountSettings from '../../assets/images/AccountSettings.svg';
+import AccountSettingsSelected from '../../assets/images/AccountSettingsSelected.svg';
+import BigPicture from '../../assets/images/BigPicture.svg';
+import BigPictureSelected from '../../assets/images/BigPictureSelected.svg';
+
+import MyClasses from '../../assets/images/MyClasses.svg';
+import MyClassesSelected from '../../assets/images/MyClassesSelected.svg';
+import Pupils from '../../assets/images/Pupils.svg';
+import MappixLogo from '../../assets/images/MappixLogo.svg';
+
+import * as navBarIcons from '../../assets/icons/NavBarIcons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 
-function NavBar() {
-    const initialClass = [
-        {
-            classId: "CLASS1",
-            className: "Class-1",
-            year: "1",
-            subject: [{ id: 'PE1', name: 'Physical Education' }, { id: 'red1', name: 'Reading' }],
-        },
-        {
-            classId: "CLASS2",
-            className: "Class-2",
-            year: "1",
-            subject: [{ id: 'M1', name: 'Maths' }, { id: 'red2', name: 'Reading' }],
-        },
-        {
-            classId: "CLASS3",
-            className: "Class-3",
-            year: "1",
-            subject: [{ id: 'P', name: 'Physics' }, { id: 'red3', name: 'Reading' }],
-        },
-    ]
+const NavBar = () => {
     let [ClassNames, setClassNames] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [currentUrl, setCurrentUrl] = useState(window.location.href)
+    const [currentUrl, setCurrentUrl] = useState(window.location.href);
+    const [eKey, setEKey] = useState(null);
+
     const getNavData = async () => {
-        setCurrentUrl(window.location.href);
-        console.log(currentUrl);
-        if (currentUrl.includes(CommonPages.dashboard)) {
-            const _navigationbar = await commonApi.getNavBar({});
-            console.log({ _navigationbar });
-            if (isEmptyObject(_navigationbar)) { setIsLoading(false) }
-            else {
-                setClassNames(_navigationbar.Items);
-                console.log(_navigationbar.Items);
-            }
+        // setCurrentUrl(window.location.href);
+        const _navigationbar = await commonApi.getNavBar({});
+        if (isEmptyObject(_navigationbar)) { setIsLoading(false) }
+        else {
+            setClassNames(_navigationbar.Items);
         }
     }
 
+    const handleNavSelect = (key) => {
+        SessionStorage.setItem(Common.eKey, key)
+        setEKey(key)
+    };
+
     useEffect(() => {
-        getNavData()
+        getNavData();
     }, [])
 
     return (
         <div className='nav-bar'>
+            <div className='nav-logo-style'>
+                <img src={MappixLogo} className='nav-logo' alt='Mappix' />
+            </div>
             <Sidenav>
                 <Sidenav.Body>
-                    <Nav>
-                        <Nav.Item eventKey="1" href="/Dashboard" >
-                            <img src={DashboardIcon} className='nav-link-logo' alt='Mappix' />{NavigationBar.Dashboard}
+                    <Nav className='navBar-items' activeKey={SessionStorage.getItem(Common.eKey)}>
+                        <Nav.Item eventKey="1" href="/Dashboard" icon={<img src={SessionStorage.getItem(Common.eKey) == 1 ? DashboardLogoSelected : DashboardLogo} alt='Mappix' />} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} onClick={() => { handleNavSelect(1) }}>
+                            &nbsp;&nbsp;{NavigationBar.Dashboard}
                         </Nav.Item>
 
-                        <Nav.Menu eventKey="3" title="My Classes" >
-                            <i className="fa-sharp fa-solid fa-graduation-cap" /><SubNavContainer ClassNames={ClassNames} />
+                        <Nav.Menu className="custom-nav" eventKey="3" title="  My Classes" icon={<img src={SessionStorage.getItem(Common.eKey) == 3 ? MyClassesSelected : MyClasses} alt='Mappix' />} onClick={() => { handleNavSelect(3) }}>
+                            &nbsp;&nbsp;<SubNavContainer ClassNames={ClassNames} handleNavSelect={handleNavSelect} />
                         </Nav.Menu>
 
-                        <Nav.Item eventKey="4" >
-                            {NavigationBar.Pupils}
+                        {/* <Nav.Item eventKey="4" icon={<img src={Pupils} alt='Mappix' />} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} onClick={() => { handleNavSelect(4) }}>
+                            &nbsp;&nbsp;{NavigationBar.Pupils}
+                        </Nav.Item> */}
+
+                        <Nav.Item eventKey="5" icon={<img src={SessionStorage.getItem(Common.eKey) == 5 ? BigPictureSelected : BigPicture} alt='Mappix' />} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} onClick={() => { handleNavSelect(5) }}>
+                            &nbsp;&nbsp;{NavigationBar.BigPicture}
                         </Nav.Item>
-                        <Nav.Item eventKey="5" >
-                            {NavigationBar.BigPicture}
+
+                        {/* <Nav.Item eventKey="6" icon={<img src={Resource} alt='Mappix' />} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} onClick={() => { handleNavSelect(6) }}>
+                            &nbsp;&nbsp;{NavigationBar.Resouces}
+                        </Nav.Item> */}
+
+                        <Nav.Item className="custom-nav" eventKey="7" href={SchoolAdmin.schoolAdmin} icon={<img src={SessionStorage.getItem(Common.eKey) == 7 ? AdminSelected : Admin} alt='Mappix' />} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} onClick={() => { handleNavSelect(7) }}>
+                            &nbsp;&nbsp;{NavigationBar.Admin}
                         </Nav.Item>
-                        <Nav.Item eventKey="6" >
-                            {NavigationBar.Resouces}
-                        </Nav.Item>
-                        <Nav.Item eventKey="7" href={_Routes.SchoolAdmin.schoolAdmin}>
-                            {NavigationBar.Admin}
+
+                        <Nav.Item className="custom-nav" eventKey="8" href={SchoolAdmin.schoolAdmin} icon={<img src={SessionStorage.getItem(Common.eKey) == 8 ? AccountSettingsSelected : AccountSettings} alt='Mappix' />} style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }} onClick={() => { handleNavSelect(8) }}>
+                            &nbsp;&nbsp;{NavigationBar.AccountSettings}
                         </Nav.Item>
                     </Nav>
                 </Sidenav.Body>
@@ -93,4 +98,4 @@ function NavBar() {
     );
 }
 
-export default NavBar;
+export { NavBar };

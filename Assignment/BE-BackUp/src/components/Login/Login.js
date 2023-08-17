@@ -11,25 +11,21 @@ import ShowVisibility from "../../assets/images/IconVisible.png";
 import RightArrow from "../../assets/images/RightArrow.png";
 import HexagonCharacter from "../../assets/images/HexagonCharacter.png";
 
-import { Common, dataType, SessionStorageKeys } from '../../helper/constants';
-import { SessionStorage } from "../../util/SessionStorage";
-import { LoginValidationSchema } from "../../validators/loginValidator";
-import { MESSAGES } from "../../helper/messages";
-import LoadingSpinner from '../Shared/Loader/Loader';
+import { LoadingSpinner } from '../Shared';
+import { MappixDesign } from "./";
 
 import * as commonApi from '../../api/commonApi';
-import { CommonPages } from '../../helper/routes';
-import MappixDesign from "./MappixDesign";
+import { Common, CommonPages, dataType, MESSAGES, SessionStorageKeys } from '../../helper';
 import { isEmptyObject } from "../../util/utils";
+import { SessionStorage } from "../../util/SessionStorage";
 
 function Login() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const [show, setShow] = useState(false);
   const [btnImage, setBtnImage] = useState(HideVisibility);
+  const emailRef = useRef(null);
   const [inputType, setInputType] = useState(dataType.password)
+  const [isLoading, setIsLoading] = useState(false);
+  const passwordRef = useRef(null);
 
   const mouseEnter = () => { };
   const mouseOut = () => { };
@@ -48,7 +44,7 @@ function Login() {
     }
   }
 
-  function _togglePasswordVisibility() {
+  const _togglePasswordVisibility = async () => {
     if (inputType === dataType.password) {
       setBtnImage(ShowVisibility);
       setInputType(dataType.text);
@@ -59,7 +55,7 @@ function Login() {
     }
   }
 
-  function navigateToReg() {
+  const navigateToReg = async () => {
     navigate(CommonPages.registration);
   }
 
@@ -76,21 +72,10 @@ function Login() {
             {Common.PleaseEnterYourEmailAddressAndPassword}
           </p>
           <Formik initialValues={{ email: "", password: "" }}
-            // validationSchema={LoginValidationSchema}
             onSubmit={(values, { setSubmitting, resetForm }) => {
 
               console.log("email:", values.email);
               setSubmitting(true);
-              // setTimeout(() => {
-              //   const formData = {
-              //     user_email: values.email.trim().toLowerCase(),
-              //     user_password: values.password
-              //   }
-              //   _userLogin(formData);
-
-              //   resetForm();
-              //   setSubmitting(false);
-              // }, 500);
               const formData = {
                 email: values.email.trim().toLowerCase(),
                 password: values.password
@@ -145,4 +130,4 @@ function Login() {
   );
 }
 
-export default Login;
+export { Login };

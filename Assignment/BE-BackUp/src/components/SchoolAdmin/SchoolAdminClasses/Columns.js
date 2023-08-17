@@ -1,26 +1,26 @@
-import * as constants from "../../../helper/constants";
+import { Common, Accessors } from "../../../helper";
 
 const classcolumn = [
     {
-        Header: constants.Common.ClassName,
-        accessor: constants.Accessors.className,
+        Header: Common.ClassName,
+        accessor: Accessors.name,
     },
     {
-        Header: constants.Common.isRegistration,
-        accessor: constants.Accessors.isRegistrationGroup,
+        Header: Common.isRegistration,
+        accessor: Accessors.isRegistrationGroup,
     },
     {
-        Header: constants.Common.Subjects,
-        accessor: constants.Accessors.Subjects,
+        Header: Common.Subjects,
+        accessor: Accessors.Subjects,
     },
     {
-        Header: constants.Common.ClassSize,
-        accessor: constants.Accessors.classSize,
+        Header: Common.ClassSize,
+        accessor: Accessors.classSize,
     },
     {
         Header: "",
-        accessor: constants.Accessors.action,
+        accessor: Accessors.action,
     },
 ];
 
-export default classcolumn;
+export { classcolumn };

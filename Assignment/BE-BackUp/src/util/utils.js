@@ -1,8 +1,10 @@
 import moment from 'moment'
 
-import * as Constants from '../helper/constants'
+import { Common } from '../helper'
 
 export const strToLowercase = (str) => str.toLowerCase();
+
+export const strToUppercase = (str) => str.toUpperCase();
 
 export const isEmptyObject = (val) => isNullOrEmpty(val) || (val && Object.keys(val).length === 0);
 
@@ -24,15 +26,15 @@ export const getCurrentDateTime = () => new Date();
 
 export const isPastDateTime = (datetime) => datetime < getCurrentDateTime();
 
-export const GetTZDate = (dateStr, dateFormat = "") => moment(dateStr).format(isNullOrEmpty(dateFormat) ? Constants.Common.TZ_Formate : dateFormat);
+export const GetTZDate = (dateStr, dateFormat = "") => moment(dateStr).format(isNullOrEmpty(dateFormat) ? Common.TZ_Formate : dateFormat);
 
-export const ConvertToUtc = (dateStr, dateFormat = "") => moment().utc( dateStr, isNullOrEmpty(dateFormat) ? Constants.Common.TZ_Formate : dateFormat );
+export const ConvertToUtc = (dateStr, dateFormat = "") => moment().utc(dateStr, isNullOrEmpty(dateFormat) ? Common.TZ_Formate : dateFormat);
 
-export const GetDate = (dateStr, dateFormat = "") => moment(dateStr).format(isNullOrEmpty(dateFormat) ? Constants.Common.DateFormat_DD_MM_YYYY : dateFormat);
+export const GetDate = (dateStr, dateFormat = "") => moment(dateStr).format(isNullOrEmpty(dateFormat) ? Common.DateFormat_DD_MM_YYYY : dateFormat);
 
-export const GetDateYYYY_MM_DD = (dateStr, dateFormat = "") => moment(dateStr).format(isNullOrEmpty(dateFormat) ? Constants.Common.DateFormat_YYYY_MM_DD : dateFormat);
+export const GetDateYYYY_MM_DD = (dateStr, dateFormat = "") => moment(dateStr).format(isNullOrEmpty(dateFormat) ? Common.DateFormat_YYYY_MM_DD : dateFormat);
 
-export const GetTime = (dateStr, timeformat = "") => moment.utc(dateStr).local().format(isNullOrEmpty(timeformat) ? Constants.Common.TimeFormat_hh_mm : timeformat);
+export const GetTime = (dateStr, timeformat = "") => moment.utc(dateStr).local().format(isNullOrEmpty(timeformat) ? Common.TimeFormat_hh_mm : timeformat);
 
 export const sortArrayOfObjects = (arr, keyToSort, direction) => {
     if (direction === 'none') return arr;

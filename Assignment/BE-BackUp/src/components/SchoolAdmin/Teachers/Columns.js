@@ -1,30 +1,30 @@
-import * as constants from "../../../helper/constants";
+import { Accessors, Common } from "../../../helper";
 
 const teacherColumn = [
     {
-        Header: constants.Common.SurName,
-        accessor: "SurName",
+        Header: Common.SurName,
+        accessor: Accessors.lastName,
     },
     {
-        Header: constants.Common.ForeName,
-        accessor: "ForeName",
+        Header: Common.ForeName,
+        accessor: Accessors.firstName,
     },
     {
-        Header: constants.Common.Email,
-        accessor: "Email",
+        Header: Common.Email,
+        accessor: Accessors.email,
     },
     {
-        Header: 'Roles',
-        accessor: "Roles",
+        Header: Common.Roles,
+        accessor: Accessors.type,
     },
     {
-        Header: 'Classes',
-        accessor: "Classes",
+        Header: Common.Classes,
+        accessor: Accessors.classes,
     },
     {
         Header: "",
-        accessor: 'Actions',
+        accessor: Accessors.action,
     },
 ];
 
-export default teacherColumn;
+export { teacherColumn };
